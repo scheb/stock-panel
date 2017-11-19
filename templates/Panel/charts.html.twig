@@ -4,6 +4,11 @@
 {% block title %}{{ parent() }} &ndash; Charts{% endblock %}
 
 
+{% block headerInclude %}
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+{% endblock %}
+
+
 {% block header %}
 {{ parent() }}
 <nav>
@@ -19,23 +24,38 @@
 {% block body %}
 <div id="stock-charts">
     <ul class="nav nav-pills" id="period-tabs">
-        <li role="presentation" class="active"><a href="#7d" data-period="7d" role="tab" data-toggle="tab">7 days</a></li>
-        <li role="presentation"><a href="#14d" data-period="14d" role="tab" data-toggle="tab">14 days</a></li>
-        <li role="presentation"><a href="#1m" data-period="1m" role="tab" data-toggle="tab">1 month</a></li>
-        <li role="presentation"><a href="#3m" data-period="3m" role="tab" data-toggle="tab">3 months</a></li>
-        <li role="presentation"><a href="#6m" data-period="6m" role="tab" data-toggle="tab">6 months</a></li>
+        <li role="presentation" class="active"><a href="#1d" data-period="1d" role="tab" data-toggle="tab">1 day</a></li>
+        <li role="presentation"><a href="#5d" data-period="5d" role="tab" data-toggle="tab">5 days</a></li>
+        <li role="presentation"><a href="#1mo" data-period="1mo" role="tab" data-toggle="tab">1 month</a></li>
+        <li role="presentation"><a href="#6mo" data-period="6mo" role="tab" data-toggle="tab">6 months</a></li>
+        <li role="presentation"><a href="#ytd" data-period="ytd" role="tab" data-toggle="tab">ytd</a></li>
         <li role="presentation"><a href="#1y" data-period="1y" role="tab" data-toggle="tab">1 year</a></li>
+        <li role="presentation"><a href="#5y" data-period="5y" role="tab" data-toggle="tab">5 years</a></li>
+        <li role="presentation"><a href="#max" data-period="max" role="tab" data-toggle="tab">max</a></li>
     </ul>
 
     {% for stock in stocks if stock.displayChart %}
     <div class="col-sm-3 box-chart">
         <div class="box-inner">
             <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
+            {% if stock.profit is not null %}<p class="profit pull-right privacy {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">{{ stock.profit|number_format_currency(stock.currency) }} ({{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }})</p>{% endif %}
             <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
-            <div class="chart" style="background-image:url('http://chart.finance.yahoo.com/z?s={{ stock.symbol }}&t=7d&q=l&l=on&z=s&l=off');" data-image-url="http://chart.finance.yahoo.com/z?s={{ stock.symbol }}&t={period}&q=l&l=on&z=s&l=off"></div>
-            {% if stock.profit is not null %}<p class="profit text-right privacy {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">{{ stock.profit|number_format_currency(stock.currency) }} ({{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }})</p>{% endif %}
+            <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
         </div>
     </div>
     {% endfor %}
+
+    <div id="highcharts"></div>
 </div>
+{% endblock %}
+
+
+{% block bottom %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        {% for stock in stocks if stock.displayChart %}
+        initStockChart({{ stock.id }});
+        {% endfor %}
+    });
+</script>
 {% endblock %}

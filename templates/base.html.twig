@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-{% include "header.html.twig" %}
+<head>
+<title>{% block title %}Stock Panel{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" media="screen">
+<link rel="stylesheet" href="{{ asset("css/stock-panel.css") }}" />
+<script type="text/javascript" src="{{ asset("js/jquery.js") }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/stock-panel.js') }}"></script>
+{% block headerInclude %}{% endblock %}
+{% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+</head>
 <body>
-<div class="container bs-docs-container">
-<header class="page-header">
-{% block header %}<h1>Stock Panel</h1>{% endblock %}
-</header>
-{% block body %}{% endblock %}
-</div>
+{% block layout %}{% endblock %}
 {% block bottom %}{% endblock %}
 </body>
 </html>
