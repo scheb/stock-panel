@@ -1,0 +1,68 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.0.8",
+        "braincrafted/bootstrap-bundle": "^2.2",
+        "components/jquery": "^3.2",
+        "leafo/lessphp": "0.5.*",
+        "scheb/yahoo-finance-api": "^3.0",
+        "sensio/framework-extra-bundle": "^5.0",
+        "sonata-project/intl-bundle": "^2.3",
+        "symfony/asset": "^3.3",
+        "symfony/assetic-bundle": "^2.8",
+        "symfony/console": "^3.3",
+        "symfony/framework-bundle": "^3.3",
+        "symfony/orm-pack": "^1.0",
+        "symfony/translation": "^3.3",
+        "symfony/validator": "^3.3",
+        "symfony/yaml": "^3.3",
+        "twbs/bootstrap": "^3.0"
+    },
+    "require-dev": {
+        "symfony/flex": "^1.0",
+        "symfony/dotenv": "^3.3",
+        "symfony/web-server-bundle": "^3.3"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*",
+        "symfony/twig-bundle": "<3.3",
+        "symfony/debug": "<3.3"
+    },
+    "extra": {
+        "symfony": {
+            "id": "01BZ7WN412QQTDNRW0KV530ZN1",
+            "allow-contrib": false
+        }
+    }
+}

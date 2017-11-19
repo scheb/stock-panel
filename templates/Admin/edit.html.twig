@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}{{ parent() }} &ndash; Edit Stock{% endblock %}
+
+
+{% block header %}
+{{ parent() }}
+<nav>
+<ul>
+<li><a href="{{ path("stock_panel") }}" class="btn btn-default btn-lg btn-dashboard"><span class="glyphicon glyphicon-th-list"></span> Dashboard</a></li>
+</ul>
+</nav>
+{% endblock %}
+
+
+{% block body %}
+<form class="stock-form panel panel-default" action="{{ path("stock_edit", {"id": id}) }}" method="POST">
+<div class="panel-body">
+{{ form_widget(form) }}
+</div>
+<div class="panel-footer">
+<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Update Stock</button>
+</div>
+</form>
+{% endblock %}

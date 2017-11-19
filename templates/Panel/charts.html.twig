@@ -1,0 +1,41 @@
+{% extends "baseFull.html.twig" %}
+
+
+{% block title %}{{ parent() }} &ndash; Charts{% endblock %}
+
+
+{% block header %}
+{{ parent() }}
+<nav>
+<ul>
+<li><button class="btn btn-primary btn-lg btn-refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</button></li>
+<li><a href="{{ path("stock_panel") }}" class="btn btn-default btn-lg btn-dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+<li><a class="btn btn-default btn-lg btn-privacy"><span class="glyphicon glyphicon-eye-open"></span> Privacy</a></li>
+</ul>
+</nav>
+{% endblock %}
+
+
+{% block body %}
+<div id="stock-charts">
+    <ul class="nav nav-pills" id="period-tabs">
+        <li role="presentation" class="active"><a href="#7d" data-period="7d" role="tab" data-toggle="tab">7 days</a></li>
+        <li role="presentation"><a href="#14d" data-period="14d" role="tab" data-toggle="tab">14 days</a></li>
+        <li role="presentation"><a href="#1m" data-period="1m" role="tab" data-toggle="tab">1 month</a></li>
+        <li role="presentation"><a href="#3m" data-period="3m" role="tab" data-toggle="tab">3 months</a></li>
+        <li role="presentation"><a href="#6m" data-period="6m" role="tab" data-toggle="tab">6 months</a></li>
+        <li role="presentation"><a href="#1y" data-period="1y" role="tab" data-toggle="tab">1 year</a></li>
+    </ul>
+
+    {% for stock in stocks if stock.displayChart %}
+    <div class="col-sm-3 box-chart">
+        <div class="box-inner">
+            <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
+            <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
+            <div class="chart" style="background-image:url('http://chart.finance.yahoo.com/z?s={{ stock.symbol }}&t=7d&q=l&l=on&z=s&l=off');" data-image-url="http://chart.finance.yahoo.com/z?s={{ stock.symbol }}&t={period}&q=l&l=on&z=s&l=off"></div>
+            {% if stock.profit is not null %}<p class="profit text-right privacy {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">{{ stock.profit|number_format_currency(stock.currency) }} ({{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }})</p>{% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

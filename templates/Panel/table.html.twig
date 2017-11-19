@@ -1,0 +1,57 @@
+<table class="table table-striped stocks">
+<colgroup>
+<col style="width:50%;">
+<col style="width:10%;">
+<col style="width:10%;">
+<col style="width:10%;">
+<col style="width:10%;">
+<col style="width:10%;">
+</colgroup>
+<thead>
+<tr>
+<th>Stock</th>
+<th>Quantity</th>
+<th>Initial</th>
+<th>Current</th>
+<th>Profit</th>
+<th>Today</th>
+</tr>
+</thead>
+<tbody>
+{% for stock in stocks %}
+<tr>
+<th><div>
+<a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a>
+<span class="buttons">
+<a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
+<a onclick="confirmDelete({{ stock.id }});" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+</span>
+<small>{{ stock.symbol }}</small>
+</div>
+</th>
+<td>{% if stock.quantity %}{{ stock.quantity|number_format_decimal({"fraction_digits": 2}) }}{% else %}&ndash;{% endif %}</td>
+
+<td>{% if stock.initialPrice is not null %}
+<span>{{ stock.initialPrice|number_format_currency(stock.currency) }}</span>
+{% if stock.investment %}<span class="privacy">{{ stock.investment|number_format_currency(stock.currency) }}</span>{% endif %}
+{% else %}&ndash;{% endif %}</td>
+
+<td>{% if stock.currentPrice is not null %}
+<span>{{ stock.currentPrice|number_format_currency(stock.currency) }}</span>
+{% if stock.currentValue %}<span class="privacy">{{ stock.currentValue|number_format_currency(stock.currency) }}</span>{% endif %}
+{% else %}&ndash;{% endif %}</td>
+
+{% if stock.profit is not null %}<td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
+<span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }}</span>
+<span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}</span>
+</td>{% else %}<td>&ndash;</td>{% endif %}
+
+{% if stock.currentChange is not null %}<td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
+<span><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }}</span>
+<span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }}</span>
+</td>{% else %}<td>&ndash;</td>{% endif %}
+
+</tr>
+{% endfor %}
+</tbody>
+</table>

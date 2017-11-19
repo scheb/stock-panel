@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}{{ parent() }} &ndash; Search{% endblock %}
+
+
+{% block header %}
+{{ parent() }}
+<nav>
+<ul>
+<li><a href="{{ path("stock_panel") }}" class="btn btn-default btn-lg btn-dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+</ul>
+</nav>
+{% endblock %}
+
+
+{% block body %}
+<form class="well" id="search-form">
+<p><input type="term" class="form-control" id="searchTerm" placeholder="Search stocks"></p>
+</form>
+
+<div id="search-result">
+{% set result = [] %}
+{% include "Search/result.html.twig" %}
+</div>
+{% endblock %}
+
+
+{% block bottom %}
+<script type="text/javascript">
+/* <![CDATA[ */
+var timeout;
+
+function onKeyType() {
+	clearTimeout(timeout);
+	var term = $("#searchTerm").val();
+	timeout = setTimeout(function() {
+		$("#search-result").load("{{ path("stock_search_result") }}?term="+escape(term));
+	}, 200);
+}
+
+//Listen for key type event
+$("#searchTerm").keyup(onKeyType);
+
+//Check for preset
+if ($("#searchTerm").val().length > 0) {
+	onKeyType();
+}
+/* ]]> */
+</script>
+{% endblock %}

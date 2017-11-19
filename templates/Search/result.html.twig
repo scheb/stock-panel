@@ -1,0 +1,25 @@
+<table class="table table-striped result-table">
+<colgroup>
+<col style="width:60%;">
+<col style="width:40%;">
+</colgroup>
+<thead>
+<tr>
+<th>Stock</th>
+<th>Exchange</th>
+</tr>
+</thead>
+<tbody>
+{% for stock in result %}
+<tr>
+<th>
+<a href="{{ path("stock_add", {"symbol": stock.symbol}) }}" class="btn btn-primary btn-xs">
+<span class="glyphicon glyphicon-plus"></span>
+</a>
+<div><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a> <small>{{ stock.symbol }}</small></div>
+</th>
+<td>{{ stock.exchange }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
