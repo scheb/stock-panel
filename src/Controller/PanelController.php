@@ -88,10 +88,8 @@ class PanelController extends Controller
         $data = [];
         $timestamps = $json['chart']['result'][0]['timestamp'];
         $closingPrices = $json['chart']['result'][0]['indicators']['quote'][0]['close'];
-        $previous = null;
         foreach ($timestamps as $index => $timestamp) {
-            $price = $closingPrices[$index] ?? $previous;
-            $previous = $price;
+            $price = $closingPrices[$index] ?? null;
             $data[] = [$timestamp * 1000, $price];
         }
 

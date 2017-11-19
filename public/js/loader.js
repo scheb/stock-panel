@@ -23,42 +23,61 @@ function getChartDataUrl(stockId, period) {
     return '/charts/' + stockId + '/' + period  + '.json?callback=?';
 }
 
+function initHighchart(stockId, data) {
+    var highcharts = Highcharts.stockChart("chart-" + stockId, {
+        chart: {
+            zoomType: false
+        },
+        navigator: {
+            enabled: false
+        },
+        scrollbar: {
+            enabled: false
+        },
+        rangeSelector: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            type: "datetime",
+            minRange: 3600 * 1000 // one hour
+        },
+        yAxis: {
+            floor: 0
+        },
+        plotOptions: {
+            series: {
+                connectNulls: true
+            }
+        },
+        series: [{
+            name: 'Price',
+            data: data,
+            dataGrouping: {
+                enabled: false
+            },
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
+    if (data === null) {
+        highcharts.showLoading('No data available');
+    }
+}
+
 function initStockChart(stockId) {
-    $.getJSON(getChartDataUrl(stockId, "1d"), function (data) {
-        Highcharts.stockChart("chart-" + stockId, {
-            chart: {
-                zoomType: false
-            },
-            navigator: {
-                enabled: false
-            },
-            scrollbar: {
-                enabled: false
-            },
-            rangeSelector: {
-                enabled: false
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-                type: "datetime",
-                minRange: 3600 * 1000 // one hour
-            },
-            yAxis: {
-                floor: 0
-            },
-            series: [{
-                name: 'Price',
-                data: data,
-                dataGrouping: {
-                    enabled: false
-                },
-                tooltip: {
-                    valueDecimals: 2
-                }
-            }]
-        });
+    $.ajax({
+        url: getChartDataUrl(stockId, "1d"),
+        dataType: 'json',
+        success: function (data) {
+            initHighchart(stockId, data);
+        },
+        error: function () {
+            initHighchart(stockId, null);
+        }
     });
 }
 
@@ -69,9 +88,17 @@ function changeStockChartsPeriod(period) {
         var stockId = chart.attr('data-stock-id');
         if (highcharts) {
             highcharts.showLoading('Loading data from server...');
-            $.getJSON(getChartDataUrl(stockId, period), function (data) {
-                highcharts.series[0].setData(data);
-                highcharts.hideLoading();
+            $.ajax({
+                url: getChartDataUrl(stockId, period),
+                dataType: 'json',
+                success: function (data) {
+                    highcharts.series[0].setData(data);
+                    highcharts.hideLoading();
+                },
+                error: function () {
+                    highcharts.series[0].setData([]);
+                    highcharts.showLoading('No data available');
+                }
             });
         }
     });
