@@ -38,7 +38,7 @@
     <div class="col-sm-3 box-chart">
         <div class="box-inner">
             <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
-            {% if stock.profit is not null %}<p class="profit pull-right privacy {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">{{ stock.profit|number_format_currency(stock.currency) }} ({{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }})</p>{% endif %}
+            {% if stock.profit is not null %}<p class="profit pull-right {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}"><span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }} (</span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}<span class="privacy">)</span></p>{% endif %}
             <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
             <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
         </div>

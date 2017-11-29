@@ -1,7 +1,7 @@
 <table class="table table-striped stocks">
 <colgroup>
 <col style="width:50%;">
-<col style="width:10%;">
+<col style="width:10%;" class="privacy">
 <col style="width:10%;">
 <col style="width:10%;">
 <col style="width:10%;">
@@ -10,7 +10,7 @@
 <thead>
 <tr>
 <th>Stock</th>
-<th>Quantity</th>
+<th class="privacy">Quantity</th>
 <th>Initial</th>
 <th>Current</th>
 <th>Profit</th>
@@ -29,7 +29,7 @@
 <small>{{ stock.symbol }}</small>
 </div>
 </th>
-<td>{% if stock.quantity %}{{ stock.quantity|number_format_decimal({"fraction_digits": 2}) }}{% else %}&ndash;{% endif %}</td>
+<td class="privacy">{% if stock.quantity %}{{ stock.quantity|number_format_decimal({"fraction_digits": 2}) }}{% else %}&ndash;{% endif %}</td>
 
 <td>{% if stock.initialPrice is not null %}
 <span>{{ stock.initialPrice|number_format_currency(stock.currency) }}</span>
