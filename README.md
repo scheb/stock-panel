@@ -8,6 +8,7 @@ It uses my Yahoo Finance API to fetch current quotes and calculates profit and l
 
 - PHP7
 - MySQL database
+- LESS
 
 ## Installation
 
