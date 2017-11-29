@@ -55,6 +55,8 @@ function initHighchart(stockId, data) {
         series: [{
             name: 'Price',
             data: data,
+            type: 'area',
+            threshold: null,
             dataGrouping: {
                 enabled: false
             },
