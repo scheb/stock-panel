@@ -41,11 +41,39 @@ function initHighchart(stockId, data) {
             enabled: false
         },
         xAxis: {
+            crosshair: true,
             type: "datetime",
             minRange: 3600 * 1000 // one hour
         },
-        yAxis: {
-            floor: 0
+        yAxis: [{
+            crosshair: true,
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: false
+            },
+            height: '100%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }, {
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: false
+            },
+            top: '70%',
+            height: '30%',
+            offset: 0,
+            lineWidth: 2
+        }],
+        tooltip: {
+            split: true
         },
         plotOptions: {
             series: {
@@ -53,15 +81,26 @@ function initHighchart(stockId, data) {
             }
         },
         series: [{
-            name: 'Price',
-            data: data,
             type: 'area',
             threshold: null,
+            name: 'Price',
+            data: data.price,
             dataGrouping: {
-                enabled: false
+                enabled: false,
             },
             tooltip: {
                 valueDecimals: 2
+            }
+        }, {
+            type: 'column',
+            name: 'Volume',
+            data: data.volume,
+            yAxis: 1,
+            groupPadding: 0,
+            minPointWidth: 3,
+            color: "rgba(0,0,0,0.5)",
+            dataGrouping: {
+                enabled: false
             }
         }]
     });
@@ -71,6 +110,12 @@ function initHighchart(stockId, data) {
 }
 
 function initStockChart(stockId) {
+    Highcharts.setOptions({
+        lang: {
+            decimalPoint: '.',
+            thousandsSep: ','
+        }
+    });
     $.ajax({
         url: getChartDataUrl(stockId, "1d"),
         dataType: 'json',
@@ -94,11 +139,13 @@ function changeStockChartsPeriod(period) {
                 url: getChartDataUrl(stockId, period),
                 dataType: 'json',
                 success: function (data) {
-                    highcharts.series[0].setData(data);
+                    highcharts.series[0].setData(data.price);
+                    highcharts.series[1].setData(data.volume);
                     highcharts.hideLoading();
                 },
                 error: function () {
                     highcharts.series[0].setData([]);
+                    highcharts.series[1].setData([]);
                     highcharts.showLoading('No data available');
                 }
             });

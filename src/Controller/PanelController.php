@@ -85,16 +85,31 @@ class PanelController extends Controller
             throw $this->createNotFoundException('Closing pricees not found');
         }
 
-        $data = [];
+        $dataPrice = [];
+        $dataVolume = [];
         $timestamps = $json['chart']['result'][0]['timestamp'];
+        $openPrices = $json['chart']['result'][0]['indicators']['quote'][0]['open'];
+        $highPrices = $json['chart']['result'][0]['indicators']['quote'][0]['high'];
+        $lowPrices = $json['chart']['result'][0]['indicators']['quote'][0]['low'];
         $closingPrices = $json['chart']['result'][0]['indicators']['quote'][0]['close'];
+        $volumes = $json['chart']['result'][0]['indicators']['quote'][0]['volume'];
         foreach ($timestamps as $index => $timestamp) {
-            $price = $closingPrices[$index] ?? null;
-            $data[] = [$timestamp * 1000, $price];
+            $timestampMs = $timestamp * 1000;
+            $openPrice = $openPrices[$index] ?? null;
+            $highPrice = $highPrices[$index] ?? null;
+            $lowPrice = $lowPrices[$index] ?? null;
+            $closingPrice = $closingPrices[$index] ?? null;
+            $volume = $volumes[$index] ?? null;
+            $dataPrice[] = [$timestampMs, $openPrice, $highPrice, $lowPrice, $closingPrice];
+            $dataVolume[] = [$timestampMs, $volume];
         }
 
         $callback = $request->get('callback', '?');
-        $content = $callback . '(' . json_encode($data) . ');';
+        $serializedData = json_encode([
+            'price'=> $dataPrice,
+            'volume' => $dataVolume,
+        ]);
+        $content = $callback . '(' . $serializedData . ');';
         $response = new Response($content);
         $response->headers->set('Content-Type', 'application/javascript');
         $response->setExpires(new \DateTime('+1 hour'));
