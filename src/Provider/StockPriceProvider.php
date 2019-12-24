@@ -113,6 +113,9 @@ class StockPriceProvider
      */
     private function fetchData(array $symbols, int $try = 0): ?array
     {
+        if (!$symbols) {
+            return [];
+        }
         try {
             return $this->api->getQuotes($symbols);
         } catch (ApiException $e) {
@@ -121,6 +124,6 @@ class StockPriceProvider
                 return $this->fetchData($symbols, $try + 1);
             }
         }
-        return null;
+        return [];
     }
 }
