@@ -6,14 +6,22 @@ use App\Entity\Stock;
 use App\Form\Type\StockType;
 use App\Provider\StockPriceProvider;
 use App\Repository\StockRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
+    public function __construct(
+        private StockPriceProvider $stockPriceProvider,
+        private StockRepository $stockRepository,
+        private EntityManagerInterface $em
+    )
+    {
+    }
+
     /**
      * Add a stock
      * @Route("/add", name="stock_add")
@@ -22,17 +30,15 @@ class AdminController extends Controller
     {
         $stock = new Stock();
         if ($symbol = $request->get("symbol")) {
-            $stockProvider = $this->get(StockPriceProvider::class);
-            $stock = $stockProvider->createStock($symbol);
+            $stock = $this->stockPriceProvider->createStock($symbol);
         }
 
         $form = $this->createForm(StockType::class, $stock);
         if ($request->getMethod() === "POST") {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em = $this->getObjectManager();
-                $em->persist($stock);
-                $em->flush();
+                $this->em->persist($stock);
+                $this->em->flush();
                 return $this->redirect($this->generateUrl("stock_panel"));
             }
         }
@@ -57,9 +63,8 @@ class AdminController extends Controller
         if ($request->getMethod() === "POST") {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em = $this->getObjectManager();
-                $em->persist($stock);
-                $em->flush();
+                $this->em->persist($stock);
+                $this->em->flush();
                 return $this->redirect($this->generateUrl("stock_panel"));
             }
         }
@@ -78,25 +83,14 @@ class AdminController extends Controller
     {
         $stock = $this->getStock($id);
         if ($stock) {
-            $em = $this->getObjectManager();
-            $em->remove($stock);
-            $em->flush();
+            $this->em->remove($stock);
+            $this->em->flush();
         }
         return $this->redirect($this->generateUrl("stock_panel"));
     }
 
     private function getStock(int $id): ?Stock
     {
-        return $this->getStockRepo()->findOneById($id);
-    }
-
-    private function getObjectManager(): ObjectManager
-    {
-        return $this->getDoctrine()->getManager();
-    }
-
-    private function getStockRepo(): StockRepository
-    {
-        return $this->getObjectManager()->getRepository(Stock::class);
+        return $this->stockRepository->findOneById($id);
     }
 }

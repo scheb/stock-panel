@@ -12,83 +12,61 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Stock
 {
     /**
-     * @var integer
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private int $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=50)
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="symbol", type="string", length=20, unique=true)
      */
-    private $symbol;
+    private string $symbol;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="currency", type="string", length=3)
      */
-    private $currency;
+    private string $currency;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="quantity", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $quantity;
+    private ?float $quantity;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="initialPrice", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $initialPrice;
+    private ?float $initialPrice;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="currentPrice", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $currentPrice;
+    private ?float $currentPrice;
 
     /**
-     * @var float
-     *
      * @ORM\Column(name="currentChange", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $currentChange;
+    private ?float $currentChange;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private ?\DateTimeInterface $updatedAt;
 
     /**
-     * @var boolean
-     *
      * @ORM\Column(name="displayChart", type="boolean")
      */
-    private $displayChart = true;
+    private bool $displayChart = true;
 
     /**
      * Init the object

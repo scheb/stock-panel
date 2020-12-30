@@ -1,71 +1,32 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    locale: 'en'
-
-framework:
-    session: true
-    templating:
-        engines: ['twig']
-
-assetic:
-    debug:          "%kernel.debug%"
-    use_controller: false
-    read_from: '%kernel.project_dir%/public'
-    write_to: '%kernel.project_dir%/public'
-    assets:
-        stock_panel_css:
-            inputs:
-                - "css/style.less"
-            output: "css/stock-panel.css"
-        stock_panel_js:
-            inputs:
-                - 'js/jquery.popupwindow.js'
-                - 'js/jquery.cookie.js'
-                - 'js/loader.js'
-            output: "js/stock-panel.js"
-    filters:
-        less:
-            node: "%env(NODE)%"
-            node_paths: ["%env(NODE_MODULES)%"]
-            apply_to: "\\.less$"
-        cssrewrite: ~
-
-braincrafted_bootstrap:
-    jquery_path: %kernel.root_dir%/../vendor/components/jquery/jquery.js
-    fonts_dir: %kernel.root_dir%/../public/fonts
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        # automatically injects dependencies in your services
-        autowire: true
-        # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: true
-        # this means you cannot fetch services directly from the container via $container->get()
-        # if you need to do this, you can override this setting on individual services
-        public: false
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        # you can exclude directories or files
-        # but if a service is unused, it's removed anyway
-        exclude: '../src/{Entity,Migrations,Tests}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
-    # controllers are imported separately to make sure they
-    # have the tag that allows actions to type-hint services
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
-
-    App\Provider\SearchResultProvider:
-        public: true
-
-    App\Provider\StockPriceProvider:
-        public: true
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
 
     Scheb\YahooFinanceApi\ApiClient:
-        class: Scheb\YahooFinanceApi\Client
+        class: Scheb\YahooFinanceApi\ApiClient
         factory: [Scheb\YahooFinanceApi\ApiClientFactory, createApiClient]
+
+    sonata.intl.timezone_detector.user:
+        class: stdClass

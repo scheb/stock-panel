@@ -34,16 +34,16 @@
         <li role="presentation"><a href="#max" data-period="max" role="tab" data-toggle="tab">max</a></li>
     </ul>
 
-    {% for stock in stocks if stock.displayChart %}
-    <div class="col-sm-3 box-chart">
-        <div class="box-inner">
-            <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
-            {% if stock.profit is not null %}<p class="profit pull-right {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}"><span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }} (</span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}<span class="privacy">)</span></p>{% endif %}
-            <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
-            <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
-        </div>
-    </div>
-    {% endfor %}
+    {% for stock in stocks %}{% if stock.displayChart %}
+            <div class="col-sm-3 box-chart">
+                <div class="box-inner">
+                    <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
+                    {% if stock.profit is not null %}<p class="profit pull-right {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}"><span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }} (</span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}<span class="privacy">)</span></p>{% endif %}
+                    <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
+                    <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
+                </div>
+            </div>
+    {% endif %}{% endfor %}
 
     <div id="highcharts"></div>
 </div>
@@ -53,9 +53,9 @@
 {% block bottom %}
 <script type="text/javascript">
     $(document).ready(function() {
-        {% for stock in stocks if stock.displayChart %}
+        {% for stock in stocks %}{% if stock.displayChart %}
         initStockChart({{ stock.id }});
-        {% endfor %}
+    {% endif %}{% endfor %}
     });
 </script>
 {% endblock %}

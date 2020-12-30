@@ -29,7 +29,7 @@
 <small>{{ stock.symbol }}</small>
 </div>
 </th>
-<td class="privacy">{% if stock.quantity %}{{ stock.quantity|number_format_decimal({"fraction_digits": 2}) }}{% else %}&ndash;{% endif %}</td>
+<td class="privacy">{% if stock.quantity %}{{ stock.quantity }}{% else %}&ndash;{% endif %}</td>
 
 <td>{% if stock.initialPrice is not null %}
 <span>{{ stock.initialPrice|number_format_currency(stock.currency) }}</span>

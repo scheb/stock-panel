@@ -5,16 +5,22 @@ namespace App\Controller;
 use App\Entity\Stock;
 use App\Provider\StockPriceProvider;
 use App\Repository\StockRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PanelController extends Controller
+class PanelController extends AbstractController
 {
+    public function __construct(
+        private StockPriceProvider $stockPriceProvider,
+        private StockRepository $stockRepo
+    )
+    {
+    }
+
     const RANGE_INTERVAL_MAP = [
         '1d' => '2m',
         '5d' => '15m',
@@ -32,8 +38,7 @@ class PanelController extends Controller
      */
     public function indexAction(): Response
     {
-        $stockProvider = $this->getStockPriceProvider();
-        $stocks = $stockProvider->getStocksAndUpdate();
+        $stocks = $this->stockPriceProvider->getStocksAndUpdate();
         return $this->render("Panel/index.html.twig", [
             'stocks' => $stocks,
         ]);
@@ -45,8 +50,7 @@ class PanelController extends Controller
      */
     public function chartsAction(): Response
     {
-        $stockProvider = $this->getStockPriceProvider();
-        $stocks = $stockProvider->getStocksAndUpdate();
+        $stocks = $this->stockPriceProvider->getStocksAndUpdate();
         return $this->render("Panel/charts.html.twig", [
             'stocks' => $stocks,
         ]);
@@ -122,9 +126,8 @@ class PanelController extends Controller
      */
     public function updateAction(): Response
     {
-        $stockProvider = $this->getStockPriceProvider();
-        $stockProvider->updateStocks();
-        $stocks = $stockProvider->getStocks();
+        $this->stockPriceProvider->updateStocks();
+        $stocks = $this->stockPriceProvider->getStocks();
         return $this->render("Panel/table.html.twig", [
             'stocks' => $stocks,
             'privacyMode' => true,
@@ -133,21 +136,6 @@ class PanelController extends Controller
 
     private function getStock(int $id): ?Stock
     {
-        return $this->getStockRepo()->findOneById($id);
-    }
-
-    private function getObjectManager(): ObjectManager
-    {
-        return $this->getDoctrine()->getManager();
-    }
-
-    private function getStockRepo(): StockRepository
-    {
-        return $this->getObjectManager()->getRepository(Stock::class);
-    }
-
-    private function getStockPriceProvider(): StockPriceProvider
-    {
-        return $this->get(StockPriceProvider::class);
+        return $this->stockRepo->findOneById($id);
     }
 }

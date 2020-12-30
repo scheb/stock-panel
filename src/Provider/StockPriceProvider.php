@@ -3,35 +3,25 @@
 namespace App\Provider;
 
 use App\Entity\Stock;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\StockRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Scheb\YahooFinanceApi\ApiClient;
 use Scheb\YahooFinanceApi\Exception\ApiException;
 use Scheb\YahooFinanceApi\Results\Quote;
 
 class StockPriceProvider
 {
-    const FETCH_QUOTES_MAX_TRIES = 3;
-    const UPDATE_PERIOD_MINUTES = 5;
-    /**
-     * @var \Scheb\YahooFinanceApi\ApiClient
-     */
-    private $api;
+    private const FETCH_QUOTES_MAX_TRIES = 3;
+    private const UPDATE_PERIOD_MINUTES = 5;
 
-    /**
-     * @var \Doctrine\Common\Persistence\ObjectManager
-     */
-    private $em;
+    private StockRepository $stockRepo;
 
-    /**
-     * @var \App\Repository\StockRepository
-     */
-    private $stockRepo;
-
-    public function __construct(ObjectManager $em, ApiClient $api)
+    public function __construct(
+        private EntityManagerInterface $em,
+        private ApiClient $api
+    )
     {
-        $this->em = $em;
         $this->stockRepo = $em->getRepository(Stock::class);
-        $this->api = $api;
     }
 
     /**
@@ -109,13 +99,14 @@ class StockPriceProvider
     }
 
     /**
-     * @return array|Quote[]
+     * @return Quote[]
      */
     private function fetchData(array $symbols, int $try = 0): ?array
     {
         if (!$symbols) {
             return [];
         }
+
         try {
             return $this->api->getQuotes($symbols);
         } catch (ApiException $e) {
@@ -124,6 +115,7 @@ class StockPriceProvider
                 return $this->fetchData($symbols, $try + 1);
             }
         }
+
         return [];
     }
 }

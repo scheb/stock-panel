@@ -6,13 +6,9 @@ I've written this Symfony application for myself to keep track of my stock portf
 It uses my [Yahoo Finance API](https://github.com/scheb/yahoo-finance-api) to fetch current quotes and calculates profit
 and loss from it.
 
-![Stock Panel screenshot](panel.png)
-
 ## Requirements
 
-- PHP7
-- MySQL database
-- LESS
+- PHP8.1
 
 ## Installation
 
@@ -21,6 +17,4 @@ and loss from it.
 
 ```
 composer install
-php bin/console braincrafted:bootstrap:install
-php bin/console assetic:dump
 ```

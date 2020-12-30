@@ -2,18 +2,15 @@
 
 namespace App\Provider;
 
+
 use Scheb\YahooFinanceApi\ApiClient;
 
 class SearchResultProvider
 {
-    /**
-     * @var \Scheb\YahooFinanceApi\ApiClient
-     */
-    private $api;
-
-    public function __construct(ApiClient $api)
+    public function __construct(
+        private ApiClient $api
+    )
     {
-        $this->api = $api;
     }
 
     public function search(string $searchTerm): array
