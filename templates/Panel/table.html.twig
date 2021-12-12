@@ -1,57 +1,57 @@
-<table class="table table-striped stocks">
-<colgroup>
-<col style="width:50%;">
-<col style="width:10%;" class="privacy">
-<col style="width:10%;">
-<col style="width:10%;">
-<col style="width:10%;">
-<col style="width:10%;">
-</colgroup>
-<thead>
-<tr>
-<th>Stock</th>
-<th class="privacy">Quantity</th>
-<th>Initial</th>
-<th>Current</th>
-<th>Profit</th>
-<th>Today</th>
-</tr>
-</thead>
-<tbody>
-{% for stock in stocks %}
-<tr>
-<th><div>
-<a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a>
-<span class="buttons">
-<a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
-<a onclick="confirmDelete({{ stock.id }});" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
-</span>
-<small>{{ stock.symbol }}</small>
-</div>
-</th>
-<td class="privacy">{% if stock.quantity %}{{ stock.quantity }}{% else %}&ndash;{% endif %}</td>
+{% extends "base.html.twig" %}
 
-<td>{% if stock.initialPrice is not null %}
-<span>{{ stock.initialPrice|number_format_currency(stock.currency) }}</span>
-{% if stock.investment %}<span class="privacy">{{ stock.investment|number_format_currency(stock.currency) }}</span>{% endif %}
-{% else %}&ndash;{% endif %}</td>
 
-<td>{% if stock.currentPrice is not null %}
-<span>{{ stock.currentPrice|number_format_currency(stock.currency) }}</span>
-{% if stock.currentValue %}<span class="privacy">{{ stock.currentValue|number_format_currency(stock.currency) }}</span>{% endif %}
-{% else %}&ndash;{% endif %}</td>
+{% block title %}{{ parent() }} &ndash; Tabellen{% endblock %}
 
-{% if stock.profit is not null %}<td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
-<span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }}</span>
-<span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}</span>
-</td>{% else %}<td>&ndash;</td>{% endif %}
 
-{% if stock.currentChange is not null %}<td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
-<span><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }}</span>
-<span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }}</span>
-</td>{% else %}<td>&ndash;</td>{% endif %}
+{% block body %}
+    <div id="stock-table" class="container-lg py-3">
+        {% include "Panel/tableContent.html.twig" %}
+    </div>
+{% endblock %}
 
-</tr>
-{% endfor %}
-</tbody>
-</table>
+
+{#{% block bottom %}#}
+{#<!-- Confirmation dialog -->#}
+{#<div class="modal fade" id="confirmation-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#  <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-body">Really delete that stock?</div>#}
+{#      <div class="modal-footer">#}
+{#        <a href="{{ path("stock_delete", {"id": 0}) }}" class="btn btn-danger btn-remove">Delete</a>#}
+{#        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+{#<script type="text/javascript">#}
+{#/* <![CDATA[ */#}
+{#function confirmDelete(id) {#}
+{#	var removeBtn = $(".btn-remove");#}
+{#	removeBtn.attr('href', removeBtn.attr('href').replace(/\d+/, id));#}
+{#    $("#confirmation-dialog").modal();#}
+{#}#}
+
+{#var updateInterval;#}
+
+{#function startInterval() {#}
+{#	updateInterval = setInterval(updateStock, 5 * 60 * 1000); //Update every 5 minutes#}
+{#}#}
+
+{#function updateStock() {#}
+{#	$("button.btn-refresh").addClass("loading");#}
+{#    $("#stock-table").addClass("loading");#}
+{#	$("#stock-table").load("update", function() {#}
+{#		$("button.btn-refresh").removeClass("loading");#}
+{#        $("#stock-table").removeClass("loading");#}
+{#	});#}
+{#}#}
+
+{#$(document).ready(function() {#}
+{#	$("button.btn-refresh").click(updateStock);#}
+{#	startInterval();#}
+{#});#}
+{#/* ]]> */#}
+{#</script>#}
+{#{% endblock %}#}

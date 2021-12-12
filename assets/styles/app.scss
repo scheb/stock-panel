@@ -1,0 +1,34 @@
+@import "bootstrap.scss";
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+@import "table.scss";
+@import "charts.scss";
+
+.privacyIsActive {
+    .isPrivate {
+        display: none;
+    }
+}
+
+span.indicator {
+    display: none;
+    width: 0;
+    height: 0;
+    margin: 0 0.4rem 0.1rem 0;
+    border-left: 0.4rem solid transparent;
+    border-right: 0.4rem solid transparent;
+    vertical-align: middle;
+}
+
+.up {
+    span.indicator {
+        display: inline-block;
+        border-bottom: 0.4rem solid $green;
+    }
+}
+
+.down {
+    span.indicator {
+        display: inline-block;
+        border-top: 0.4rem solid $red;
+    }
+}

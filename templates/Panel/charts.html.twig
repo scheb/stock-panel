@@ -1,61 +1,55 @@
-{% extends "baseFull.html.twig" %}
+{% extends "base.html.twig" %}
 
 
 {% block title %}{{ parent() }} &ndash; Charts{% endblock %}
 
 
-{% block headerInclude %}
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-{% endblock %}
-
-
-{% block header %}
-{{ parent() }}
-<nav>
-<ul>
-<li><button class="btn btn-primary btn-lg btn-refresh"><span class="glyphicon glyphicon-refresh"></span> Refresh</button></li>
-<li><a href="{{ path("stock_panel") }}" class="btn btn-default btn-lg btn-dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-<li><a class="btn btn-default btn-lg btn-privacy"><span class="glyphicon glyphicon-eye-open"></span> Privacy</a></li>
-</ul>
-</nav>
-{% endblock %}
-
-
 {% block body %}
-<div id="stock-charts">
+<div id="stock-charts" class="container-fluid py-3">
     <ul class="nav nav-pills" id="period-tabs">
-        <li role="presentation" class="active"><a href="#1d" data-period="1d" role="tab" data-toggle="tab">1 day</a></li>
-        <li role="presentation"><a href="#5d" data-period="5d" role="tab" data-toggle="tab">5 days</a></li>
-        <li role="presentation"><a href="#1mo" data-period="1mo" role="tab" data-toggle="tab">1 month</a></li>
-        <li role="presentation"><a href="#6mo" data-period="6mo" role="tab" data-toggle="tab">6 months</a></li>
-        <li role="presentation"><a href="#ytd" data-period="ytd" role="tab" data-toggle="tab">ytd</a></li>
-        <li role="presentation"><a href="#1y" data-period="1y" role="tab" data-toggle="tab">1 year</a></li>
-        <li role="presentation"><a href="#5y" data-period="5y" role="tab" data-toggle="tab">5 years</a></li>
-        <li role="presentation"><a href="#max" data-period="max" role="tab" data-toggle="tab">max</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1 active" data-period="1d" role="tab" data-toggle="tab">1d</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5d" role="tab" data-toggle="tab">5d</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1mo" role="tab" data-toggle="tab">1m</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="6mo" role="tab" data-toggle="tab">6m</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="ytd" role="tab" data-toggle="tab">ytd</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1y" role="tab" data-toggle="tab">1y</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5y" role="tab" data-toggle="tab">5y</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="max" role="tab" data-toggle="tab">max</a></li>
     </ul>
 
-    {% for stock in stocks %}{% if stock.displayChart %}
-            <div class="col-sm-3 box-chart">
+    <div class="charts row mt-2 g-2">
+        {% for i in 1..10 %}{% for stock in stocks %}{% if stock.displayChart %}
+            <div class="col col-md-6 col-xl-4 col-xxl-3 box-chart flex-fill">
                 <div class="box-inner">
-                    <p class="profit pull-right {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}"><span class="direction"></span>{{ stock.currentChange|number_format_currency(stock.currency) }} ({{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }})</p>
-                    {% if stock.profit is not null %}<p class="profit pull-right {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}"><span class="privacy">{{ stock.profit|number_format_currency(stock.currency) }} (</span>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}<span class="privacy">)</span></p>{% endif %}
-                    <h2><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h2>
+                    <div class="d-flex mb-1">
+                        <h3 class="flex-fill"><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h3>
+                        {% if stock.profit is not null %}
+                            <div class="profit text-end {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
+                                <div>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}) }}</div>
+                                <div class="isPrivate">{{ stock.profit|number_format_currency(stock.currency) }}</div>
+                            </div>
+                        {% endif %}
+                        <div class="profit text-end {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
+                            <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }}</div>
+                            <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency) }}</div>
+                        </div>
+                    </div>
                     <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
                 </div>
             </div>
-    {% endif %}{% endfor %}
+        {% endif %}{% endfor %}{% endfor %}
+    </div>
 
-    <div id="highcharts"></div>
 </div>
 {% endblock %}
 
 
-{% block bottom %}
-<script type="text/javascript">
-    $(document).ready(function() {
-        {% for stock in stocks %}{% if stock.displayChart %}
-        initStockChart({{ stock.id }});
-    {% endif %}{% endfor %}
-    });
-</script>
-{% endblock %}
+{#{% block bottom %}#}
+{#<script type="text/javascript">#}
+{#    $(document).ready(function() {#}
+{#        {% for stock in stocks %}{% if stock.displayChart %}#}
+{#        initStockChart({{ stock.id }});#}
+{#    {% endif %}{% endfor %}#}
+{#    });#}
+{#</script>#}
+{#{% endblock %}#}

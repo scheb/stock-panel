@@ -3,16 +3,33 @@
 <head>
 <title>{% block title %}Stock Panel{% endblock %}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" media="screen">#}
-{#<link rel="stylesheet" href="{{ asset("css/stock-panel.css") }}" />#}
-{#<script type="text/javascript" src="{{ asset("js/jquery.js") }}"></script>#}
-{#<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>#}
-{#<script type="text/javascript" src="{{ asset('js/stock-panel.js') }}"></script>#}
-{% block headerInclude %}{% endblock %}
-{#{% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}#}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 </head>
 <body>
-{% block layout %}{% endblock %}
-{% block bottom %}{% endblock %}
+
+<header class="bg-dark">
+    <div class="container-lg d-flex">
+        <nav class="navbar navbar-expand navbar-dark flex-grow-1">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item"><a href="{{ path("stock_table") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_table" %} active{% endif %}">Tabelle</a></li>
+                <li class="nav-item"><a href="{{ path("stock_charts") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_charts" %} active{% endif %}">Charts</a></li>
+            </ul>
+        </nav>
+
+        <div class="align-self-center">
+            <a href="{{ path("stock_add") }}" class="btn btn-outline-light me-2"><i class="bi bi-plus-circle"></i></a>
+            <button type="button" class="btn btn-outline-light me-2"><i class="bi bi-eye"></i></button>
+            <button type="button" class="btn btn-warning"{% if app.request.attributes.get('_route') != "stock_table" %} disabled{% endif %}><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
+    </div>
+</header>
+
+{% block body %}{% endblock %}
+
 </body>
 </html>

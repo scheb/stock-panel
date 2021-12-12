@@ -34,12 +34,12 @@ class PanelController extends AbstractController
 
     /**
      * Show the stock panel
-     * @Route("/", name="stock_panel")
+     * @Route("/", name="stock_table")
      */
-    public function indexAction(): Response
+    public function tableAction(): Response
     {
         $stocks = $this->stockPriceProvider->getStocksAndUpdate();
-        return $this->render("Panel/index.html.twig", [
+        return $this->render("Panel/table.html.twig", [
             'stocks' => $stocks,
         ]);
     }

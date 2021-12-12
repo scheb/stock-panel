@@ -1,0 +1,33 @@
+#stock-charts {
+    .charts {
+        .box-chart {
+            .box-inner {
+                border: 1px solid $gray-500;
+                padding: 0.5rem;
+
+                h2 {
+                    margin-top: 0;
+                }
+
+                .profit {
+                    margin-left: 0.75rem;
+                    font-size: 0.8rem;
+                }
+
+                .chart {
+                    width: 100%;
+                    height: 12rem;
+                    background: $gray-100;
+                }
+
+                .up {
+                    color: $green;
+                }
+
+                .down {
+                    color: $red;
+                }
+            }
+        }
+    }
+}

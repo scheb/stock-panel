@@ -12,12 +12,12 @@ class StockType extends AbstractType
     {
         $currencies = ["EUR" => "EUR", "USD" => "USD"];
         $builder
-            ->add("symbol")
-            ->add("name")
-            ->add("currency", ChoiceType::class, ['choices' => $currencies])
-            ->add("initialPrice")
-            ->add("quantity")
-            ->add("displayChart", null, ['required' => false]);
+            ->add("symbol", null, ['label' => 'Symbol'])
+            ->add("name", null, ['label' => 'Name'])
+            ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
+            ->add("initialPrice", null, ['label' => 'Erster Kurs'])
+            ->add("quantity", null, ['label' => 'Anzahl'])
+            ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?']);
     }
 
     public function getName()

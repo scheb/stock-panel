@@ -1,0 +1,89 @@
+<table class="stocks table table-striped">
+    <colgroup>
+        <col style="width:50%;">
+        <col style="width:10%;" class="d-none d-sm-block isPrivate">
+        <col style="width:10%;" class="d-none d-sm-table">
+        <col style="width:10%;" class="d-none d-sm-table">
+        <col style="width:10%;">
+        <col style="width:10%;">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>Aktie</th>
+        <th class="d-none d-sm-block isPrivate">Anzahl</th>
+        <th class="d-none d-sm-table-cell">Kauf</th>
+        <th class="d-none d-sm-table-cell">Aktuell</th>
+        <th>Profit</th>
+        <th>Heute</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for stock in stocks %}
+        <tr>
+            <th>
+                <div>
+                    <a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a>
+                    <span class="actions">
+                        <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill"></span></a>
+                        <a onclick="confirmDelete({{ stock.id }});" class="btn btn-danger px-1 py-0"><span class="bi bi-x-circle-fill"></span></a>
+                    </span>
+                </div>
+            </th>
+
+            <td class="d-none d-sm-table-cell isPrivate">{% if stock.quantity %}{{ stock.quantity }}{% else %}&ndash;{% endif %}</td>
+
+            <td class="d-none d-sm-table-cell">
+                {% if stock.initialPrice is not null %}
+                    <div>{{ stock.initialPrice|number_format_currency(stock.currency) }}</div>
+                    {% if stock.investment %}<div class="isPrivate">{{ stock.investment|number_format_currency(stock.currency) }}</div>{% endif %}
+                {% else %}
+                    &ndash;
+                {% endif %}
+            </td>
+
+            <td class="d-none d-sm-table-cell">
+                {% if stock.currentPrice is not null %}
+                    <div>{{ stock.currentPrice|number_format_currency(stock.currency) }}</div>
+                    {% if stock.currentValue %}<div class="isPrivate">{{ stock.currentValue|number_format_currency(stock.currency) }}</div>{% endif %}
+                {% else %}
+                    &ndash;
+                {% endif %}
+            </td>
+
+            {% if stock.profit is not null %}
+                <td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
+                    <div>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                    <div class="isPrivate">{{ stock.profit|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                </td>
+            {% else %}
+                <td>&ndash;</td>
+            {% endif %}
+
+            {% if stock.currentChange is not null %}
+                <td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
+                    <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                    <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                </td>
+            {% else %}
+                <td>&ndash;</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td class="d-none d-sm-table-cell"></td>
+            <td class="d-none d-sm-table-cell"><div class="isPrivate">61.000,00 $</div></td>
+            <td class="d-none d-sm-table-cell"><div class="isPrivate">1.586.250,00 $</div></td>
+            <td class="up">
+                <div>+2.377,08 %</div>
+                <div>+1.426.250,00 $</div>
+            </td>
+            <td class="up">
+                <div><span class="indicator"></span>+0,22&nbsp;%</div>
+                <div>+0,39&nbsp;$</div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
