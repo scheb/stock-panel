@@ -19,7 +19,7 @@
 
     <div class="charts row mt-2 g-2">
         {% for i in 1..10 %}{% for stock in stocks %}{% if stock.displayChart %}
-            <div class="col col-md-6 col-xl-4 col-xxl-3 box-chart flex-fill">
+            <div class="col col-md-6 col-xl-4 col-xxl-3 box-chart">
                 <div class="box-inner">
                     <div class="d-flex mb-1">
                         <h3 class="flex-fill"><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h3>
@@ -29,10 +29,12 @@
                                 <div class="isPrivate">{{ stock.profit|number_format_currency(stock.currency) }}</div>
                             </div>
                         {% endif %}
-                        <div class="profit text-end {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
-                            <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }}</div>
-                            <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency) }}</div>
-                        </div>
+                        {% if stock.currentChange is not null %}
+                            <div class="profit text-end {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
+                                <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}) }}</div>
+                                <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency) }}</div>
+                            </div>
+                        {% endif %}
                     </div>
                     <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
                 </div>
