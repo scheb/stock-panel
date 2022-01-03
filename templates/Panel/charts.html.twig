@@ -6,15 +6,15 @@
 
 {% block body %}
 <div id="stock-charts" class="container-fluid py-3">
-    <ul class="nav nav-pills" id="period-tabs">
-        <li class="nav-item"><a class="nav-link px-2 py-1 active" data-period="1d" role="tab" data-toggle="tab">1d</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5d" role="tab" data-toggle="tab">5d</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1mo" role="tab" data-toggle="tab">1m</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="6mo" role="tab" data-toggle="tab">6m</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="ytd" role="tab" data-toggle="tab">ytd</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1y" role="tab" data-toggle="tab">1y</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5y" role="tab" data-toggle="tab">5y</a></li>
-        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="max" role="tab" data-toggle="tab">max</a></li>
+    <ul class="nav nav-pills" id="period-tabs" role="tablist">
+        <li class="nav-item"><a class="nav-link px-2 py-1 active" data-period="1d" role="tab" data-bs-toggle="tab">1d</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5d" role="tab" data-bs-toggle="tab">5d</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1mo" role="tab" data-bs-toggle="tab">1m</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="6mo" role="tab" data-bs-toggle="tab">6m</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="ytd" role="tab" data-bs-toggle="tab">ytd</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="1y" role="tab" data-bs-toggle="tab">1y</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5y" role="tab" data-bs-toggle="tab">5y</a></li>
+        <li class="nav-item"><a class="nav-link px-2 py-1" data-period="max" role="tab" data-bs-toggle="tab">max</a></li>
     </ul>
 
     <div class="charts row mt-2 g-2">

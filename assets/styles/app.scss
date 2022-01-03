@@ -5,7 +5,7 @@
 
 .privacyIsActive {
     .isPrivate {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -30,5 +30,15 @@ span.indicator {
     span.indicator {
         display: inline-block;
         border-top: 0.4rem solid $red;
+    }
+}
+
+.privacyButtonIcon {
+    @extend .bi-eye;
+}
+
+.privacyIsActive {
+    .privacyButtonIcon {
+        @extend .bi-eye-slash;
     }
 }

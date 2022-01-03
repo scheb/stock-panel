@@ -10,7 +10,7 @@
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </head>
-<body>
+<body{% if app.request.cookies.get('privacyIsActive') == '1' %} class="privacyIsActive"{% endif %}>
 
 <header class="bg-dark">
     <div class="container-lg d-flex">
@@ -23,8 +23,8 @@
 
         <div class="align-self-center">
             <a href="{{ path("stock_add") }}" class="btn btn-outline-light me-2"><i class="bi bi-plus-circle"></i></a>
-            <button type="button" class="btn btn-outline-light me-2"><i class="bi bi-eye"></i></button>
-            <button type="button" class="btn btn-warning"{% if app.request.attributes.get('_route') != "stock_table" %} disabled{% endif %}><i class="bi bi-arrow-clockwise"></i></button>
+            <button type="button" id="privacyButton" class="btn btn-outline-light me-2"><i class="bi privacyButtonIcon"></i></button>
+            <button type="button" id="refreshButton" class="btn btn-warning"{% if app.request.attributes.get('_route') != "stock_table" %} disabled{% endif %}><i class="bi bi-arrow-clockwise"></i></button>
         </div>
     </div>
 </header>
