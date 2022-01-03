@@ -39,7 +39,7 @@ class AdminController extends AbstractController
             if ($form->isValid()) {
                 $this->em->persist($stock);
                 $this->em->flush();
-                return $this->redirect($this->generateUrl("stock_panel"));
+                return $this->redirect($this->generateUrl("stock_table"));
             }
         }
 
@@ -65,7 +65,7 @@ class AdminController extends AbstractController
             if ($form->isValid()) {
                 $this->em->persist($stock);
                 $this->em->flush();
-                return $this->redirect($this->generateUrl("stock_panel"));
+                return $this->redirect($this->generateUrl("stock_table"));
             }
         }
 
@@ -86,7 +86,7 @@ class AdminController extends AbstractController
             $this->em->remove($stock);
             $this->em->flush();
         }
-        return $this->redirect($this->generateUrl("stock_panel"));
+        return $this->redirect($this->generateUrl("stock_table"));
     }
 
     private function getStock(int $id): ?Stock
