@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class StockType extends AbstractType
@@ -15,8 +16,8 @@ class StockType extends AbstractType
             ->add("symbol", null, ['label' => 'Symbol'])
             ->add("name", null, ['label' => 'Name'])
             ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
-            ->add("initialPrice", null, ['label' => 'Erster Kurs'])
-            ->add("quantity", null, ['label' => 'Anzahl'])
+            ->add("initialPrice", NumberType::class, ['label' => 'Erster Kurs'])
+            ->add("quantity", NumberType::class, ['label' => 'Anzahl'])
             ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?']);
     }
 
