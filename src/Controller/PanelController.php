@@ -8,6 +8,7 @@ use App\Repository\StockRepository;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -108,16 +109,10 @@ class PanelController extends AbstractController
             $dataVolume[] = [$timestampMs, $volume];
         }
 
-        $callback = $request->get('callback', '?');
-        $serializedData = json_encode([
+        return new JsonResponse([
             'price'=> $dataPrice,
             'volume' => $dataVolume,
         ]);
-        $content = $callback . '(' . $serializedData . ');';
-        $response = new Response($content);
-        $response->headers->set('Content-Type', 'application/javascript');
-        $response->setExpires(new \DateTime('+1 hour'));
-        return $response;
     }
 
     /**

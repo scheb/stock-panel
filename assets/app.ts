@@ -1,19 +1,47 @@
+import * as Highcharts from 'highcharts/highstock';
 import {Tab} from "bootstrap"
 import './styles/app.scss';
 import {deleteCookie, setCookie} from "./utils";
+import {StockChart} from "./charts";
 
 window.document.addEventListener("DOMContentLoaded", function() {
-    // Init tabs
-    window.document.querySelectorAll('[data-bs-toggle="tab"]')
-        .forEach((tabNode: Element) => new Tab(tabNode));
+    let charts: Array<StockChart> = new Array<StockChart>();
 
     // Action bar buttons
     new RefreshButton(window.document.querySelector('#refreshButton'));
     new PrivacyButton(window.document.querySelector('#privacyButton'));
+
+    // Init tabs
+    window.document.querySelectorAll('[data-bs-toggle="tab"]')
+        .forEach((tabNode: Element) => {
+            if (tabNode instanceof HTMLElement) {
+                new Tab(tabNode);
+                tabNode.addEventListener('shown.bs.tab', function (e) {
+                    const period = tabNode.dataset['period'];
+                    charts.forEach((chart: StockChart) => chart.changePeriod(period));
+                });
+            }
+        });
+
+    // Init charts
+    window.document.querySelectorAll('[data-stock-id]')
+        .forEach((chartContainer: Element) => {
+            if (chartContainer instanceof HTMLElement) {
+                charts.push(new StockChart(chartContainer));
+            }
+        });
+
+    // Global highcharts config
+    (Highcharts as any).setOptions({
+        lang: {
+            decimalPoint: ',',
+            thousandsSep: '.'
+        }
+    });
 });
 
 class RefreshButton {
-    constructor(button: Element) {
+    constructor(button: HTMLElement) {
         if (!(button instanceof HTMLButtonElement)) {
             return;
         }

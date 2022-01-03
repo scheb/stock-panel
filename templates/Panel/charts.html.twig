@@ -18,7 +18,7 @@
     </ul>
 
     <div class="charts row mt-2 g-2">
-        {% for i in 1..10 %}{% for stock in stocks %}{% if stock.displayChart %}
+        {% for stock in stocks %}{% if stock.displayChart %}
             <div class="col col-md-6 col-xl-4 col-xxl-3 box-chart">
                 <div class="box-inner">
                     <div class="d-flex mb-1">
@@ -39,19 +39,8 @@
                     <div class="chart" id="chart-{{ stock.id }}" data-stock-id="{{ stock.id }}"></div>
                 </div>
             </div>
-        {% endif %}{% endfor %}{% endfor %}
+        {% endif %}{% endfor %}
     </div>
 
 </div>
 {% endblock %}
-
-
-{#{% block bottom %}#}
-{#<script type="text/javascript">#}
-{#    $(document).ready(function() {#}
-{#        {% for stock in stocks %}{% if stock.displayChart %}#}
-{#        initStockChart({{ stock.id }});#}
-{#    {% endif %}{% endfor %}#}
-{#    });#}
-{#</script>#}
-{#{% endblock %}#}
