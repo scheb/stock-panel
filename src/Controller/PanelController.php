@@ -22,7 +22,7 @@ class PanelController extends AbstractController
     {
     }
 
-    const RANGE_INTERVAL_MAP = [
+    private const RANGE_INTERVAL_MAP = [
         '1d' => '2m',
         '5d' => '15m',
         '1mo' => '1h',
