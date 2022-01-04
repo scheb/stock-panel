@@ -1,11 +1,9 @@
 {% extends "base.html.twig" %}
 
-
 {% block title %}{{ parent() }} &ndash; Charts{% endblock %}
 
-
 {% block body %}
-<div id="stock-charts" class="container-fluid py-3">
+<div id="stockCharts" class="container-fluid py-3">
     <ul class="nav nav-pills" id="period-tabs" role="tablist">
         <li class="nav-item"><a class="nav-link px-2 py-1 active" data-period="1d" role="tab" data-bs-toggle="tab">1d</a></li>
         <li class="nav-item"><a class="nav-link px-2 py-1" data-period="5d" role="tab" data-bs-toggle="tab">5d</a></li>
