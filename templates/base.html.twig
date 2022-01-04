@@ -12,9 +12,9 @@
 </head>
 <body{% if app.request.cookies.get('privacyIsActive') == '1' %} class="privacyIsActive"{% endif %}>
 
-<header class="bg-dark">
+<header class="navbar navbar-expand navbar-dark fixed-top bg-dark ">
     <div class="container-lg d-flex">
-        <nav class="navbar navbar-expand navbar-dark flex-grow-1">
+        <nav class="flex-grow-1">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item"><a href="{{ path("stock_table") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_table" %} active{% endif %}">Tabelle</a></li>
                 <li class="nav-item"><a href="{{ path("stock_charts") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_charts" %} active{% endif %}">Charts</a></li>

@@ -3,6 +3,10 @@
 @import "table.scss";
 @import "charts.scss";
 
+body {
+    padding-top: 3.5rem;
+}
+
 .privacyIsActive {
     .isPrivate {
         display: none !important;
