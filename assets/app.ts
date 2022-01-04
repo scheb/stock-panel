@@ -20,6 +20,9 @@ window.document.addEventListener("DOMContentLoaded", function() {
     // Privacy button
     new PrivacyButton(window.document.getElementById('privacyButton'));
 
+    // Delete buttons
+    initDeleteButtons();
+
     // Init tabs
     window.document.querySelectorAll('[data-bs-toggle="tab"]')
         .forEach((tabNode: Element) => {
@@ -48,6 +51,19 @@ window.document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+function initDeleteButtons() {
+    window.document.querySelectorAll('[data-delete-stock]')
+        .forEach((deleteButton: Element) => {
+            if (deleteButton instanceof HTMLButtonElement) {
+                deleteButton.addEventListener('click', () => {
+                    if (window.confirm('Aktie entfernen?')) {
+                        window.location.href = '/delete/'+ deleteButton.dataset['deleteStock'];
+                    }
+                })
+            }
+        });
+}
 
 class RefreshButton {
     private readonly REFRESH_TIMEOUT = 5 * 60 * 1000; //Update every 5 minutes
@@ -84,6 +100,7 @@ class RefreshButton {
     private onViewUpdate(response: RequestResult) {
         if (response.status === 200) {
             this.stockTable.innerHTML = response.data;
+            initDeleteButtons();
             this.setLoading(false);
             this.startAutoRefresh();
         }
