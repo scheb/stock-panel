@@ -1,57 +1,9 @@
 {% extends "base.html.twig" %}
 
-
 {% block title %}{{ parent() }} &ndash; Tabellen{% endblock %}
 
-
 {% block body %}
-    <div id="stock-table" class="container-lg py-3">
+    <div id="stockTable" class="container-lg py-3">
         {% include "Panel/tableContent.html.twig" %}
     </div>
 {% endblock %}
-
-
-{#{% block bottom %}#}
-{#<!-- Confirmation dialog -->#}
-{#<div class="modal fade" id="confirmation-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-body">Really delete that stock?</div>#}
-{#      <div class="modal-footer">#}
-{#        <a href="{{ path("stock_delete", {"id": 0}) }}" class="btn btn-danger btn-remove">Delete</a>#}
-{#        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
-
-{#<script type="text/javascript">#}
-{#/* <![CDATA[ */#}
-{#function confirmDelete(id) {#}
-{#	var removeBtn = $(".btn-remove");#}
-{#	removeBtn.attr('href', removeBtn.attr('href').replace(/\d+/, id));#}
-{#    $("#confirmation-dialog").modal();#}
-{#}#}
-
-{#var updateInterval;#}
-
-{#function startInterval() {#}
-{#	updateInterval = setInterval(updateStock, 5 * 60 * 1000); //Update every 5 minutes#}
-{#}#}
-
-{#function updateStock() {#}
-{#	$("button.btn-refresh").addClass("loading");#}
-{#    $("#stock-table").addClass("loading");#}
-{#	$("#stock-table").load("update", function() {#}
-{#		$("button.btn-refresh").removeClass("loading");#}
-{#        $("#stock-table").removeClass("loading");#}
-{#	});#}
-{#}#}
-
-{#$(document).ready(function() {#}
-{#	$("button.btn-refresh").click(updateStock);#}
-{#	startInterval();#}
-{#});#}
-{#/* ]]> */#}
-{#</script>#}
-{#{% endblock %}#}

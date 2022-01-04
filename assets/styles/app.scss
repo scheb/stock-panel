@@ -41,6 +41,16 @@ span.indicator {
     @extend .bi-eye;
 }
 
+.btn.loading {
+    .bi {
+        display: none;
+    }
+
+    .spinner-border {
+        display: inline-block;
+    }
+}
+
 .privacyIsActive {
     .privacyButtonIcon {
         @extend .bi-eye-slash;

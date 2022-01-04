@@ -123,9 +123,8 @@ class PanelController extends AbstractController
     {
         $this->stockPriceProvider->updateStocks();
         $stocks = $this->stockPriceProvider->getStocks();
-        return $this->render("Panel/table.html.twig", [
+        return $this->render("Panel/tableContent.html.twig", [
             'stocks' => $stocks,
-            'privacyMode' => true,
         ]);
     }
 
