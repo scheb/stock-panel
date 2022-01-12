@@ -1,0 +1,60 @@
+name: "CI"
+
+on:
+    pull_request:
+    push:
+
+jobs:
+    app_build:
+        name: "Application Build"
+        runs-on: "ubuntu-latest"
+        # We want to run on external PRs, but not on our own internal PRs as they"ll be run by the push to the branch.
+        if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+
+        steps:
+            -   name: "Checkout code"
+                uses: actions/checkout@v2
+
+            -   name: "Setup PHP"
+                uses: shivammathur/setup-php@v2
+                with:
+                    coverage: "none"
+                    php-version: "8.1"
+                    tools: php-cs-fixer
+
+            -   name: "Display PHP versions"
+                shell: bash
+                run: |
+                    php -r 'foreach (get_loaded_extensions() as $extension) echo $extension . " " . phpversion($extension) . PHP_EOL;'
+                    php -i
+
+            -   name: "Install Composer dependencies"
+                uses: ramsey/composer-install@v2
+                with:
+                    composer-options: "--prefer-dist"
+
+            -   name: "Display Composer dependencies versions"
+                shell: bash
+                run: composer show
+
+            -   name: "Setup Node"
+                uses: actions/setup-node@v2
+                with:
+                    node-version: "17"
+
+            -   name: "Install Yarn dependencies"
+                run: yarn install
+
+            -   name: "Yarn build for production"
+                run: yarn build
+
+            -   name: "PHP Coding Standards Fixer"
+                run: php-cs-fixer fix --dry-run --diff --using-cache=no
+
+            -   name: "Run Symfony console"
+                run: |
+                    php bin/console -V
+                    php bin/console about
+
+            -   name: "Run PHPUnit tests"
+                run: vendor/bin/phpunit
