@@ -19,8 +19,7 @@ class StockPriceProvider
     public function __construct(
         private EntityManagerInterface $em,
         private ApiClient $api
-    )
-    {
+    ) {
         $this->stockRepo = $em->getRepository(Stock::class);
     }
 

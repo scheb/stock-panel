@@ -18,8 +18,7 @@ class AdminController extends AbstractController
         private StockPriceProvider $stockPriceProvider,
         private StockRepository $stockRepository,
         private EntityManagerInterface $em
-    )
-    {
+    ) {
     }
 
     /**

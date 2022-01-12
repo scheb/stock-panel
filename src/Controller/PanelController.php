@@ -18,8 +18,7 @@ class PanelController extends AbstractController
     public function __construct(
         private StockPriceProvider $stockPriceProvider,
         private StockRepository $stockRepo
-    )
-    {
+    ) {
     }
 
     private const RANGE_INTERVAL_MAP = [

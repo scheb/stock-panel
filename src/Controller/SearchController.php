@@ -12,8 +12,7 @@ class SearchController extends AbstractController
 {
     public function __construct(
         private SearchResultProvider $searchResultProvider
-    )
-    {
+    ) {
     }
 
     /**

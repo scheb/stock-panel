@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -84,12 +85,9 @@ class Stock
      */
     public function getInvestment()
     {
-        if ($this->quantity && $this->initialPrice)
-        {
+        if ($this->quantity && $this->initialPrice) {
             return $this->quantity * $this->initialPrice;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
@@ -99,12 +97,9 @@ class Stock
      */
     public function getCurrentValue()
     {
-        if ($this->quantity && $this->initialPrice && $this->currentPrice)
-        {
+        if ($this->quantity && $this->initialPrice && $this->currentPrice) {
             return $this->quantity * $this->currentPrice;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
@@ -115,12 +110,9 @@ class Stock
      */
     public function getProfit()
     {
-        if ($this->quantity && $this->initialPrice && $this->currentPrice)
-        {
+        if ($this->quantity && $this->initialPrice && $this->currentPrice) {
             return $this->getCurrentValue() - $this->getInvestment();
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
