@@ -3,10 +3,24 @@ scheb/stock-panel
 
 I've written this Symfony application for myself to keep track of my stock portfolio.
 
-It uses my [Yahoo Finance API](https://github.com/scheb/yahoo-finance-api) to fetch current quotes and calculates profit
-and loss from it.
+It uses my [Yahoo Finance API library](https://github.com/scheb/yahoo-finance-api) to fetch current quotes and
+calculates profit / loss from it.
+
+Features
+--------
+
+- Add any stock available on Yahoo Finance
+- Show daily wins/losses
+- Show overall wins/losses
+- Add stocks to watch
+- Auto and forced refresh on the tabular view
+- Privacy feature to hide sensitive information
+
+**Tabular view**
 
 ![Tabular view](doc/tables.png)
+
+**Charts view**
 
 ![Charts view](doc/charts.png)
 
@@ -14,6 +28,7 @@ Requirements
 ------------
 
 - PHP8.1
+- [Composer package manager](https://getcomposer.org/)
 - [Yarn package manager](https://yarnpkg.com/)
 
 Installation
