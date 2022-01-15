@@ -1,10 +1,14 @@
 version: 2
 updates:
-  - package-ecosystem: "composer"
-    directory: "/"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
+    -   package-ecosystem: "composer"
+        directory: "/"
+        schedule:
+            interval: "weekly"
+        assignees:
+            - "scheb"
+    -   package-ecosystem: "npm"
+        directory: "/"
+        schedule:
+            interval: "weekly"
+        assignees:
+            - "scheb"
