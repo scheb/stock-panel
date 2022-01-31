@@ -1,0 +1,25 @@
+name: "Dependabot Auto-Merge"
+
+on:
+    workflow_run:
+        types:
+            - "completed"
+        workflows:
+            - "CI"
+
+permissions:
+    pull-requests: "write"
+    contents: "write"
+
+jobs:
+    dependabot:
+        runs-on: "ubuntu-latest"
+        # Checking the actor will prevent the action from running on non-Dependabot PRs
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        steps:
+            -   name: "Auto-merge Dependabot PR"
+                uses: ridedott/merge-me-action@v2
+                with:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    PRESET: DEPENDABOT_MINOR
+                    MERGE_METHOD: REBASE
