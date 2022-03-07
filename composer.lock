@@ -1489,12 +1489,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1596,12 +1596,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2242,16 +2242,16 @@
         },
         {
             "name": "scheb/yahoo-finance-api",
-            "version": "v4.2.0",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/yahoo-finance-api.git",
-                "reference": "5caa25f31973f9941216792f2090b8ad76b36f29"
+                "reference": "d64efd485ee79fe433fc46692e66d1851ee1aeb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/5caa25f31973f9941216792f2090b8ad76b36f29",
-                "reference": "5caa25f31973f9941216792f2090b8ad76b36f29",
+                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/d64efd485ee79fe433fc46692e66d1851ee1aeb3",
+                "reference": "d64efd485ee79fe433fc46692e66d1851ee1aeb3",
                 "shasum": ""
             },
             "require": {
@@ -2291,9 +2291,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scheb/yahoo-finance-api/issues",
-                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.2.0"
+                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.3.0"
             },
-            "time": "2021-02-28T11:27:09+00:00"
+            "time": "2022-03-05T08:59:29+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
