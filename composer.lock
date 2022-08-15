@@ -2307,16 +2307,16 @@
         },
         {
             "name": "sonata-project/intl-bundle",
-            "version": "2.13.0",
+            "version": "2.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataIntlBundle.git",
-                "reference": "71added25c2f7b1e51ed7d57633171607c3848f1"
+                "reference": "d22fa28927ada0986f5af5e8b57ac24884f83378"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/71added25c2f7b1e51ed7d57633171607c3848f1",
-                "reference": "71added25c2f7b1e51ed7d57633171607c3848f1",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/d22fa28927ada0986f5af5e8b57ac24884f83378",
+                "reference": "d22fa28927ada0986f5af5e8b57ac24884f83378",
                 "shasum": ""
             },
             "require": {
@@ -2386,7 +2386,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sonata-project/SonataIntlBundle/issues",
-                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/2.13.0"
+                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/2.13.1"
             },
             "funding": [
                 {
@@ -2406,7 +2406,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-05T20:58:53+00:00"
+            "time": "2022-08-09T16:44:25+00:00"
         },
         {
             "name": "symfony/asset",
@@ -5928,16 +5928,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342"
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e939eae92386b69b49cfa4599dd9bead6bf4a342",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
                 "shasum": ""
             },
             "require": {
@@ -5988,7 +5988,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.4.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -6000,7 +6000,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-17T05:48:52+00:00"
+            "time": "2022-08-12T06:47:24+00:00"
         }
     ],
     "packages-dev": [
