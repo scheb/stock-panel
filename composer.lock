@@ -2307,16 +2307,16 @@
         },
         {
             "name": "sonata-project/intl-bundle",
-            "version": "2.13.1",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataIntlBundle.git",
-                "reference": "d22fa28927ada0986f5af5e8b57ac24884f83378"
+                "reference": "af0f67d03b770ce9a04601c709ac905044636252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/d22fa28927ada0986f5af5e8b57ac24884f83378",
-                "reference": "d22fa28927ada0986f5af5e8b57ac24884f83378",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/af0f67d03b770ce9a04601c709ac905044636252",
+                "reference": "af0f67d03b770ce9a04601c709ac905044636252",
                 "shasum": ""
             },
             "require": {
@@ -2326,7 +2326,7 @@
                 "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
                 "symfony/http-kernel": "^4.4.13 || ^5.4 || ^6.0",
                 "symfony/intl": "^4.4 || ^5.4 || ^6.0",
-                "symfony/translation-contracts": "^2.5",
+                "symfony/translation-contracts": "^2.5 || ^3.0",
                 "twig/twig": "^2.9 || ^3.0"
             },
             "conflict": {
@@ -2386,7 +2386,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sonata-project/SonataIntlBundle/issues",
-                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/2.13.1"
+                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/2.14.0"
             },
             "funding": [
                 {
@@ -2406,7 +2406,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-09T16:44:25+00:00"
+            "time": "2022-08-17T07:33:52+00:00"
         },
         {
             "name": "symfony/asset",
@@ -5227,20 +5227,20 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v2.5.2",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "136b19dd05cdf0709db6537d058bcab6dd6e2dbe"
+                "reference": "606be0f48e05116baef052f7f3abdb345c8e02cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/136b19dd05cdf0709db6537d058bcab6dd6e2dbe",
-                "reference": "136b19dd05cdf0709db6537d058bcab6dd6e2dbe",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/606be0f48e05116baef052f7f3abdb345c8e02cc",
+                "reference": "606be0f48e05116baef052f7f3abdb345c8e02cc",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5"
+                "php": ">=8.1"
             },
             "suggest": {
                 "symfony/translation-implementation": ""
@@ -5248,7 +5248,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.5-dev"
+                    "dev-main": "3.1-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -5258,7 +5258,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Contracts\\Translation\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Test/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5285,7 +5288,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v2.5.2"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.1.1"
             },
             "funding": [
                 {
@@ -5301,7 +5304,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-27T16:58:25+00:00"
+            "time": "2022-06-27T17:24:16+00:00"
         },
         {
             "name": "symfony/twig-bridge",
