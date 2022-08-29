@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^3.0.0",
+        "@symfony/webpack-encore": "^3.1.0",
         "@types/bootstrap": "^5.2.3",
         "bootstrap": "^5.2.0",
         "bootstrap-icons": "^1.9.1",
