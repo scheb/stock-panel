@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ebdcd3f9be26cc45c66b8071bfa1c40",
+    "content-hash": "0ddbd82acd0baa16ea655c3e3e2fc95d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2315,27 +2315,27 @@
         },
         {
             "name": "sonata-project/intl-bundle",
-            "version": "2.14.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataIntlBundle.git",
-                "reference": "af0f67d03b770ce9a04601c709ac905044636252"
+                "reference": "0a9baf8d7e87cbf7ded006a01bcfa5fbbc4bf88b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/af0f67d03b770ce9a04601c709ac905044636252",
-                "reference": "af0f67d03b770ce9a04601c709ac905044636252",
+                "url": "https://api.github.com/repos/sonata-project/SonataIntlBundle/zipball/0a9baf8d7e87cbf7ded006a01bcfa5fbbc4bf88b",
+                "reference": "0a9baf8d7e87cbf7ded006a01bcfa5fbbc4bf88b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0",
-                "symfony/config": "^4.4 || ^5.4 || ^6.0",
-                "symfony/dependency-injection": "^4.4.8 || ^5.4 || ^6.0",
-                "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
-                "symfony/http-kernel": "^4.4.13 || ^5.4 || ^6.0",
-                "symfony/intl": "^4.4 || ^5.4 || ^6.0",
+                "php": "^8.0",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/http-foundation": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0",
+                "symfony/intl": "^5.4 || ^6.0",
                 "symfony/translation-contracts": "^2.5 || ^3.0",
-                "twig/twig": "^2.9 || ^3.0"
+                "twig/twig": "^3.0"
             },
             "conflict": {
                 "sonata-project/user-bundle": "<3.6"
@@ -2354,16 +2354,10 @@
                 "psalm/plugin-symfony": "^3.0",
                 "rector/rector": "^0.13",
                 "symfony/phpunit-bridge": "^6.1",
-                "symfony/security-core": "^4.4.23 || ^5.4 || ^6.0",
-                "symfony/templating": "^4.4 || ^5.4 || ^6.0",
+                "symfony/security-core": "^5.4 || ^6.0",
                 "vimeo/psalm": "^4.7.2"
             },
             "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Sonata\\IntlBundle\\": "src/"
@@ -2394,7 +2388,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sonata-project/SonataIntlBundle/issues",
-                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/2.14.0"
+                "source": "https://github.com/sonata-project/SonataIntlBundle/tree/3.0.0"
             },
             "funding": [
                 {
@@ -2414,7 +2408,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-17T07:33:52+00:00"
+            "time": "2022-09-06T14:32:20+00:00"
         },
         {
             "name": "symfony/asset",
