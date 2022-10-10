@@ -12,7 +12,7 @@
         "doctrine/orm": "^2.10",
         "guzzlehttp/guzzle": "^7.4",
         "scheb/yahoo-finance-api": "^4.2",
-        "sonata-project/intl-bundle": "^2.11",
+        "sonata-project/intl-bundle": "^3.0",
         "symfony/console": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/flex": "^2.0",
