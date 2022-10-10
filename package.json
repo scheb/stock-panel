@@ -8,7 +8,7 @@
         "highcharts": "^10.2.1",
         "regenerator-runtime": "^0.13.2",
         "sass": "^1.55.0",
-        "sass-loader": "^13.0.2",
+        "sass-loader": "^13.1.0",
         "ts-loader": "^9.4.1",
         "typescript": "^4.8.4",
         "webpack": "^5.74.0",
