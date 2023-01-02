@@ -34,8 +34,8 @@
 
             <td class="d-none d-sm-table-cell">
                 {% if stock.initialPrice is not null %}
-                    <div>{{ stock.initialPrice|number_format_currency(stock.currency) }}</div>
-                    {% if stock.investment %}<div class="isPrivate">{{ stock.investment|number_format_currency(stock.currency) }}</div>{% endif %}
+                    <div>{{ stock.initialPrice|sonata_number_format_currency(stock.currency) }}</div>
+                    {% if stock.investment %}<div class="isPrivate">{{ stock.investment|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
                 {% else %}
                     &ndash;
                 {% endif %}
@@ -43,8 +43,8 @@
 
             <td class="d-none d-sm-table-cell">
                 {% if stock.currentPrice is not null %}
-                    <div>{{ stock.currentPrice|number_format_currency(stock.currency) }}</div>
-                    {% if stock.currentValue %}<div class="isPrivate">{{ stock.currentValue|number_format_currency(stock.currency) }}</div>{% endif %}
+                    <div>{{ stock.currentPrice|sonata_number_format_currency(stock.currency) }}</div>
+                    {% if stock.currentValue %}<div class="isPrivate">{{ stock.currentValue|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
                 {% else %}
                     &ndash;
                 {% endif %}
@@ -52,8 +52,8 @@
 
             {% if stock.profit is not null %}
                 <td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
-                    <div>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                    <div class="isPrivate">{{ stock.profit|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                    <div>{{ stock.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                    <div class="isPrivate">{{ stock.profit|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
                 </td>
             {% else %}
                 <td>&ndash;</td>
@@ -61,8 +61,8 @@
 
             {% if stock.currentChange is not null %}
                 <td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
-                    <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                    <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                    <div><span class="indicator"></span>{{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                    <div class="isPrivate">{{ stock.currentChange|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
                 </td>
             {% else %}
                 <td>&ndash;</td>

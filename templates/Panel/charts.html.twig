@@ -23,14 +23,14 @@
                         <h3 class="flex-fill"><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a></h3>
                         {% if stock.profit is not null %}
                             <div class="profit text-end {% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
-                                <div>{{ stock.profitPercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                                <div class="isPrivate">{{ stock.profit|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                                <div>{{ stock.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                                <div class="isPrivate">{{ stock.profit|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
                             </div>
                         {% endif %}
                         {% if stock.currentChange is not null %}
                             <div class="profit text-end {% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
-                                <div><span class="indicator"></span>{{ stock.currentChangePercent|number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                                <div class="isPrivate">{{ stock.currentChange|number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                                <div><span class="indicator"></span>{{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                                <div class="isPrivate">{{ stock.currentChange|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
                             </div>
                         {% endif %}
                     </div>
