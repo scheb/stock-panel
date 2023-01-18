@@ -20,6 +20,6 @@ jobs:
             -   name: "Auto-merge Dependabot PR"
                 uses: ridedott/merge-me-action@v2
                 with:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
                     PRESET: DEPENDABOT_MINOR
                     MERGE_METHOD: REBASE
