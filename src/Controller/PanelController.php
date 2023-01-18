@@ -34,8 +34,8 @@ class PanelController extends AbstractController
 
     /**
      * Show the stock panel
-     * @Route("/", name="stock_table")
      */
+    #[Route(path: '/', name: 'stock_table')]
     public function tableAction(): Response
     {
         $stocks = $this->stockPriceProvider->getStocksAndUpdate();
@@ -46,8 +46,8 @@ class PanelController extends AbstractController
 
     /**
      * Show the stock panel
-     * @Route("/charts", name="stock_charts")
      */
+    #[Route(path: '/charts', name: 'stock_charts')]
     public function chartsAction(): Response
     {
         $stocks = $this->stockPriceProvider->getStocksAndUpdate();
@@ -58,8 +58,8 @@ class PanelController extends AbstractController
 
     /**
      * Get JSON data for the chart
-     * @Route("/charts/{id}/{range}.json", name="stock_charts_data")
      */
+    #[Route(path: '/charts/{id}/{range}.json', name: 'stock_charts_data')]
     public function getChartData(int $id, string $range, Request $request): Response
     {
         $stock = $this->getStock($id);
@@ -116,8 +116,8 @@ class PanelController extends AbstractController
 
     /**
      * Force stock update
-     * @Route("/update", name="stock_update")
      */
+    #[Route(path: '/update', name: 'stock_update')]
     public function updateAction(): Response
     {
         $this->stockPriceProvider->updateStocks();

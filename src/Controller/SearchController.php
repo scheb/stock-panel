@@ -17,8 +17,8 @@ class SearchController extends AbstractController
 
     /**
      * Show the stock panel
-     * @Route("/search", name="stock_search")
      */
+    #[Route(path: '/search', name: 'stock_search')]
     public function searchAction(): Response
     {
         return $this->render("Search/search.html.twig");
@@ -26,8 +26,8 @@ class SearchController extends AbstractController
 
     /**
      * Execute the search
-     * @Route("/searchResult", name="stock_search_result")
      */
+    #[Route(path: '/searchResult', name: 'stock_search_result')]
     public function searchResultAction(Request $request): Response
     {
         $searchTerm = $request->get("term");

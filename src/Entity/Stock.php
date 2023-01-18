@@ -5,68 +5,44 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Table(name="stock")
- * @ORM\Entity(repositoryClass="App\Repository\StockRepository")
- * @UniqueEntity("symbol")
- */
+#[ORM\Table(name: 'stock')]
+#[ORM\Entity(repositoryClass: 'App\Repository\StockRepository')]
+#[UniqueEntity('symbol')]
 class Stock
 {
-    /**
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private int $id;
 
-    /**
-     * @ORM\Column(name="name", type="string", length=50)
-     */
+    #[ORM\Column(name: 'name', type: 'string', length: 50)]
     private string $name;
 
-    /**
-     * @ORM\Column(name="symbol", type="string", length=20, unique=true)
-     */
+    #[ORM\Column(name: 'symbol', type: 'string', length: 20, unique: true)]
     private string $symbol;
 
-    /**
-     * @ORM\Column(name="currency", type="string", length=3)
-     */
+    #[ORM\Column(name: 'currency', type: 'string', length: 3)]
     private string $currency;
 
-    /**
-     * @ORM\Column(name="quantity", type="decimal", precision=8, scale=2, nullable=true)
-     */
+    #[ORM\Column(name: 'quantity', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $quantity;
 
-    /**
-     * @ORM\Column(name="initialPrice", type="decimal", precision=8, scale=2, nullable=true)
-     */
+    #[ORM\Column(name: 'initialPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $initialPrice;
 
-    /**
-     * @ORM\Column(name="currentPrice", type="decimal", precision=8, scale=2, nullable=true)
-     */
+    #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentPrice;
 
-    /**
-     * @ORM\Column(name="currentChange", type="decimal", precision=8, scale=2, nullable=true)
-     */
+    #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentChange;
 
-    /**
-     * @ORM\Column(name="createdAt", type="datetime")
-     */
+    #[ORM\Column(name: 'createdAt', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'updatedAt', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updatedAt;
 
-    /**
-     * @ORM\Column(name="displayChart", type="boolean")
-     */
+    #[ORM\Column(name: 'displayChart', type: 'boolean')]
     private bool $displayChart = true;
 
     /**

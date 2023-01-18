@@ -23,8 +23,8 @@ class AdminController extends AbstractController
 
     /**
      * Add a stock
-     * @Route("/add", name="stock_add")
      */
+    #[Route(path: '/add', name: 'stock_add')]
     public function addAction(Request $request): Response
     {
         $stock = new Stock();
@@ -49,8 +49,8 @@ class AdminController extends AbstractController
 
     /**
      * Edit a stock
-     * @Route("/edit/{id}", name="stock_edit")
      */
+    #[Route(path: '/edit/{id}', name: 'stock_edit')]
     public function editAction(Request $request, int $id): Response
     {
         $stock = $this->getStock($id);
@@ -76,8 +76,8 @@ class AdminController extends AbstractController
 
     /**
      * Remove a stock
-     * @Route("/delete/{id}", name="stock_delete", requirements={"id": "[0-9]+"})
      */
+    #[Route(path: '/delete/{id}', name: 'stock_delete', requirements: ['id' => '[0-9]+'])]
     public function deleteAction(int $id): Response
     {
         $stock = $this->getStock($id);
