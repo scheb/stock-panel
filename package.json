@@ -10,7 +10,7 @@
         "sass": "^1.59.3",
         "sass-loader": "^13.1.0",
         "ts-loader": "^9.4.1",
-        "typescript": "^4.8.4",
+        "typescript": "^5",
         "webpack": "^5.76.2",
         "webpack-notifier": "^1.6.0"
     },
