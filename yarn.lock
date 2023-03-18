@@ -2468,10 +2468,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-highcharts@^10.2.1:
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.2.tgz#cb74091b12c1a0112532857eb751044072aa34a8"
-  integrity sha512-uDSuAOTKXOA90WUE38KKJawzMPjeIX/4UH3fMxZdoypbGVjsbuHO6jJSdeGf1LaDpu5wRg/xjO4QXzJqXfIrkA==
+highcharts@^10.3.3:
+  version "10.3.3"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.3.3.tgz#b8acca24f2d4b1f2f726540734166e59e07b35c4"
+  integrity sha512-r7wgUPQI9tr3jFDn3XT36qsNwEIZYcfgz4mkKEA6E4nn5p86y+u1EZjazIG4TRkl5/gmGRtkBUiZW81g029RIw==
 
 hpack.js@^2.1.6:
   version "2.1.6"
