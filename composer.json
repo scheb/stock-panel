@@ -17,6 +17,7 @@
         "symfony/flex": "^2.0",
         "symfony/form": "^6.0",
         "symfony/framework-bundle": "^6.0",
+        "symfony/monolog-bundle": "^3.8",
         "symfony/proxy-manager-bridge": "^6.0",
         "symfony/runtime": "^6.0",
         "symfony/twig-bundle": "^6.0",
