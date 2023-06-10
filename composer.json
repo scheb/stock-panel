@@ -22,7 +22,7 @@
         "symfony/runtime": "^6.0",
         "symfony/twig-bundle": "^6.0",
         "symfony/validator": "^6.0",
-        "symfony/webpack-encore-bundle": "^1.13",
+        "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "^6.0"
     },
     "require-dev": {
