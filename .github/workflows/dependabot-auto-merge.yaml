@@ -15,7 +15,7 @@ jobs:
     dependabot:
         runs-on: "ubuntu-latest"
         # Checking the actor will prevent the action from running on non-Dependabot PRs
-        if: ${{ github.actor == 'dependabot[bot]' }}
+        if: ${{ (github.actor == 'dependabot[bot]') && (github.event.workflow_run.conclusion == 'success') }}
         steps:
             -   name: "Auto-merge Dependabot PR"
                 uses: ridedott/merge-me-action@v2
