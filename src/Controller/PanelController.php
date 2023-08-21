@@ -109,7 +109,7 @@ class PanelController extends AbstractController
         }
 
         return new JsonResponse([
-            'price'=> $dataPrice,
+            'price' => $dataPrice,
             'volume' => $dataVolume,
         ]);
     }
