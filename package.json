@@ -11,7 +11,7 @@
         "sass-loader": "^13.3.2",
         "ts-loader": "^9.5.0",
         "typescript": "^5",
-        "webpack": "^5.88.2",
+        "webpack": "^5.89.0",
         "webpack-notifier": "^1.6.0"
     },
     "private": true,
