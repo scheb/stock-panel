@@ -9,7 +9,7 @@
         "regenerator-runtime": "^0.14.0",
         "sass": "^1.69.5",
         "sass-loader": "^13.3.2",
-        "ts-loader": "^9.5.0",
+        "ts-loader": "^9.5.1",
         "typescript": "^5",
         "webpack": "^5.89.0",
         "webpack-notifier": "^1.6.0"
