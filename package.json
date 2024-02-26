@@ -2,7 +2,7 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^3.1.0",
         "@types/bootstrap": "^5.2.10",
-        "bootstrap": "^5.3.2",
+        "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "core-js": "^3.36.0",
         "highcharts": "^11.3.0",
