@@ -5,7 +5,7 @@
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "core-js": "^3.36.1",
-        "highcharts": "^11.4.0",
+        "highcharts": "^11.4.1",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.72.0",
         "sass-loader": "^14.1.1",
