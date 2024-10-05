@@ -1,0 +1,9 @@
+.editorconfig
+.git
+.github
+.gitignore
+.idea
+**/.env
+node_modules
+var
+vendor
