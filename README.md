@@ -3,8 +3,7 @@ scheb/stock-panel
 
 I've written this Symfony application for myself to keep track of my stock portfolio.
 
-It uses my [Yahoo Finance API library](https://github.com/scheb/yahoo-finance-api) to fetch current quotes and
-calculates profit / loss from it.
+It uses my [Yahoo Finance API library](https://github.com/scheb/yahoo-finance-api) to fetch current quotes and  calculates profit / loss from it.
 
 Features
 --------
@@ -42,7 +41,20 @@ Installation
 
 License
 -------
+
 This software is available under the [MIT license](LICENSE).
+
+Contributing
+------------
+
+Thanks for your interest in contributing to this project! Glad you like it 😊
+
+I typically do not accept contributions to this project, as I've built this for myself and it just works fine for me the
+way it is. The project isn't intended to work for anyone but myself. I've put it onto GitHub in case someone finds this
+useful. So if you need changes, feel free to fork the repository and modify it for your own needs.
+
+If you have an idea that you believe is worth integrating, please reach out first. I don't want you to work on things
+that I wouldn't merge.
 
 Support Me
 ----------
