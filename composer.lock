@@ -1161,16 +1161,16 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "6ea8dd08867a2a42619d65c3deb2c0fcbf81c8f8"
+                "reference": "f9c436286ab2892c7db7be8c8da4ef61ccf7b455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/6ea8dd08867a2a42619d65c3deb2c0fcbf81c8f8",
-                "reference": "6ea8dd08867a2a42619d65c3deb2c0fcbf81c8f8",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/f9c436286ab2892c7db7be8c8da4ef61ccf7b455",
+                "reference": "f9c436286ab2892c7db7be8c8da4ef61ccf7b455",
                 "shasum": ""
             },
             "require": {
@@ -1224,7 +1224,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.0.3"
+                "source": "https://github.com/guzzle/promises/tree/2.0.4"
             },
             "funding": [
                 {
@@ -1240,7 +1240,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-18T10:29:17+00:00"
+            "time": "2024-10-17T10:06:22+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -1867,16 +1867,16 @@
         },
         {
             "name": "scheb/yahoo-finance-api",
-            "version": "v4.10.1",
+            "version": "v4.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/yahoo-finance-api.git",
-                "reference": "9a43debe17ce90a9aeea9c998aa1ecce2bd9f8ed"
+                "reference": "acb9ebacc057a13d69ca2b02fc88096369a5848a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/9a43debe17ce90a9aeea9c998aa1ecce2bd9f8ed",
-                "reference": "9a43debe17ce90a9aeea9c998aa1ecce2bd9f8ed",
+                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/acb9ebacc057a13d69ca2b02fc88096369a5848a",
+                "reference": "acb9ebacc057a13d69ca2b02fc88096369a5848a",
                 "shasum": ""
             },
             "require": {
@@ -1916,9 +1916,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scheb/yahoo-finance-api/issues",
-                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.10.1"
+                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.11.1"
             },
-            "time": "2024-06-09T11:50:56+00:00"
+            "time": "2024-10-16T17:35:40+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
