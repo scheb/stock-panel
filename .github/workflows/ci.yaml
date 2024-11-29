@@ -19,7 +19,7 @@ jobs:
 
             -   name: Login to Docker Hub
                 uses: docker/login-action@v3
-                if: ${{ github.ref_name == 'main' }}
+                if: ${{ github.ref_name == github.event.repository.default_branch }}
                 with:
                     username: ${{ secrets.DOCKERHUB_USERNAME }}
                     password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -43,4 +43,4 @@ jobs:
                     target: ${{ matrix.target }}
                     tags: ${{ steps.meta.outputs.tags }}
                     labels: ${{ steps.meta.outputs.labels }}
-                    push: ${{ github.ref_name == 'main' }}
+                    push: ${{ github.ref_name == github.event.repository.default_branch }}
