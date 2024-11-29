@@ -28,14 +28,11 @@ class AdminController extends AbstractController
     public function addAction(Request $request): Response
     {
         $stock = new Stock();
-        if ($symbol = $request->get("symbol")) {
-            $stock = $this->stockPriceProvider->createStock($symbol);
-        }
-
         $form = $this->createForm(StockType::class, $stock);
         if ($request->getMethod() === "POST") {
             $form->handleRequest($request);
             if ($form->isValid()) {
+                $this->stockPriceProvider->initStock($stock);
                 $this->em->persist($stock);
                 $this->em->flush();
                 return $this->redirect($this->generateUrl("stock_table"));

@@ -10,6 +10,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity('symbol')]
 class Stock
 {
+    public const PRICE_TYPE_PRE_MARKET = 'pre';
+    public const PRICE_TYPE_POST_MARKET = 'post';
+    public const PRICE_TYPE_REGULAR_MARKET = 'regular';
+
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
@@ -33,6 +37,12 @@ class Stock
     #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentPrice;
 
+    #[ORM\Column(name: 'currentPriceMarket', type: 'string', nullable: true)]
+    private string $currentPriceMarket;
+
+    #[ORM\Column(name: 'currentPriceTime', type: 'datetime', nullable: true)]
+    private \DateTimeInterface $currentPriceTime;
+
     #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentChange;
 
@@ -50,7 +60,7 @@ class Stock
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////// CONVENIENCE
@@ -182,6 +192,28 @@ class Stock
     public function setCurrentPrice(?float $currentPrice): self
     {
         $this->currentPrice = $currentPrice;
+        return $this;
+    }
+
+    public function getCurrentPriceMarket(): ?string
+    {
+        return $this->currentPriceMarket;
+    }
+
+    public function setCurrentPriceMarket(?string $currentPriceMarket): self
+    {
+        $this->currentPriceMarket = $currentPriceMarket;
+        return $this;
+    }
+
+    public function getCurrentPriceTime(): ?\DateTimeInterface
+    {
+        return $this->currentPriceTime;
+    }
+
+    public function setCurrentPriceTime(?\DateTimeInterface $currentPriceTime): self
+    {
+        $this->currentPriceTime = $currentPriceTime;
         return $this;
     }
 

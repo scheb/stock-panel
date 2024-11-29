@@ -44,17 +44,20 @@ class StockPriceProvider
         return $stocks;
     }
 
-    public function createStock(string $symbol): Stock
+    public function initStock(Stock $stock): Stock
     {
-        $stock = new Stock();
-        $data = $this->fetchData([$symbol]);
+        $data = $this->fetchData([$stock->getSymbol()]);
         if (count($data) == 1) {
             $quote = $data[0];
+            [$priceMarket, $price, $priceChange, $priceTime] = $this->getMostRecentPrice($quote);
             $stock
-                ->setName($quote->getLongName())
-                ->setSymbol($quote->getSymbol())
-                ->setInitialPrice($this->getCurrentPrice($quote));
+                ->setCurrentPrice($price)
+                ->setCurrentPriceTime($priceTime)
+                ->setCurrentPriceMarket($priceMarket)
+                ->setCurrentChange($priceChange)
+                ->setUpdatedAt(new \DateTime());
         }
+
         return $stock;
     }
 
@@ -66,29 +69,28 @@ class StockPriceProvider
         foreach ($data as $quote) {
             $symbol = $quote->getSymbol();
             $stock = $stocks[$symbol];
+            [$priceMarket, $price, $priceChange, $priceTime] = $this->getMostRecentPrice($quote);
             $stock
-                ->setCurrentPrice($this->getCurrentPrice($quote))
-                ->setCurrentChange($this->getCurrentChange($quote))
+                ->setCurrentPrice($price)
+                ->setCurrentPriceTime($priceTime)
+                ->setCurrentPriceMarket($priceMarket)
+                ->setCurrentChange($priceChange)
                 ->setUpdatedAt(new \DateTime());
             $this->em->persist($stock);
         }
         $this->em->flush();
     }
 
-    private function getCurrentPrice(Quote $quote): ?float
-    {
-        // Take the most recent one
-        return $quote->getPostMarketTime() > $quote->getRegularMarketTime()
-            ? $quote->getPostMarketPrice()
-            : $quote->getRegularMarketPrice();
-    }
+    private function getMostRecentPrice(Quote $quote): array {
+        if ($quote->getPreMarketPrice() && $quote->getPreMarketTime() > $quote->getRegularMarketTime()) {
+            return [Stock::PRICE_TYPE_PRE_MARKET, $quote->getPreMarketPrice(), $quote->getPreMarketChange(), $quote->getPreMarketTime()];
+        }
 
-    private function getCurrentChange(Quote $quote): ?float
-    {
-        // Take the most recent one
-        return $quote->getPostMarketTime() > $quote->getRegularMarketTime()
-            ? $quote->getPostMarketChange()
-            : $quote->getRegularMarketChange();
+        if ($quote->getPostMarketPrice() && $quote->getPostMarketTime() > $quote->getRegularMarketTime()) {
+            return [Stock::PRICE_TYPE_POST_MARKET, $quote->getPostMarketPrice(), $quote->getPostMarketChange(), $quote->getPostMarketTime()];
+        }
+
+        return [Stock::PRICE_TYPE_REGULAR_MARKET, $quote->getRegularMarketPrice(), $quote->getRegularMarketPrice(), $quote->getRegularMarketTime()];
     }
 
     public function hasToUpdate(): bool
