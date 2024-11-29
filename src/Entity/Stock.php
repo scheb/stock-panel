@@ -45,21 +45,20 @@ class Stock
     #[ORM\Column(name: 'displayChart', type: 'boolean')]
     private bool $displayChart = true;
 
-    /**
-     * Init the object
-     */
+    #[ORM\Column(name: 'favourite', type: 'boolean')]
+    private bool $favourite = false;
+
     public function __construct()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////// CONVENIENCE
 
     /**
      * Return invested money
-     * @return float|null
      */
-    public function getInvestment()
+    public function getInvestment(): ?float
     {
         if ($this->quantity && $this->initialPrice) {
             return $this->quantity * $this->initialPrice;
@@ -71,7 +70,7 @@ class Stock
     /**
      * Get current value of investment
      */
-    public function getCurrentValue()
+    public function getCurrentValue(): ?float
     {
         if ($this->quantity && $this->initialPrice && $this->currentPrice) {
             return $this->quantity * $this->currentPrice;
@@ -82,9 +81,8 @@ class Stock
 
     /**
      * Return profit
-     * @return float
      */
-    public function getProfit()
+    public function getProfit(): ?float
     {
         if ($this->quantity && $this->initialPrice && $this->currentPrice) {
             return $this->getCurrentValue() - $this->getInvestment();
@@ -95,18 +93,16 @@ class Stock
 
     /**
      * Return profit percentage
-     * @return float
      */
-    public function getProfitPercent()
+    public function getProfitPercent(): float
     {
         return $this->getProfit() / $this->getInvestment();
     }
 
     /**
      * Get percent of current change
-     * @return float
      */
-    public function getCurrentChangePercent()
+    public function getCurrentChangePercent(): float
     {
         $oldPrice = $this->currentPrice - $this->currentChange;
         if ($oldPrice) {
@@ -117,192 +113,130 @@ class Stock
 
     ////////////////////////////////////////////////////////////////////////////////////////// GETTER / SETTER
 
-    /**
-     * @return integer
-     */
-    public function getId()
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return \App\Entity\Stock
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @param string $symbol
-     * @return \App\Entity\Stock
-     */
-    public function setSymbol($symbol)
+    public function getSymbol(): string
+    {
+        return $this->symbol;
+    }
+
+    public function setSymbol(string $symbol): self
     {
         $this->symbol = $symbol;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSymbol()
-    {
-        return $this->symbol;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @param string $currency
-     * @return \App\Entity\Stock
-     */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
         return $this;
     }
 
-    /**
-     * @param float $quantity
-     * @return \App\Entity\Stock
-     */
-    public function setQuantity($quantity)
+    public function getQuantity(): ?float
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?float $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getQuantity()
+    public function getInitialPrice(): ?float
     {
-        return $this->quantity;
+        return $this->initialPrice;
     }
 
-    /**
-     * @param float $initialPrice
-     * @return \App\Entity\Stock
-     */
-    public function setInitialPrice($initialPrice)
+    public function setInitialPrice(?float $initialPrice): self
     {
         $this->initialPrice = $initialPrice;
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getInitialPrice()
-    {
-        return $this->initialPrice;
-    }
-
-    /**
-     * @return float
-     */
-    public function getCurrentPrice()
+    public function getCurrentPrice(): ?float
     {
         return $this->currentPrice;
     }
 
-    /**
-     * @param float $currentPrice
-     * @return \App\Entity\Stock
-     */
-    public function setCurrentPrice($currentPrice)
+    public function setCurrentPrice(?float $currentPrice): self
     {
         $this->currentPrice = $currentPrice;
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getCurrentChange()
+    public function getCurrentChange(): ?float
     {
         return $this->currentChange;
     }
 
-    /**
-     * @param float $currentChange
-     * @return \App\Entity\Stock
-     */
-    public function setCurrentChange($currentChange)
+    public function setCurrentChange(?float $currentChange): self
     {
         $this->currentChange = $currentChange;
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     * @return \App\Entity\Stock
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param \DateTime $createdAt
-     * @return \App\Entity\Stock
-     */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isDisplayChart()
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function isDisplayChart(): bool
     {
         return $this->displayChart;
     }
 
-    /**
-     * @param boolean $displayChart
-     *
-     * @return Stock
-     */
-    public function setDisplayChart($displayChart)
+    public function setDisplayChart(bool $displayChart): self
     {
         $this->displayChart = $displayChart;
+        return $this;
+    }
+
+    public function isFavourite(): bool
+    {
+        return $this->favourite;
+    }
+
+    public function setFavourite(bool $favourite): self
+    {
+        $this->favourite = $favourite;
         return $this;
     }
 }

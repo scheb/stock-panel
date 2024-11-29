@@ -16,7 +16,7 @@ class StockRepository extends ServiceEntityRepository
     public function getAll()
     {
         $qb = $this->createQueryBuilder("s");
-        $qb->orderBy("s.name", "ASC");
+        $qb->orderBy("s.favourite", "DESC")->addOrderBy("s.name", "ASC");
         $stocks = $qb->getQuery()->execute();
         $index = [];
         /** @var Stock $stock */

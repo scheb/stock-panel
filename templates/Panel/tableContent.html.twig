@@ -18,14 +18,19 @@
     </tr>
     </thead>
     <tbody>
+    {% set previousWasFavourite = 0 %}
     {% for stock in stocks %}
+        {% if previousWasFavourite and not stock.favourite %}
+            <tr class="separator"><td colspan="6"></td></tr>
+        {% endif %}
         <tr>
             <th>
                 <div>
                     <a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a>
                     <span class="actions">
-                        <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill"></span></a>
-                        <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}"><span class="bi bi-x-circle-fill"></span></button>
+                        <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill" title="Bearbeiten"></span></a>
+                        <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}" title="Löschen"><span class="bi bi-x-circle-fill"></span></button>
+                        <a href="{{ path("stock_favourite", {"id": stock.id}) }}" class="btn btn-warning px-1 py-0"><span class="bi {% if stock.favourite %}bi-star{% else %}bi-star-fill{% endif %}"></span></a>
                     </span>
                 </div>
             </th>
@@ -68,6 +73,7 @@
                 <td>&ndash;</td>
             {% endif %}
         </tr>
+        {% set previousWasFavourite = stock.favourite %}
     {% endfor %}
     </tbody>
 {#    <tfoot>#}

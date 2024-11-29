@@ -92,4 +92,23 @@ class AdminController extends AbstractController
     {
         return $this->stockRepository->findOneById($id);
     }
+
+
+    /**
+     * Edit a stock
+     */
+    #[Route(path: '/favourite/{id}', name: 'stock_favourite')]
+    public function favouriteAction(Request $request, int $id): Response
+    {
+        $stock = $this->getStock($id);
+        if (!$stock) {
+            throw $this->createNotFoundException("Stock id " . $id . " not found!");
+        }
+
+        $stock->setFavourite(!$stock->isFavourite());
+        $this->em->persist($stock);
+        $this->em->flush();
+
+        return $this->redirect($this->generateUrl('stock_table'));
+    }
 }
