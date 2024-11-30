@@ -17,79 +17,28 @@
         <th>Heute</th>
     </tr>
     </thead>
-    <tbody>
-    {% set previousWasFavourite = 0 %}
-    {% for stock in stocks %}
-        {% if previousWasFavourite and not stock.favourite %}
-            <tr class="separator"><td colspan="6"></td></tr>
-        {% endif %}
-        <tr>
-            <th>
-                <div>
-                    <a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a>
-                    <span class="actions">
-                        <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill" title="Bearbeiten"></span></a>
-                        <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}" title="Löschen"><span class="bi bi-x-circle-fill"></span></button>
-                        <a href="{{ path("stock_favourite", {"id": stock.id}) }}" class="btn btn-warning px-1 py-0"><span class="bi {% if stock.favourite %}bi-star{% else %}bi-star-fill{% endif %}"></span></a>
-                    </span>
-                </div>
-            </th>
-
-            <td class="d-none d-sm-table-cell isPrivate">{% if stock.quantity %}{{ stock.quantity }}{% else %}&ndash;{% endif %}</td>
-
-            <td class="d-none d-sm-table-cell">
-                {% if stock.initialPrice is not null %}
-                    <div>{{ stock.initialPrice|sonata_number_format_currency(stock.currency) }}</div>
-                    {% if stock.investment %}<div class="isPrivate">{{ stock.investment|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
-                {% else %}
-                    &ndash;
-                {% endif %}
-            </td>
-
-            <td class="d-none d-sm-table-cell">
-                {% if stock.currentPrice is not null %}
-                    <div>{{ stock.currentPrice|sonata_number_format_currency(stock.currency) }}</div>
-                    {% if stock.currentValue %}<div class="isPrivate">{{ stock.currentValue|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
-                {% else %}
-                    &ndash;
-                {% endif %}
-            </td>
-
-            {% if stock.profit is not null %}
-                <td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
-                    <div>{{ stock.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                    <div class="isPrivate">{{ stock.profit|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
-                </td>
-            {% else %}
-                <td>&ndash;</td>
-            {% endif %}
-
-            {% if stock.currentChange is not null %}
-                <td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
-                    <div><span class="indicator"></span>{{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
-                    <div class="isPrivate">{{ stock.currentChange|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
-                </td>
-            {% else %}
-                <td>&ndash;</td>
-            {% endif %}
+    {% for categoryName, stocks in categories %}
+        <tbody>
+        <tr class="table-active">
+            <th colspan="6">{{ categoryName }}</th>
         </tr>
-        {% set previousWasFavourite = stock.favourite %}
+        {% include "Panel/tableCategory.html.twig" %}
+        </tbody>
     {% endfor %}
-    </tbody>
-{#    <tfoot>#}
-{#        <tr>#}
-{#            <td></td>#}
-{#            <td class="d-none d-sm-table-cell isPrivate"></td>#}
-{#            <td class="d-none d-sm-table-cell"><div class="isPrivate">61.000,00 $</div></td>#}
-{#            <td class="d-none d-sm-table-cell"><div class="isPrivate">1.586.250,00 $</div></td>#}
-{#            <td class="up">#}
-{#                <div>+2.377,08 %</div>#}
-{#                <div class="isPrivate">+1.426.250,00 $</div>#}
-{#            </td>#}
-{#            <td class="up">#}
-{#                <div><span class="indicator"></span>+0,22&nbsp;%</div>#}
-{#                <div class="isPrivate">+0,39&nbsp;$</div>#}
-{#            </td>#}
-{#        </tr>#}
-{#    </tfoot>#}
+    {#    <tfoot>#}
+    {#        <tr>#}
+    {#            <td></td>#}
+    {#            <td class="d-none d-sm-table-cell isPrivate"></td>#}
+    {#            <td class="d-none d-sm-table-cell"><div class="isPrivate">61.000,00 $</div></td>#}
+    {#            <td class="d-none d-sm-table-cell"><div class="isPrivate">1.586.250,00 $</div></td>#}
+    {#            <td class="up">#}
+    {#                <div>+2.377,08 %</div>#}
+    {#                <div class="isPrivate">+1.426.250,00 $</div>#}
+    {#            </td>#}
+    {#            <td class="up">#}
+    {#                <div><span class="indicator"></span>+0,22&nbsp;%</div>#}
+    {#                <div class="isPrivate">+0,39&nbsp;$</div>#}
+    {#            </td>#}
+    {#        </tr>#}
+    {#    </tfoot>#}
 </table>

@@ -38,9 +38,13 @@ class PanelController extends AbstractController
     #[Route(path: '/', name: 'stock_table')]
     public function tableAction(): Response
     {
-        $stocks = $this->stockPriceProvider->getStocksAndUpdate();
+        if ($this->stockPriceProvider->hasToUpdate()) {
+            $this->stockPriceProvider->updateStocks();
+        }
+
+        $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
         return $this->render("Panel/table.html.twig", [
-            'stocks' => $stocks,
+            'categories' => $stockCategories,
         ]);
     }
 
@@ -50,7 +54,11 @@ class PanelController extends AbstractController
     #[Route(path: '/charts', name: 'stock_charts')]
     public function chartsAction(): Response
     {
-        $stocks = $this->stockPriceProvider->getStocksAndUpdate();
+        if ($this->stockPriceProvider->hasToUpdate()) {
+            $this->stockPriceProvider->updateStocks();
+        }
+
+        $stocks = $this->stockPriceProvider->getStocks();
         return $this->render("Panel/charts.html.twig", [
             'stocks' => $stocks,
         ]);
@@ -121,9 +129,9 @@ class PanelController extends AbstractController
     public function updateAction(): Response
     {
         $this->stockPriceProvider->updateStocks();
-        $stocks = $this->stockPriceProvider->getStocks();
+        $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
         return $this->render("Panel/tableContent.html.twig", [
-            'stocks' => $stocks,
+            'categories' => $stockCategories,
         ]);
     }
 

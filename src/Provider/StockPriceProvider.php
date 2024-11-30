@@ -13,6 +13,8 @@ class StockPriceProvider
 {
     private const FETCH_QUOTES_MAX_TRIES = 3;
     private const UPDATE_PERIOD_MINUTES = 5;
+    private const string DEFAULT_CATEGORY = 'Sonstige';
+    private const string FAVOURITES_CATEGORY = 'Favoriten';
 
     private StockRepository $stockRepo;
 
@@ -26,22 +28,49 @@ class StockPriceProvider
     /**
      * @return Stock[]
      */
-    public function getStocksAndUpdate(): array
-    {
-        if ($this->hasToUpdate()) {
-            $this->updateStocks();
-        }
-
-        return $this->getStocks();
-    }
-
-    /**
-     * @return Stock[]
-     */
     public function getStocks(): array
     {
         $stocks = $this->stockRepo->getAll();
         return $stocks;
+    }
+
+    /**
+     * @return Stock[][]
+     */
+    public function getCategorizedStocks(): array
+    {
+        $categories = [];
+        $favourites = [];
+        $uncategorized = [];
+        $stocks = $this->getStocks();
+        foreach ($stocks as $stock) {
+            if ($stock->isFavourite()) {
+                $favourites[] = $stock;
+                continue;
+            }
+
+            $category = $stock->getCategory();
+            if (!$category) {
+                $uncategorized[] = $stock;
+                continue;
+            }
+
+            if (!isset($categories[$category])) {
+                $categories[$category] = [];
+            }
+
+            $categories[$category][] = $stock;
+        }
+        $all = [];
+        if ($favourites) {
+            $all[self::FAVOURITES_CATEGORY] = $favourites;
+        }
+        $all = array_merge($all, $categories);
+        if ($uncategorized) {
+            $all[self::DEFAULT_CATEGORY] = $uncategorized;
+        }
+
+        return $all;
     }
 
     public function initStock(Stock $stock): Stock

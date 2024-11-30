@@ -25,6 +25,9 @@ class Stock
     #[ORM\Column(name: 'symbol', type: 'string', length: 20, unique: true)]
     private string $symbol;
 
+    #[ORM\Column(name: 'category', type: 'string', nullable: true)]
+    private string $category;
+
     #[ORM\Column(name: 'currency', type: 'string', length: 3)]
     private string $currency;
 
@@ -148,6 +151,17 @@ class Stock
     public function setSymbol(string $symbol): self
     {
         $this->symbol = $symbol;
+        return $this;
+    }
+
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): self
+    {
+        $this->category = $category;
         return $this;
     }
 
