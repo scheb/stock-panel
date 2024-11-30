@@ -90,7 +90,7 @@ class StockPriceProvider
             return [Stock::PRICE_TYPE_POST_MARKET, $quote->getPostMarketPrice(), $quote->getPostMarketChange(), $quote->getPostMarketTime()];
         }
 
-        return [Stock::PRICE_TYPE_REGULAR_MARKET, $quote->getRegularMarketPrice(), $quote->getRegularMarketPrice(), $quote->getRegularMarketTime()];
+        return [Stock::PRICE_TYPE_REGULAR_MARKET, $quote->getRegularMarketPrice(), $quote->getRegularMarketChange(), $quote->getRegularMarketTime()];
     }
 
     public function hasToUpdate(): bool
