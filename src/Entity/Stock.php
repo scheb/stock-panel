@@ -26,7 +26,7 @@ class Stock
     private string $symbol;
 
     #[ORM\Column(name: 'category', type: 'string', nullable: true)]
-    private string $category;
+    private ?string $category;
 
     #[ORM\Column(name: 'currency', type: 'string', length: 3)]
     private string $currency;

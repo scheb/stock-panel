@@ -15,7 +15,7 @@ class StockType extends AbstractType
         $builder
             ->add("symbol", null, ['label' => 'Symbol'])
             ->add("name", null, ['label' => 'Name'])
-            ->add("category", null, ['label' => 'Kategorie (optional)'])
+            ->add("category", null, ['label' => 'Kategorie (optional)', 'required' => false])
             ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
             ->add("initialPrice", NumberType::class, ['label' => 'Erster Kurs'])
             ->add("quantity", NumberType::class, ['label' => 'Anzahl'])
