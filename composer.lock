@@ -1865,16 +1865,16 @@
         },
         {
             "name": "scheb/yahoo-finance-api",
-            "version": "v4.11.1",
+            "version": "v4.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/yahoo-finance-api.git",
-                "reference": "acb9ebacc057a13d69ca2b02fc88096369a5848a"
+                "reference": "6955d2db9b0c7e0a158dcb6abaca27946affdd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/acb9ebacc057a13d69ca2b02fc88096369a5848a",
-                "reference": "acb9ebacc057a13d69ca2b02fc88096369a5848a",
+                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/6955d2db9b0c7e0a158dcb6abaca27946affdd18",
+                "reference": "6955d2db9b0c7e0a158dcb6abaca27946affdd18",
                 "shasum": ""
             },
             "require": {
@@ -1914,9 +1914,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scheb/yahoo-finance-api/issues",
-                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.11.1"
+                "source": "https://github.com/scheb/yahoo-finance-api/tree/v4.11.2"
             },
-            "time": "2024-10-16T17:35:40+00:00"
+            "time": "2024-12-29T18:20:46+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
@@ -2525,12 +2525,12 @@
             },
             "type": "library",
             "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
                 "branch-alias": {
                     "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
                 }
             },
             "autoload": {
