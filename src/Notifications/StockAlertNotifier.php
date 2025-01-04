@@ -39,10 +39,10 @@ class StockAlertNotifier implements EventSubscriberInterface
                 continue;
             }
 
-//            // Minimum time between alerts
-//            if ($stock->getAlertLastTime() > new \DateTime("-".self::ALERT_PERIOD_HOURS."hours")) {
-//                continue;
-//            }
+            // Minimum time between alerts
+            if ($stock->getAlertLastTime() > new \DateTime("-".self::ALERT_PERIOD_HOURS."hours")) {
+                continue;
+            }
 
             if (
                 ($stock->getAlertComparator() === Stock::COMPARATOR_ABOVE && $stock->getCurrentPrice() > $stock->getAlertThreshold())
