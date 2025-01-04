@@ -110,7 +110,8 @@ class StockPriceProvider
         $this->em->flush();
     }
 
-    private function getMostRecentPrice(Quote $quote): array {
+    private function getMostRecentPrice(Quote $quote): array
+    {
         if ($quote->getPreMarketPrice() && $quote->getPreMarketTime() > $quote->getRegularMarketTime()) {
             return [Stock::PRICE_TYPE_PRE_MARKET, $quote->getPreMarketPrice(), $quote->getPreMarketChange(), $quote->getPreMarketTime()];
         }
