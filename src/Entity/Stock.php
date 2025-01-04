@@ -51,8 +51,8 @@ class Stock
     #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentChange;
 
-    #[ORM\Column(name: 'alertThreshold', type: 'integer', nullable: true)]
-    private ?int $alertThreshold;
+    #[ORM\Column(name: 'alertThreshold', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    private ?float $alertThreshold;
 
     #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
     private ?string $alertComparator;
@@ -253,12 +253,12 @@ class Stock
         return $this;
     }
 
-    public function getAlertThreshold(): ?int
+    public function getAlertThreshold(): ?float
     {
         return $this->alertThreshold;
     }
 
-    public function setAlertThreshold(?int $alertThreshold): Stock
+    public function setAlertThreshold(?float $alertThreshold): Stock
     {
         $this->alertThreshold = $alertThreshold;
         return $this;

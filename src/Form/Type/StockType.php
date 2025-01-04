@@ -23,7 +23,7 @@ class StockType extends AbstractType
             ->add("quantity", NumberType::class, ['label' => 'Anzahl', 'required' => false])
             ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?'])
             ->add("favourite", null, ['required' => false, 'label' => 'Favoriten?'])
-            ->add("alertThreshold", null, ['required' => false, 'label' => 'Alarm Preis?'])
+            ->add("alertThreshold", NumberType::class, ['required' => false, 'label' => 'Alarm Preis?'])
             ->add("alertComparator", ChoiceType::class, ['choices' => $comparators, 'required' => false, 'label' => 'Alarm Vergleichsoperator'])
         ;
     }
