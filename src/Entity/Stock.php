@@ -13,6 +13,8 @@ class Stock
     public const PRICE_TYPE_PRE_MARKET = 'pre';
     public const PRICE_TYPE_POST_MARKET = 'post';
     public const PRICE_TYPE_REGULAR_MARKET = 'regular';
+    public const COMPARATOR_ABOVE = 'above';
+    public const COMPARATOR_BELOW = 'below';
 
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\Id]
@@ -48,6 +50,15 @@ class Stock
 
     #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentChange;
+
+    #[ORM\Column(name: 'alertThreshold', type: 'integer', nullable: true)]
+    private ?int $alertThreshold;
+
+    #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
+    private ?string $alertComparator;
+
+    #[ORM\Column(name: 'alertLastTime', type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $alertLastTime;
 
     #[ORM\Column(name: 'createdAt', type: 'datetime')]
     private \DateTimeInterface $createdAt;
@@ -239,6 +250,39 @@ class Stock
     public function setCurrentChange(?float $currentChange): self
     {
         $this->currentChange = $currentChange;
+        return $this;
+    }
+
+    public function getAlertThreshold(): ?int
+    {
+        return $this->alertThreshold;
+    }
+
+    public function setAlertThreshold(?int $alertThreshold): Stock
+    {
+        $this->alertThreshold = $alertThreshold;
+        return $this;
+    }
+
+    public function getAlertComparator(): ?string
+    {
+        return $this->alertComparator;
+    }
+
+    public function setAlertComparator(?string $alertComparator): Stock
+    {
+        $this->alertComparator = $alertComparator;
+        return $this;
+    }
+
+    public function getAlertLastTime(): ?\DateTimeInterface
+    {
+        return $this->alertLastTime;
+    }
+
+    public function setAlertLastTime(?\DateTimeInterface $alertLastTime): Stock
+    {
+        $this->alertLastTime = $alertLastTime;
         return $this;
     }
 

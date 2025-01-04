@@ -5,6 +5,7 @@ namespace App\Provider;
 use App\Entity\Stock;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Scheb\YahooFinanceApi\ApiClient;
 use Scheb\YahooFinanceApi\Exception\ApiException;
 use Scheb\YahooFinanceApi\Results\Quote;
@@ -20,7 +21,8 @@ class StockPriceProvider
 
     public function __construct(
         private EntityManagerInterface $em,
-        private ApiClient $api
+        private ApiClient $api,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
     }
@@ -108,6 +110,8 @@ class StockPriceProvider
             $this->em->persist($stock);
         }
         $this->em->flush();
+
+        $this->eventDispatcher->dispatch(new StockUpdateEvent());
     }
 
     private function getMostRecentPrice(Quote $quote): array
