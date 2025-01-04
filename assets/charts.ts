@@ -55,7 +55,7 @@ export class StockChart {
     private initHighStock(stockId: number, data: null|ChartData) {
         this.highStockChart = (Highcharts as any).stockChart("chart-" + stockId, {
             chart: {
-                zoomType: false
+                zooming: false
             },
             navigator: {
                 enabled: false
