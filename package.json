@@ -12,7 +12,7 @@
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.83.0",
         "sass-loader": "^16.0.4",
-        "ts-loader": "^9.5.1",
+        "ts-loader": "^9.5.2",
         "typescript": "^5",
         "webpack": "^5.97.1",
         "webpack-cli": "^5.1.4",
