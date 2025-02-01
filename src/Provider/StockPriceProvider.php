@@ -145,7 +145,7 @@ class StockPriceProvider
         try {
             return $this->api->getQuotes($symbols);
         } catch (ApiException $e) {
-            // Retry if the query files
+            // Retry if the query fails
             if ($try < self::FETCH_QUOTES_MAX_TRIES) {
                 return $this->fetchData($symbols, $try + 1);
             }
