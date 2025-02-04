@@ -189,7 +189,7 @@ class StockPriceProvider
 
     private function convertPrice(float $price, string $fromCurrency, string $toCurrency): ?float
     {
-        return $price / $this->getExchangeRate($fromCurrency, $toCurrency);
+        return $price * $this->getExchangeRate($fromCurrency, $toCurrency);
     }
 
     private function getExchangeRate(string $fromCurrency, string $toCurrency): float
