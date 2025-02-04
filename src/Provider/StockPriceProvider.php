@@ -2,6 +2,8 @@
 
 namespace App\Provider;
 
+use App\Entity\Exchange;
+use App\Entity\RecentPrice;
 use App\Entity\Stock;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +18,8 @@ class StockPriceProvider
     private const UPDATE_PERIOD_MINUTES = 5;
     private const string DEFAULT_CATEGORY = 'Sonstige';
     private const string FAVOURITES_CATEGORY = 'Favoriten';
+
+    private array $exchangeRates = [];
 
     private StockRepository $stockRepo;
 
@@ -77,16 +81,11 @@ class StockPriceProvider
 
     public function initStock(Stock $stock): Stock
     {
-        $data = $this->fetchData([$stock->getSymbol()]);
-        if (count($data) == 1) {
-            $quote = $data[0];
-            [$priceMarket, $price, $priceChange, $priceTime] = $this->getMostRecentPrice($quote);
-            $stock
-                ->setCurrentPrice($price)
-                ->setCurrentPriceTime($priceTime)
-                ->setCurrentPriceMarket($priceMarket)
-                ->setCurrentChange($priceChange)
-                ->setUpdatedAt(new \DateTime());
+        $symbols = $stock->getSymbols();
+        $quotes = $this->fetchQuotes($symbols);
+        $mostRecentPrice = $this->getMostRecentPrice($symbols, $quotes);
+        if ($mostRecentPrice) {
+            $this->updateStockPrice($stock, $mostRecentPrice);
         }
 
         return $stock;
@@ -95,36 +94,36 @@ class StockPriceProvider
     public function updateStocks(): void
     {
         $stocks = $this->getStocks();
-        $symbols = array_keys($stocks);
-        $data = $this->fetchData($symbols);
-        foreach ($data as $quote) {
-            $symbol = $quote->getSymbol();
-            $stock = $stocks[$symbol];
-            [$priceMarket, $price, $priceChange, $priceTime] = $this->getMostRecentPrice($quote);
-            $stock
-                ->setCurrentPrice($price)
-                ->setCurrentPriceTime($priceTime)
-                ->setCurrentPriceMarket($priceMarket)
-                ->setCurrentChange($priceChange)
-                ->setUpdatedAt(new \DateTime());
-            $this->em->persist($stock);
+        $symbols = array_merge(...array_map(function (Stock $stock) { return $stock->getSymbols(); }, $stocks));
+        $quotes = $this->fetchQuotes($symbols);
+        foreach ($stocks as $stock) {
+            $mostRecentPrice = $this->getMostRecentPrice($stock->getSymbols(), $quotes);
+            if ($mostRecentPrice) {
+                $this->updateStockPrice($stock, $mostRecentPrice);
+                $this->em->persist($stock);
+            }
         }
         $this->em->flush();
 
         $this->eventDispatcher->dispatch(new StockUpdateEvent());
     }
 
-    private function getMostRecentPrice(Quote $quote): array
+    private function getMostRecentPrice(array $symbols, array $quotes): ?RecentPrice
     {
-        if ($quote->getPreMarketPrice() && $quote->getPreMarketTime() > $quote->getRegularMarketTime()) {
-            return [Stock::PRICE_TYPE_PRE_MARKET, $quote->getPreMarketPrice(), $quote->getPreMarketChange(), $quote->getPreMarketTime()];
+        $mostRecentPriceTime = null;
+        $mostRecentPrice = null;
+        foreach ($symbols as $symbol) {
+            $quote = $quotes[$symbol];
+            if (isset($quote)) {
+                $recentPrice = RecentPrice::fromQuote($quote);
+                if (!$mostRecentPriceTime || $recentPrice->time > $mostRecentPriceTime) {
+                    $mostRecentPrice = $recentPrice;
+                    $mostRecentPriceTime = $recentPrice->time;
+                }
+            }
         }
 
-        if ($quote->getPostMarketPrice() && $quote->getPostMarketTime() > $quote->getRegularMarketTime()) {
-            return [Stock::PRICE_TYPE_POST_MARKET, $quote->getPostMarketPrice(), $quote->getPostMarketChange(), $quote->getPostMarketTime()];
-        }
-
-        return [Stock::PRICE_TYPE_REGULAR_MARKET, $quote->getRegularMarketPrice(), $quote->getRegularMarketChange(), $quote->getRegularMarketTime()];
+        return $mostRecentPrice;
     }
 
     public function hasToUpdate(): bool
@@ -134,23 +133,76 @@ class StockPriceProvider
     }
 
     /**
-     * @return Quote[]
+     * @return Quote[] Indexed by symbol
      */
-    private function fetchData(array $symbols, int $try = 0): ?array
+    private function fetchQuotes(array $symbols, int $try = 0): ?array
     {
         if (!$symbols) {
             return [];
         }
 
         try {
-            return $this->api->getQuotes($symbols);
+            $quotesIndex = [];
+            $quotes = $this->api->getQuotes($symbols);
+            foreach ($quotes as $quote) {
+                $quotesIndex[$quote->getSymbol()] = $quote;
+            }
+            return $quotesIndex;
         } catch (ApiException $e) {
             // Retry if the query fails
             if ($try < self::FETCH_QUOTES_MAX_TRIES) {
-                return $this->fetchData($symbols, $try + 1);
+                return $this->fetchQuotes($symbols, $try + 1);
             }
         }
 
         return [];
+    }
+
+    private function updateStockPrice(Stock $stock, RecentPrice $mostRecentPrice): void
+    {
+        try {
+            $exchange = Exchange::from($mostRecentPrice->exchange);
+        } catch (\ValueError) {
+            $exchange = null;
+        }
+
+        // Currency conversion
+        $stockCurrency = $stock->getCurrency();
+        if ($stockCurrency !== $mostRecentPrice->currency) {
+            try {
+                $mostRecentPrice->price = $this->convertPrice($mostRecentPrice->price, $mostRecentPrice->currency, $stockCurrency);
+                $mostRecentPrice->change = $this->convertPrice($mostRecentPrice->change, $mostRecentPrice->currency, $stockCurrency);
+            } catch (\UnexpectedValueException $e) {
+                return; // Cloud not determine exchange rate
+            }
+        }
+
+        $stock
+            ->setCurrentPrice($mostRecentPrice->price)
+            ->setCurrentPriceTime($mostRecentPrice->time)
+            ->setCurrentPriceMarket($mostRecentPrice->market)
+            ->setCurrentPriceExchange($exchange)
+            ->setCurrentPriceSymbol($mostRecentPrice->symbol)
+            ->setCurrentChange($mostRecentPrice->change)
+            ->setUpdatedAt(new \DateTime());
+    }
+
+    private function convertPrice(float $price, string $fromCurrency, string $toCurrency): ?float
+    {
+        return $price / $this->getExchangeRate($fromCurrency, $toCurrency);
+    }
+
+    private function getExchangeRate(string $fromCurrency, string $toCurrency): float
+    {
+        if (!isset($this->exchangeRates[$fromCurrency.':'.$toCurrency])) {
+            $quote = $this->api->getExchangeRate($fromCurrency, $toCurrency);
+            if (null === $quote) {
+                throw new \UnexpectedValueException("Could not find exchange rate for $fromCurrency $toCurrency");
+            }
+
+            $this->exchangeRates[$fromCurrency.':'.$toCurrency] = (RecentPrice::fromQuote($quote))->price;
+        }
+
+        return $this->exchangeRates[$fromCurrency.':'.$toCurrency];
     }
 }

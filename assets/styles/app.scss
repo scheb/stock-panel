@@ -37,6 +37,14 @@ span.indicator {
     }
 }
 
+span.exchange {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 0;
+    vertical-align: sub;
+    cursor: help;
+}
+
 .privacyButtonIcon {
     @extend .bi-eye;
 }

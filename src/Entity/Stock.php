@@ -7,7 +7,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Table(name: 'stock')]
 #[ORM\Entity(repositoryClass: 'App\Repository\StockRepository')]
-#[UniqueEntity('symbol')]
 class Stock
 {
     public const PRICE_TYPE_PRE_MARKET = 'pre';
@@ -24,8 +23,8 @@ class Stock
     #[ORM\Column(name: 'name', type: 'string', length: 50)]
     private string $name;
 
-    #[ORM\Column(name: 'symbol', type: 'string', length: 20, unique: true)]
-    private string $symbol;
+    #[ORM\Column(name: 'symbols', type: 'simple_array')]
+    private array $symbols;
 
     #[ORM\Column(name: 'category', type: 'string', nullable: true)]
     private ?string $category;
@@ -42,8 +41,14 @@ class Stock
     #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
     private ?float $currentPrice;
 
+    #[ORM\Column(name: 'currentPriceSymbol', type: 'string', nullable: true)]
+    private ?string $currentPriceSymbol;
+
+    #[ORM\Column(name: 'currentPriceExchange', type: 'string', nullable: true, enumType: Exchange::class)]
+    private ?Exchange $currentPriceExchange;
+
     #[ORM\Column(name: 'currentPriceMarket', type: 'string', nullable: true)]
-    private string $currentPriceMarket;
+    private ?string $currentPriceMarket;
 
     #[ORM\Column(name: 'currentPriceTime', type: 'datetime', nullable: true)]
     private \DateTimeInterface $currentPriceTime;
@@ -154,14 +159,21 @@ class Stock
         return $this;
     }
 
-    public function getSymbol(): string
+    /**
+     * @return string[]
+     */
+    public function getSymbols(): array
     {
-        return $this->symbol;
+        return $this->symbols;
     }
 
-    public function setSymbol(string $symbol): self
+    /**
+     * @param string[] $symbols
+     * @return $this
+     */
+    public function setSymbols(array $symbols): self
     {
-        $this->symbol = $symbol;
+        $this->symbols = $symbols;
         return $this;
     }
 
@@ -217,6 +229,28 @@ class Stock
     public function setCurrentPrice(?float $currentPrice): self
     {
         $this->currentPrice = $currentPrice;
+        return $this;
+    }
+
+    public function getCurrentPriceSymbol(): ?string
+    {
+        return $this->currentPriceSymbol;
+    }
+
+    public function setCurrentPriceSymbol(?string $currentPriceSymbol): self
+    {
+        $this->currentPriceSymbol = $currentPriceSymbol;
+        return $this;
+    }
+
+    public function getCurrentPriceExchange(): ?Exchange
+    {
+        return $this->currentPriceExchange;
+    }
+
+    public function setCurrentPriceExchange(?Exchange $currentPriceExchange): self
+    {
+        $this->currentPriceExchange = $currentPriceExchange;
         return $this;
     }
 

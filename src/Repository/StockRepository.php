@@ -17,13 +17,7 @@ class StockRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder("s");
         $qb->orderBy("s.favourite", "DESC")->addOrderBy("s.name", "ASC");
-        $stocks = $qb->getQuery()->execute();
-        $index = [];
-        /** @var Stock $stock */
-        foreach ($stocks as $stock) {
-            $index[$stock->getSymbol()] = $stock;
-        }
-        return $index;
+        return $qb->getQuery()->execute();
     }
 
     public function getLastUpdate(): \DateTime

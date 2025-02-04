@@ -13,10 +13,10 @@
 {% for stock in result %}
 <tr>
 <th>
-<a href="{{ path("stock_add", {"symbol": stock.symbol}) }}" class="btn btn-primary btn-xs">
+<a href="{{ path("stock_add", {"symbol": stock.currentPriceSymbol}) }}" class="btn btn-primary btn-xs">
 <span class="glyphicon glyphicon-plus"></span>
 </a>
-<div><a href="http://finance.yahoo.com/q?s={{ stock.symbol }}" rel="external">{{ stock.name }}</a> <small>{{ stock.symbol }}</small></div>
+<div><a href="http://finance.yahoo.com/q?s={{ stock.currentPriceSymbol }}" rel="external">{{ stock.name }}</a> <small>{{ stock.currentPriceSymbol }}</small></div>
 </th>
 <td>{{ stock.exchange }}</td>
 </tr>

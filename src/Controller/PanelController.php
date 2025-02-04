@@ -78,7 +78,11 @@ class PanelController extends AbstractController
             throw $this->createNotFoundException('Invalid range');
         }
 
-        $symbol = $stock->getSymbol();
+        $symbol = $stock->getCurrentPriceSymbol();
+        if (!$symbol) {
+            // Fallback when there is no current price set
+            $symbol = $stock->getSymbols()[0] ?? null;
+        }
         $interval = self::RANGE_INTERVAL_MAP[$range];
 
         $url = "https://query1.finance.yahoo.com/v8/finance/chart/" . $symbol . "?range=" . $range . "&includePrePost=false&interval=" . $interval;

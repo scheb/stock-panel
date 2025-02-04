@@ -5,4 +5,4 @@ Alert condition: {{ stock.alertComparator }} {{ stock.alertThreshold }} {{ stock
 
 Current price: {{ stock.currentPrice }} ({{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }} today)
 
-http://finance.yahoo.com/q?s={{ stock.symbol }}
+http://finance.yahoo.com/q?s={{ stock.currentPriceSymbol }}
