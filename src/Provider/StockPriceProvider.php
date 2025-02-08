@@ -18,6 +18,7 @@ class StockPriceProvider
     private const int UPDATE_PERIOD_MINUTES = 5;
     private const string DEFAULT_CATEGORY = 'Sonstige';
     private const string FAVOURITES_CATEGORY = 'Favoriten';
+    private const string WATCHLIST_CATEGORY = 'Watchlist';
 
     private array $exchangeRates = [];
 
@@ -47,11 +48,17 @@ class StockPriceProvider
     {
         $categories = [];
         $favourites = [];
+        $watchlist = [];
         $uncategorized = [];
         $stocks = $this->getStocks();
         foreach ($stocks as $stock) {
             if ($stock->isFavourite()) {
                 $favourites[] = $stock;
+                continue;
+            }
+
+            if (!$stock->getQuantity()) {
+                $watchlist[] = $stock;
                 continue;
             }
 
@@ -67,6 +74,7 @@ class StockPriceProvider
 
             $categories[$category][] = $stock;
         }
+
         $all = [];
         if ($favourites) {
             $all[self::FAVOURITES_CATEGORY] = $favourites;
@@ -74,6 +82,9 @@ class StockPriceProvider
         $all = array_merge($all, $categories);
         if ($uncategorized) {
             $all[self::DEFAULT_CATEGORY] = $uncategorized;
+        }
+        if ($watchlist) {
+            $all[self::WATCHLIST_CATEGORY] = $watchlist;
         }
 
         return $all;
