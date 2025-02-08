@@ -44,8 +44,7 @@ enum Exchange: string
 
     public function label(): string
     {
-        return match($this)
-        {
+        return match($this) {
             self::FRA => 'Frankfurt',
             self::GER => 'Xetra',
             self::BER => 'Berlin',
@@ -80,8 +79,7 @@ enum Exchange: string
 
     public function flag(): string
     {
-        return match($this)
-        {
+        return match($this) {
             self::FRA => '🇩🇪',
             self::GER => '🇩🇪',
             self::BER => '🇩🇪',

@@ -30,7 +30,8 @@ class StockType extends AbstractType
         ;
 
         $builder->get('symbols')
-            ->addModelTransformer(new CallbackTransformer(
+            ->addModelTransformer(
+                new CallbackTransformer(
                     function ($tagsAsArray): string {
                         if (null === $tagsAsArray) {
                             return '';
@@ -38,15 +39,15 @@ class StockType extends AbstractType
                         // transform the array to a string
                         return implode(', ', $tagsAsArray);
                     },
-                function ($tagsAsString): array {
-                    // transform the string back to an array
-                    $values = explode(', ', $tagsAsString);
-                    $values = array_map('trim', $values);
-                    $values = array_filter($values, function ($value) { return strlen($value) > 0; });
-                    return array_values($values);
-                },
-            )
-        );
+                    function ($tagsAsString): array {
+                        // transform the string back to an array
+                        $values = explode(', ', $tagsAsString);
+                        $values = array_map('trim', $values);
+                        $values = array_filter($values, function ($value) { return strlen($value) > 0; });
+                        return array_values($values);
+                    },
+                )
+            );
     }
 
     public function getName(): string
