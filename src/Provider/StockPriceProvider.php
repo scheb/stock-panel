@@ -14,8 +14,8 @@ use Scheb\YahooFinanceApi\Results\Quote;
 
 class StockPriceProvider
 {
-    private const FETCH_QUOTES_MAX_TRIES = 3;
-    private const UPDATE_PERIOD_MINUTES = 5;
+    private const int FETCH_QUOTES_MAX_TRIES = 3;
+    private const int UPDATE_PERIOD_MINUTES = 5;
     private const string DEFAULT_CATEGORY = 'Sonstige';
     private const string FAVOURITES_CATEGORY = 'Favoriten';
 
