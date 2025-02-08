@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Table(name: 'stock')]
 #[ORM\Entity(repositoryClass: 'App\Repository\StockRepository')]
@@ -32,13 +31,13 @@ class Stock
     #[ORM\Column(name: 'currency', type: 'string', length: 3)]
     private string $currency;
 
-    #[ORM\Column(name: 'quantity', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    #[ORM\Column(name: 'quantity', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $quantity;
 
-    #[ORM\Column(name: 'initialPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    #[ORM\Column(name: 'initialPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $initialPrice;
 
-    #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $currentPrice;
 
     #[ORM\Column(name: 'currentPriceSymbol', type: 'string', nullable: true)]
@@ -53,10 +52,10 @@ class Stock
     #[ORM\Column(name: 'currentPriceTime', type: 'datetime', nullable: true)]
     private \DateTimeInterface $currentPriceTime;
 
-    #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $currentChange;
 
-    #[ORM\Column(name: 'alertThreshold', type: 'decimal', precision: 8, scale: 2, nullable: true)]
+    #[ORM\Column(name: 'alertThreshold', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $alertThreshold;
 
     #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
