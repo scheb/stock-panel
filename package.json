@@ -10,7 +10,7 @@
         "core-js": "^3.40.0",
         "highcharts": "^12",
         "regenerator-runtime": "^0.14.1",
-        "sass": "^1.83.4",
+        "sass": "^1.84.0",
         "sass-loader": "^16.0.4",
         "ts-loader": "^9.5.2",
         "typescript": "^5",
