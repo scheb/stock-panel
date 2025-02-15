@@ -56,6 +56,11 @@ Encore
 
     // uncomment if you use TypeScript
     .enableTypeScriptLoader()
+
+    .copyFiles({
+        from: './assets/favicons',
+        to: 'favicons/[path][name].[ext]',
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

@@ -3,12 +3,16 @@
 <head>
 <title>{% block title %}Stock Panel{% endblock %}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#00ff7f">
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
+<link rel="apple-touch-icon" sizes="180x180" href="/build/favicons/apple-touch-icon.png">
+<link rel="icon" href="/build/favicons/favicon.svg">
+<link rel="manifest" href="/build/favicons/site.webmanifest">
 </head>
 <body{% if app.request.cookies.get('privacyIsActive') == '1' %} class="privacyIsActive"{% endif %}>
 

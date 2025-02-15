@@ -8,6 +8,7 @@
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "core-js": "^3.40.0",
+        "file-loader": "^6.0.0",
         "highcharts": "^12",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.84.0",
