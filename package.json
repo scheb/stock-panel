@@ -5,7 +5,7 @@
         "@babel/preset-env": "^7.26.9",
         "@symfony/webpack-encore": "^5",
         "@types/bootstrap": "^5.2.10",
-        "bootstrap": "^5.3.3",
+        "bootstrap": "^5.3.5",
         "bootstrap-icons": "^1.11.3",
         "core-js": "^3.41.0",
         "file-loader": "^6.0.0",
