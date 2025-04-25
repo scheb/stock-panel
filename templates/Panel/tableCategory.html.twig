@@ -5,7 +5,7 @@
                 <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external">{{ stock.name }}</a>
                 <span class="actions">
                     <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill" title="Bearbeiten"></span></a>
-                    <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}" title="Löschen"><span class="bi bi-x-circle-fill"></span></button>
+                    <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}" data-delete-stock-name="{{ stock.name }}" title="Löschen"><span class="bi bi-x-circle-fill"></span></button>
                     <a href="{{ path("stock_favourite", {"id": stock.id}) }}" class="btn btn-warning px-1 py-0"><span class="bi {% if stock.favourite %}bi-star{% else %}bi-star-fill{% endif %}"></span></a>
                 </span>
             </div>
