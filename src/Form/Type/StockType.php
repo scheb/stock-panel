@@ -17,16 +17,16 @@ class StockType extends AbstractType
         $currencies = ["EUR" => "EUR", "USD" => "USD"];
         $comparators = ['kleiner' => Stock::COMPARATOR_BELOW, 'größer' => Stock::COMPARATOR_ABOVE];
         $builder
-            ->add('symbols', TextType::class, ['label' => 'Symbols', 'required' => true])
             ->add("name", null, ['label' => 'Name'])
+            ->add('symbols', TextType::class, ['label' => 'Symbols', 'required' => true])
             ->add("category", null, ['label' => 'Kategorie (optional)', 'required' => false])
-            ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
-            ->add("initialPrice", NumberType::class, ['label' => 'Erster Kurs', 'required' => false])
             ->add("quantity", NumberType::class, ['label' => 'Anzahl', 'required' => false])
+            ->add("initialPrice", NumberType::class, ['label' => 'Erster Kurs', 'required' => false])
+            ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
             ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?'])
             ->add("favourite", null, ['required' => false, 'label' => 'Favoriten?'])
-            ->add("alertThreshold", NumberType::class, ['required' => false, 'label' => 'Alarm Preis?'])
-            ->add("alertComparator", ChoiceType::class, ['choices' => $comparators, 'required' => false, 'label' => 'Alarm Vergleichsoperator'])
+            ->add("alertThreshold", NumberType::class, ['required' => false, 'label' => 'Preisgrenze'])
+            ->add("alertComparator", ChoiceType::class, ['choices' => $comparators, 'required' => false, 'label' => 'Vergleich'])
         ;
 
         $builder->get('symbols')

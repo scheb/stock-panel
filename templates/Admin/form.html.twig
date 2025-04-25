@@ -1,0 +1,76 @@
+{% set two_columns_css = "col-sm-6" %}
+{% set three_columns_css = "col-sm-6 col-md-4 col-lg-3 col-xxl-2" %}
+
+{{ form_errors(form) }}
+
+<fieldset class="mb-2">
+    <legend>Position</legend>
+    <div class="card">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="{{ two_columns_css }}">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="{{ two_columns_css }}">
+                    {{ form_row(form.symbols) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="{{ two_columns_css }}">
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="mb-2">
+    <legend>Position</legend>
+    <div class="card">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.quantity) }}
+                </div>
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.initialPrice) }}
+                </div>
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.currency) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="mb-2">
+<legend>Alerts</legend>
+    <div class="card">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.alertComparator) }}
+                </div>
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.alertThreshold) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="mb-2">
+    <legend>Optionen</legend>
+    <div class="card">
+        <div class="card-body pb-0">
+            <div class="row">
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.displayChart) }}
+                </div>
+                <div class="{{ three_columns_css }}">
+                    {{ form_row(form.favourite) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>

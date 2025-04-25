@@ -7,14 +7,9 @@
 {% block body %}
     <div class="container py-3">
         <h1>Aktie bearbeiten</h1>
-        <form class="stock-form panel panel-default" action="{{ path("stock_edit", {"id": id}) }}" method="POST">
-            <div class="panel-body">
-                {{ form_widget(form) }}
-            </div>
-            <div class="panel-footer">
-                <button type="submit" class="btn btn-primary"><span class="bi bi-save2"></span> Speichern
-                </button>
-            </div>
-        </form>
+        {{ form_start(form) }}
+        {% include "Admin/form.html.twig" %}
+        <p><button type="submit" class="btn btn-primary"><span class="bi bi-save2"></span> Speichern</button></p>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
