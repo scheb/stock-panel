@@ -271,9 +271,12 @@ class StockPriceProvider
 
                     $stock->setLastDayPrice($lastDayPrice);
                     $stock->setLastDayPriceTime($lastDayPriceTime);
+                    $this->em->persist($stock);
                     break;
                 }
             }
         }
+
+        $this->em->flush();
     }
 }
