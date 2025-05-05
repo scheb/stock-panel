@@ -16,6 +16,8 @@ class StockPriceProvider
 {
     private const int FETCH_QUOTES_MAX_TRIES = 3;
     private const int UPDATE_PERIOD_MINUTES = 5;
+
+    private const string ETFS_CATEGORY = 'ETFs';
     private const string DEFAULT_CATEGORY = 'Sonstige';
     private const string FAVOURITES_CATEGORY = 'Favoriten';
     private const string WATCHLIST_CATEGORY = 'Watchlist';
@@ -50,6 +52,7 @@ class StockPriceProvider
         $favourites = [];
         $watchlist = [];
         $uncategorized = [];
+        $etfs = [];
         $stocks = $this->getStocks();
         foreach ($stocks as $stock) {
             if ($stock->isFavourite()) {
@@ -65,6 +68,11 @@ class StockPriceProvider
             $category = $stock->getCategory();
             if (!$category) {
                 $uncategorized[] = $stock;
+                continue;
+            }
+
+            if (self::ETFS_CATEGORY === $category) {
+                $etfs[] = $stock;
                 continue;
             }
 
@@ -85,6 +93,9 @@ class StockPriceProvider
         }
         if ($watchlist) {
             $all[self::WATCHLIST_CATEGORY] = $watchlist;
+        }
+        if ($etfs) {
+            $all[self::ETFS_CATEGORY] = $etfs;
         }
 
         return $all;
