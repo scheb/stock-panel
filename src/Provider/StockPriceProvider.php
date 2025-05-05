@@ -19,8 +19,8 @@ class StockPriceProvider
 
     private const string ETFS_CATEGORY = 'ETFs';
     private const string DEFAULT_CATEGORY = 'Sonstige';
-    private const string FAVOURITES_CATEGORY = 'Favoriten';
-    private const string WATCHLIST_CATEGORY = 'Watchlist';
+    private const string FAVOURITES_CATEGORY = '⭐ Favoriten';
+    private const string WATCHLIST_CATEGORY = '👀 Watchlist';
 
     private array $exchangeRates = [];
 
