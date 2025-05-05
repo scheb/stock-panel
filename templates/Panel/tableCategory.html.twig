@@ -40,15 +40,12 @@
             <td>&ndash;</td>
         {% endif %}
 
-        {% if stock.currentChange is not null %}
-            <td class="{% if stock.currentChangePercent < -0.005 %}down{% elseif stock.currentChangePercent > 0.005 %}up{% endif %}">
+        {% if stock.changeSinceLastDayPercent is not null %}
+            <td class="help {% if stock.changeSinceLastDayPercent < -0.005 %}down{% elseif stock.changeSinceLastDayPercent > 0.005 %}up{% endif %}" title="{{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}{{ "\n" }}{{ stock.currentPriceExchange.label }} {{ stock.currentPriceExchange.flag }} ({{ stock.currentPriceMarket|title }} Market){{ "\n" }}{{ stock.currentPriceTime|sonata_format_datetime }}">
                 <div>
-                    {% if stock.currentPriceExchange %}
-                        <span class="exchange" title="{{ stock.currentPriceExchange.label }} ({{ stock.currentPriceMarket|title }} Market){{ "\n" }}{{ stock.currentPriceTime|sonata_format_datetime }}">{{ stock.currentPriceExchange.flag }}</span>
-                    {% endif %}
-                    <span class="indicator"></span>{{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}
+                    <span class="indicator"></span>{{ stock.changeSinceLastDayPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}
                 </div>
-                <div class="isPrivate">{{ stock.currentChange|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                <div class="isPrivate">{{ stock.changeSinceLastDay|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
             </td>
         {% else %}
             <td>&ndash;</td>

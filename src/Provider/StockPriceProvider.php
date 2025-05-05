@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Scheb\YahooFinanceApi\ApiClient;
 use Scheb\YahooFinanceApi\Exception\ApiException;
+use Scheb\YahooFinanceApi\Results\HistoricalData;
 use Scheb\YahooFinanceApi\Results\Quote;
 
 class StockPriceProvider
@@ -121,10 +122,22 @@ class StockPriceProvider
         $quotes = $this->fetchQuotes($symbols);
         foreach ($stocks as $stock) {
             $mostRecentPrice = $this->getMostRecentPrice($stock->getSymbols(), $quotes);
-            if ($mostRecentPrice) {
-                $this->updateStockPrice($stock, $mostRecentPrice);
-                $this->em->persist($stock);
+            if (!$mostRecentPrice) {
+                continue;
             }
+
+            // Remember previous day's price
+            if (
+                null === $stock->getLastDayPriceTime()
+                || $stock->getLastDayPriceTime()->format('Y-m-d') !== $mostRecentPrice->time->format('Y-m-d')
+            ) {
+                $stock->setLastDayPrice($stock->getCurrentPrice());
+                $stock->setLastDayPriceTime($stock->getCurrentPriceTime());
+            }
+
+            // Update current price
+            $this->updateStockPrice($stock, $mostRecentPrice);
+            $this->em->persist($stock);
         }
         $this->em->flush();
 
@@ -227,5 +240,40 @@ class StockPriceProvider
         }
 
         return $this->exchangeRates[$fromCurrency.':'.$toCurrency];
+    }
+
+    public function setLastDayPrices(): void
+    {
+        $stocks = $this->stockRepo->findAll();
+        foreach ($stocks as $stock) {
+            $symbols = $stock->getSymbols();
+            $startDate = new \DateTime('-7 days');
+            $endDate = new \DateTime('today');
+            foreach ($symbols as $symbol) {
+                $historicalData = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
+                if ($historicalData) {
+                    /** @var HistoricalData $lastDayValues */
+                    $lastDayValues = array_pop($historicalData);
+                    $quote = $this->api->getQuote($symbol);
+
+                    $lastDayPrice = $lastDayValues->getAdjClose() ?? $lastDayValues->getClose();
+                    $lastDayPriceTime = $lastDayValues->getDate();
+
+                    // Currency conversion
+                    $stockCurrency = $stock->getCurrency();
+                    if ($stockCurrency !== $quote->getCurrency()) {
+                        try {
+                            $lastDayPrice = $this->convertPrice($lastDayPrice, $quote->getCurrency(), $stockCurrency);
+                        } catch (\UnexpectedValueException $e) {
+                            return; // Cloud not determine exchange rate
+                        }
+                    }
+
+                    $stock->setLastDayPrice($lastDayPrice);
+                    $stock->setLastDayPriceTime($lastDayPriceTime);
+                    break;
+                }
+            }
+        }
     }
 }

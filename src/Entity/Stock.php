@@ -37,6 +37,12 @@ class Stock
     #[ORM\Column(name: 'initialPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $initialPrice;
 
+    #[ORM\Column(name: 'lastDayPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
+    private ?float $lastDayPrice;
+
+    #[ORM\Column(name: 'lastDayPriceTime', type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $lastDayPriceTime;
+
     #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $currentPrice;
 
@@ -50,7 +56,7 @@ class Stock
     private ?string $currentPriceMarket;
 
     #[ORM\Column(name: 'currentPriceTime', type: 'datetime', nullable: true)]
-    private \DateTimeInterface $currentPriceTime;
+    private ?\DateTimeInterface $currentPriceTime;
 
     #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $currentChange;
@@ -139,6 +145,22 @@ class Stock
         return 0;
     }
 
+    public function getChangeSinceLastDayPercent(): float
+    {
+        if (null !== $this->lastDayPrice) {
+            return $this->getChangeSinceLastDay() / $this->lastDayPrice;
+        }
+        return 0;
+    }
+
+    public function getChangeSinceLastDay(): float
+    {
+        if (null !== $this->lastDayPrice && null !== $this->currentPrice) {
+            return $this->currentPrice - $this->lastDayPrice;
+        }
+        return 0;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////// GETTER / SETTER
 
 
@@ -217,6 +239,28 @@ class Stock
     public function setInitialPrice(?float $initialPrice): self
     {
         $this->initialPrice = $initialPrice;
+        return $this;
+    }
+
+    public function getLastDayPrice(): ?float
+    {
+        return $this->lastDayPrice;
+    }
+
+    public function setLastDayPrice(?float $lastDayPrice): self
+    {
+        $this->lastDayPrice = $lastDayPrice;
+        return $this;
+    }
+
+    public function getLastDayPriceTime(): ?\DateTimeInterface
+    {
+        return $this->lastDayPriceTime;
+    }
+
+    public function setLastDayPriceTime(?\DateTimeInterface $lastDayPriceTime): self
+    {
+        $this->lastDayPriceTime = $lastDayPriceTime;
         return $this;
     }
 
