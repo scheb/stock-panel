@@ -32,7 +32,7 @@
         </td>
 
         {% if stock.profit is not null %}
-            <td class="{% if stock.profit < 0 %}down{% elseif stock.profit > 0 %}up{% endif %}">
+            <td class="{% if stock.profitPercent < -0.1 %}down{% elseif stock.profitPercent > 0.1 %}up{% endif %}">
                 <div>{{ stock.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
                 <div class="isPrivate">{{ stock.profit|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
             </td>
@@ -41,7 +41,7 @@
         {% endif %}
 
         {% if stock.currentChange is not null %}
-            <td class="{% if stock.currentChange < 0 %}down{% elseif stock.currentChange > 0 %}up{% endif %}">
+            <td class="{% if stock.currentChangePercent < -0.005 %}down{% elseif stock.currentChangePercent > 0.005 %}up{% endif %}">
                 <div>
                     {% if stock.currentPriceExchange %}
                         <span class="exchange" title="{{ stock.currentPriceExchange.label }} ({{ stock.currentPriceMarket|title }} Market){{ "\n" }}{{ stock.currentPriceTime|sonata_format_datetime }}">{{ stock.currentPriceExchange.flag }}</span>
