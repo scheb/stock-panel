@@ -20,6 +20,7 @@ enum Exchange: string
     case NYQ = 'NYQ';
     case PKN = 'PKN';
     case NCM = 'NCM';
+    case NGM = 'NGM';
 
     // European
     case LSE = 'LSE';
@@ -57,6 +58,7 @@ enum Exchange: string
             self::NYQ => 'NYSE',
             self::PKN => 'OTC Markets OTCPK',
             self::NCM => 'NasdaqCM',
+            self::NGM => 'NasdaqGM',
 
             self::LSE => 'London',
             self::VIE => 'Wien',
@@ -92,6 +94,7 @@ enum Exchange: string
             self::NYQ => '🇺🇸',
             self::PKN => '🇺🇸',
             self::NCM => '🇺🇸',
+            self::NGM => '🇺🇸',
 
             self::LSE => '🇬🇧',
             self::VIE => '🇦🇹',
