@@ -87,6 +87,7 @@ class StockPriceProvider
         if ($favourites) {
             $all[self::FAVOURITES_CATEGORY] = $favourites;
         }
+        ksort($categories);
         $all = array_merge($all, $categories);
         if ($uncategorized) {
             $all[self::DEFAULT_CATEGORY] = $uncategorized;
