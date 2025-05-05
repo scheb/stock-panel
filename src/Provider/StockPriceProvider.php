@@ -128,8 +128,8 @@ class StockPriceProvider
 
             // Remember previous day's price
             if (
-                null === $stock->getLastDayPriceTime()
-                || $stock->getLastDayPriceTime()->format('Y-m-d') !== $mostRecentPrice->time->format('Y-m-d')
+                null === $stock->getCurrentPriceTime()
+                || $stock->getCurrentPriceTime()->format('Y-m-d') !== $mostRecentPrice->time->format('Y-m-d')
             ) {
                 $stock->setLastDayPrice($stock->getCurrentPrice());
                 $stock->setLastDayPriceTime($stock->getCurrentPriceTime());
