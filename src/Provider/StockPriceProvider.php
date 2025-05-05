@@ -91,11 +91,11 @@ class StockPriceProvider
         if ($uncategorized) {
             $all[self::DEFAULT_CATEGORY] = $uncategorized;
         }
-        if ($watchlist) {
-            $all[self::WATCHLIST_CATEGORY] = $watchlist;
-        }
         if ($etfs) {
             $all[self::ETFS_CATEGORY] = $etfs;
+        }
+        if ($watchlist) {
+            $all[self::WATCHLIST_CATEGORY] = $watchlist;
         }
 
         return $all;
