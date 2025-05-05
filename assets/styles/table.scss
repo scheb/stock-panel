@@ -84,3 +84,13 @@
         }
     }
 }
+
+.secondaryValue {
+    color: tint-color($secondary, 33%);
+}
+
+.privacyIsActive, .watchlist {
+    .secondaryValue {
+        color: var(--bs-table-color-state, var(--bs-table-color-type, var(--bs-table-color)));
+    }
+}

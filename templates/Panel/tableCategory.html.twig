@@ -1,5 +1,5 @@
 {% for stock in stocks %}
-    <tr>
+    <tr{% if not stock.quantity %} class="watchlist"{% endif %}>
         <th>
             <div>
                 <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external">{{ stock.name }}</a>
@@ -15,7 +15,7 @@
 
         <td class="d-none d-sm-table-cell">
             {% if stock.initialPrice is not null %}
-                <div>{{ stock.initialPrice|sonata_number_format_currency(stock.currency) }}</div>
+                <div class="secondaryValue">{{ stock.initialPrice|sonata_number_format_currency(stock.currency) }}</div>
                 {% if stock.investment %}<div class="isPrivate">{{ stock.investment|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
             {% else %}
                 &ndash;
@@ -24,7 +24,7 @@
 
         <td class="d-none d-sm-table-cell">
             {% if stock.currentPrice is not null %}
-                <div>{{ stock.currentPrice|sonata_number_format_currency(stock.currency) }}</div>
+                <div class="secondaryValue">{{ stock.currentPrice|sonata_number_format_currency(stock.currency) }}</div>
                 {% if stock.currentValue %}<div class="isPrivate">{{ stock.currentValue|sonata_number_format_currency(stock.currency) }}</div>{% endif %}
             {% else %}
                 &ndash;
