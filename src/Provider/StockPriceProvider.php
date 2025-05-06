@@ -152,13 +152,15 @@ class StockPriceProvider
         $mostRecentPriceTime = null;
         $mostRecentPrice = null;
         foreach ($symbols as $symbol) {
+            if (!isset($quotes[$symbol])) {
+                continue; // Ignore unknown symbols
+            }
+
             $quote = $quotes[$symbol];
-            if (isset($quote)) {
-                $recentPrice = RecentPrice::fromQuote($quote);
-                if (!$mostRecentPriceTime || $recentPrice->time > $mostRecentPriceTime) {
-                    $mostRecentPrice = $recentPrice;
-                    $mostRecentPriceTime = $recentPrice->time;
-                }
+            $recentPrice = RecentPrice::fromQuote($quote);
+            if (!$mostRecentPriceTime || $recentPrice->time > $mostRecentPriceTime) {
+                $mostRecentPrice = $recentPrice;
+                $mostRecentPriceTime = $recentPrice->time;
             }
         }
 
