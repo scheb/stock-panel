@@ -24,7 +24,6 @@ COPY --from=frontend-build /application/public/build /usr/share/nginx/html/build
 ###############
 
 FROM phpdockerio/php:8.3-fpm AS backend-deployment
-WORKDIR /application
 
 # Install selected extensions and other stuff
 RUN apt-get update \
@@ -32,11 +31,23 @@ RUN apt-get update \
         php8.3-sqlite \
         php8.3-mysql \
         php8.3-intl \
-    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /var/cache/* /usr/share/doc/*
+        wget \
+        tar \
+        patchelf \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /var/cache/* /usr/share/doc/*
 
+WORKDIR /application/libcurl-impersonate
+RUN wget https://github.com/lwthiker/curl-impersonate/releases/download/v0.6.1/libcurl-impersonate-v0.6.1.x86_64-linux-gnu.tar.gz \
+    && tar -xf libcurl-impersonate-v0.6.1.x86_64-linux-gnu.tar.gz \
+    && patchelf --set-soname libcurl.so.4 /application/libcurl-impersonate/libcurl-impersonate-chrome.so
+
+ENV LD_PRELOAD=/application/libcurl-impersonate/libcurl-impersonate-chrome.so
+ENV CURL_IMPERSONATE=chrome116
 ENV APP_ENV=prod
 ENV APP_SECRET=""
 
+WORKDIR /application
 COPY bin/console      ./bin/
 COPY composer.*       ./
 COPY .env.dist        ./.env
