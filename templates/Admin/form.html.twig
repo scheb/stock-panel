@@ -18,6 +18,7 @@
             <div class="row">
                 <div class="{{ two_columns_css }}">
                     {{ form_row(form.category) }}
+                    <p>{% for category in categories %}<button type="button" class="btn btn-secondary btn-sm" onclick="setFormStockCategory(this)" >{{ category }}</button> {% endfor %}</p>
                 </div>
             </div>
         </div>

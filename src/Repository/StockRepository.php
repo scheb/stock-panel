@@ -27,4 +27,16 @@ class StockRepository extends ServiceEntityRepository
         $lastUpdate = $qb->getQuery()->getSingleScalarResult();
         return $lastUpdate ? new \DateTime($lastUpdate) : new \DateTime("-1 day");
     }
+
+    public function getAllCategories(): array
+    {
+        $categories = $this->createQueryBuilder("s")
+            ->select("DISTINCT s.category")
+            ->orderBy("s.category", "ASC")
+            ->where("s.category IS NOT NULL")
+            ->getQuery()
+            ->getResult();
+
+        return array_map(fn ($category) => $category['category'], $categories);
+    }
 }

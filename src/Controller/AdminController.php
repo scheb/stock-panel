@@ -41,6 +41,7 @@ class AdminController extends AbstractController
 
         return $this->render("Admin/add.html.twig", [
             'form' => $form->createView(),
+            'categories' => $this->stockRepository->getAllCategories(),
         ]);
     }
 
@@ -67,6 +68,7 @@ class AdminController extends AbstractController
 
         return $this->render("Admin/edit.html.twig", [
             'form' => $form->createView(),
+            'categories' => $this->stockRepository->getAllCategories(),
             'id' => $id,
         ]);
     }

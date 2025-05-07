@@ -66,6 +66,19 @@ function initDeleteButtons() {
         });
 }
 
+declare global {
+    interface Window {
+        setFormStockCategory(button: HTMLButtonElement): void;
+    }
+}
+
+window.setFormStockCategory = function(button: HTMLButtonElement) {
+    const formField = document.getElementById('stock_category')
+    if (formField instanceof HTMLInputElement) {
+        formField.value = button.textContent;
+    }
+}
+
 class RefreshButton {
     private readonly REFRESH_TIMEOUT = 5 * 60 * 1000; //Update every 5 minutes
     private button: HTMLButtonElement;
