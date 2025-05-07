@@ -102,9 +102,12 @@ class RefreshButton {
         if (response.status === 200) {
             this.stockTable.innerHTML = response.data;
             initDeleteButtons();
-            this.setLoading(false);
             this.startAutoRefresh();
+        } else {
+            alert('Could not update stock prices: ' + response.data);
         }
+
+        this.setLoading(false);
     }
 
     private setLoading(isLoading: boolean) {

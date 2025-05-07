@@ -39,7 +39,7 @@ class PanelController extends AbstractController
     public function tableAction(): Response
     {
         if ($this->stockPriceProvider->hasToUpdate()) {
-            $this->stockPriceProvider->updateStocks();
+            $this->updateStockPrices();
         }
 
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
@@ -55,7 +55,7 @@ class PanelController extends AbstractController
     public function chartsAction(): Response
     {
         if ($this->stockPriceProvider->hasToUpdate()) {
-            $this->stockPriceProvider->updateStocks();
+            $this->updateStockPrices();
         }
 
         $stocks = $this->stockPriceProvider->getStocks();
@@ -132,7 +132,12 @@ class PanelController extends AbstractController
     #[Route(path: '/update', name: 'stock_update')]
     public function updateAction(): Response
     {
-        $this->stockPriceProvider->updateStocks();
+        try {
+            $this->stockPriceProvider->updateStocks();
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), 500);
+        }
+
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
         return $this->render("Panel/tableContent.html.twig", [
             'categories' => $stockCategories,
@@ -142,5 +147,14 @@ class PanelController extends AbstractController
     private function getStock(int $id): ?Stock
     {
         return $this->stockRepo->findOneById($id);
+    }
+
+    private function updateStockPrices(): void
+    {
+        try {
+            $this->stockPriceProvider->updateStocks();
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Could not update stock prices: '.$e->getMessage());
+        }
     }
 }

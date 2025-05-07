@@ -36,6 +36,19 @@
     </div>
 </header>
 
+{% if app.session.flashbag.peekAll()|length > 0 %}
+    <div class="container-lg py-3 flash-messages">
+        {% for label, messages in app.flashes %}
+            {% if label == 'error' %}{% set label = 'danger' %}{% endif %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-0">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}
+
 {% block body %}{% endblock %}
 
 </body>
