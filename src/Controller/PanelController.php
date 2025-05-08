@@ -5,18 +5,21 @@ namespace App\Controller;
 use App\Entity\Stock;
 use App\Provider\StockPriceProvider;
 use App\Provider\YahooFinanceApi;
+use App\Repository\StockHistoryRepository;
 use App\Repository\StockRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PanelController extends AbstractController
 {
     public function __construct(
-        private StockPriceProvider $stockPriceProvider,
-        private StockRepository $stockRepo,
-        private YahooFinanceApi $financeApi
+        private StockPriceProvider     $stockPriceProvider,
+        private StockRepository        $stockRepo,
+        private StockHistoryRepository $stockHistoryRepo,
+        private YahooFinanceApi        $financeApi,
     ) {
     }
 
@@ -34,6 +37,24 @@ class PanelController extends AbstractController
         return $this->render("Panel/table.html.twig", [
             'categories' => $stockCategories,
         ]);
+    }
+
+    #[Route(path: '/change-history/{id}.svg', name: 'stock_change_history')]
+    #[Cache(maxage: 3600, public: true, mustRevalidate: true)]
+    public function getChangeHistorySVG(int $id): Response
+    {
+        $stock = $this->getStock($id);
+        if (!$stock) {
+            throw $this->createNotFoundException('Stock not found');
+        }
+
+        $changeHistory = $this->stockHistoryRepository->getChangeHistory($stock);
+        $response = $this->render("Panel/changeHistory.svg.twig", [
+            'changeHistory' => $changeHistory,
+        ]);
+        $response->headers->set('Content-Type', 'image/svg+xml');
+
+        return $response;
     }
 
     /**

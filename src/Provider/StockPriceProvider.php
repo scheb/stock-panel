@@ -5,6 +5,8 @@ namespace App\Provider;
 use App\Entity\Exchange;
 use App\Entity\RecentPrice;
 use App\Entity\Stock;
+use App\Entity\StockHistory;
+use App\Repository\StockHistoryRepository;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -28,13 +30,15 @@ class StockPriceProvider
     private array $exchangeRates = [];
 
     private StockRepository $stockRepo;
+    private StockHistoryRepository $stockHistoryRepo;
 
     public function __construct(
-        private EntityManagerInterface $em,
-        private ApiClient $api,
-        private EventDispatcherInterface $eventDispatcher,
+        private EntityManagerInterface   $em,
+        private ApiClient                $api,
+        private EventDispatcherInterface $eventDispatcher, private readonly StockHistoryRepository $stockHistoryRepository,
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
+        $this->stockHistoryRepo = $em->getRepository(StockHistory::class);
         UserAgent::setUserAgents([self::USER_AGENT_CHROME_116]);
     }
 
@@ -248,11 +252,12 @@ class StockPriceProvider
 
     public function setLastDayPrices(): void
     {
+        $startDate = new \DateTime('-7 days');
+        $endDate = new \DateTime('today');
+
         $stocks = $this->stockRepo->findAll();
         foreach ($stocks as $stock) {
             $symbols = $stock->getSymbols();
-            $startDate = new \DateTime('-7 days');
-            $endDate = new \DateTime('today');
             foreach ($symbols as $symbol) {
                 $historicalData = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
                 if ($historicalData) {
@@ -282,5 +287,42 @@ class StockPriceProvider
         }
 
         $this->em->flush();
+    }
+
+    public function updateStocksHistory(): void
+    {
+        $startDate = new \DateTime('-14 days');
+        $endDate = new \DateTime('today');
+
+        $stocks = $this->stockRepo->findAll();
+        foreach ($stocks as $stock) {
+            $symbols = $stock->getSymbols();
+            foreach ($symbols as $symbol) {
+                $quote = $this->api->getQuote($symbol);
+                $historicalDataPoints = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
+                foreach ($historicalDataPoints as $historicalData) {
+                    $price = $historicalData->getAdjClose() ?? $historicalData->getClose();
+                    $priceDate = $historicalData->getDate();
+
+                    // Currency conversion
+                    $stockCurrency = $stock->getCurrency();
+                    if ($stockCurrency !== $quote->getCurrency()) {
+                        try {
+                            $price = $this->convertPrice($price, $quote->getCurrency(), $stockCurrency);
+                        } catch (\UnexpectedValueException $e) {
+                            continue; // Cloud not determine exchange rate
+                        }
+                    }
+
+                    $stockHistory = new StockHistory();
+                    $stockHistory
+                        ->setStock($stock)
+                        ->setSymbol($symbol)
+                        ->setDate($priceDate)
+                        ->setPrice($price);
+                    $this->stockHistoryRepository->insertOrUpdate($stockHistory);
+                }
+            }
+        }
     }
 }

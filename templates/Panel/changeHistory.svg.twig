@@ -1,0 +1,12 @@
+{% set barWidth = 2 %}{% set barHeight = 40 %}{% set barSpacing = 1 %}{% set maxChange = 0.1 %}
+<svg width="{{ 20 * (barWidth + barSpacing) }}" height="{{ barHeight }}" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.5;">
+    {% for day, changePercent in changeHistory %}
+        <!-- {{ day }} {{ changePercent }} -->
+        {% set height = 500 * changePercent %}
+        {% set color = changePercent > 0 ? 'green' : 'red' %}
+        {% set absChange = changePercent|abs %}
+        {% if absChange > maxChange %}{% set change = maxChange %}{% endif %}
+        {% set displayHeight = absChange / maxChange * 100 %}
+        <rect x="{{ loop.index0 * (barWidth + barSpacing) }}" y="{{ 100 - displayHeight }}%" width="{{ barWidth }}" height="{{ displayHeight }}%" fill="{{ color }}" />
+    {% endfor %}
+</svg>
