@@ -6,7 +6,8 @@
         {% set color = changePercent > 0 ? 'green' : 'red' %}
         {% set absChange = changePercent|abs %}
         {% if absChange > maxChange %}{% set change = maxChange %}{% endif %}
-        {% set displayHeight = absChange / maxChange * 100 %}
-        <rect x="{{ loop.index0 * (barWidth + barSpacing) }}" y="{{ 100 - displayHeight }}%" width="{{ barWidth }}" height="{{ displayHeight }}%" fill="{{ color }}" />
+        {% set displayHeight = absChange / maxChange * 50 %}
+        {% if changePercent > 0 %}{% set yPos = 50 - displayHeight %}{% else %}{% set yPos = 50 %}{% endif %}
+        <rect x="{{ loop.index0 * (barWidth + barSpacing) }}" y="{{ yPos }}%" width="{{ barWidth }}" height="{{ displayHeight|abs }}%" fill="{{ color }}" />
     {% endfor %}
 </svg>
