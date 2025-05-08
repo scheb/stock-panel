@@ -29,7 +29,8 @@
         "phpunit/phpunit": "^12",
         "symfony/browser-kit": "^7.0",
         "symfony/css-selector": "^7.0",
-        "symfony/phpunit-bridge": "^7.0"
+        "symfony/phpunit-bridge": "^7.0",
+        "symfony/web-profiler-bundle": "^7.0"
     },
     "config": {
         "optimize-autoloader": true,
