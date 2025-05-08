@@ -43,8 +43,7 @@ class StockPriceProvider
      */
     public function getStocks(): array
     {
-        $stocks = $this->stockRepo->getAll();
-        return $stocks;
+        return $this->stockRepo->getAll();
     }
 
     /**
