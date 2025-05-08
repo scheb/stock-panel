@@ -14,26 +14,41 @@ body {
 }
 
 span.indicator {
-    display: none;
-    width: 0;
-    height: 0;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
     margin: 0 0.4rem 0.1rem 0;
-    border-left: 0.4rem solid transparent;
-    border-right: 0.4rem solid transparent;
     vertical-align: middle;
+    background-position: center;
 }
 
 .up {
     span.indicator {
-        display: inline-block;
-        border-bottom: 0.4rem solid $green;
+        background: url('../images/up.svg') no-repeat;
+    }
+
+    &.strong {
+        span.indicator {
+            background: url('../images/double-up.svg') no-repeat;
+        }
     }
 }
 
 .down {
     span.indicator {
-        display: inline-block;
-        border-top: 0.4rem solid $red;
+        background: url('../images/down.svg') no-repeat;
+    }
+
+    &.strong {
+        span.indicator {
+            background: url('../images/double-down.svg') no-repeat;
+        }
+    }
+}
+
+.neutral {
+    span.indicator {
+        background: url('../images/neutral.svg') no-repeat;
     }
 }
 

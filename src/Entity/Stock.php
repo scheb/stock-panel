@@ -14,6 +14,14 @@ class Stock
     public const COMPARATOR_ABOVE = 'above';
     public const COMPARATOR_BELOW = 'below';
 
+    private const string INDICATOR_UP = 'up';
+    private const string INDICATOR_DOWN = 'down';
+    private const string INDICATOR_NEUTRAL = 'neutral';
+    private const string INDICATOR_STRONG = 'strong';
+    private const float PROFIT_THRESHOLD = 0.1;
+    private const float CHANGE_THRESHOLD = 0.005;
+    private const float STRONG_CHANGE_THRESHOLD = 0.03;
+
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
@@ -159,6 +167,36 @@ class Stock
             return $this->currentPrice - $this->lastDayPrice;
         }
         return 0;
+    }
+
+    public function getProfitIndicator(): string
+    {
+        if ($this->getProfitPercent() > self::PROFIT_THRESHOLD) {
+            return self::INDICATOR_UP;
+        }
+        if ($this->getProfitPercent() < -self::PROFIT_THRESHOLD) {
+            return self::INDICATOR_DOWN;
+        }
+
+        return self::INDICATOR_NEUTRAL;
+    }
+
+    public function getChangeSinceLastDayIndicator(): string
+    {
+        if ($this->getChangeSinceLastDayPercent() > self::STRONG_CHANGE_THRESHOLD) {
+            return self::INDICATOR_UP . ' ' . self::INDICATOR_STRONG;
+        }
+        if ($this->getChangeSinceLastDayPercent() > self::CHANGE_THRESHOLD) {
+            return self::INDICATOR_UP;
+        }
+        if ($this->getChangeSinceLastDayPercent() < -self::STRONG_CHANGE_THRESHOLD) {
+            return self::INDICATOR_DOWN . ' ' . self::INDICATOR_STRONG;
+        }
+        if ($this->getChangeSinceLastDayPercent() < -self::CHANGE_THRESHOLD) {
+            return self::INDICATOR_DOWN;
+        }
+
+        return self::INDICATOR_NEUTRAL;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////// GETTER / SETTER
