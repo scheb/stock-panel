@@ -48,7 +48,7 @@ class PanelController extends AbstractController
             throw $this->createNotFoundException('Stock not found');
         }
 
-        $changeHistory = $this->stockHistoryRepository->getChangeHistory($stock);
+        $changeHistory = $this->stockHistoryRepo->getChangeHistory($stock);
         $response = $this->render("Panel/changeHistory.svg.twig", [
             'changeHistory' => $changeHistory,
         ]);
