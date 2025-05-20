@@ -1,6 +1,6 @@
 {% for stock in stocks %}
     <tr{% if not stock.quantity %} class="watchlist"{% endif %}>
-        <th style="background-image: url('{{ path("stock_change_history", {"id": stock.id}) }}');">
+        <th style="background-image: url('{{ path("stock_change_history", {"id": stock.id}) }}?t={{ "now"|date("YmdH") }}');">
             <div>
                 <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external" class="stock-name">{{ stock.name }}</a>
                 <span class="actions">
