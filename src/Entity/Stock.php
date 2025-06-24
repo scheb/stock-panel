@@ -74,6 +74,9 @@ class Stock
     #[ORM\Column(name: 'alertThreshold', type: 'decimal', precision: 12, scale: 6, nullable: true)]
     private ?float $alertThreshold;
 
+    #[ORM\Column(name: 'alertDynamicThresholdPercent', type: 'decimal', precision: 12, scale: 2, nullable: true)]
+    private ?float $alertDynamicThresholdPercent;
+
     #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
     private ?string $alertComparator;
 
@@ -385,6 +388,17 @@ class Stock
     public function setAlertThreshold(?float $alertThreshold): self
     {
         $this->alertThreshold = $alertThreshold;
+        return $this;
+    }
+
+    public function getAlertDynamicThresholdPercent(): ?float
+    {
+        return $this->alertDynamicThresholdPercent;
+    }
+
+    public function setAlertDynamicThresholdPercent(?float $alertDynamicThresholdPercent): self
+    {
+        $this->alertDynamicThresholdPercent = $alertDynamicThresholdPercent;
         return $this;
     }
 

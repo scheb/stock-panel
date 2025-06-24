@@ -216,6 +216,8 @@ class StockPriceProvider
         if ($stockCurrency !== $mostRecentPrice->currency) {
             try {
                 $mostRecentPrice->price = $this->convertPrice($mostRecentPrice->price, $mostRecentPrice->currency, $stockCurrency);
+                $mostRecentPrice->priceLow = $this->convertPrice($mostRecentPrice->priceLow, $mostRecentPrice->currency, $stockCurrency);
+                $mostRecentPrice->priceHigh = $this->convertPrice($mostRecentPrice->priceHigh, $mostRecentPrice->currency, $stockCurrency);
                 $mostRecentPrice->change = $this->convertPrice($mostRecentPrice->change, $mostRecentPrice->currency, $stockCurrency);
             } catch (\UnexpectedValueException $e) {
                 return; // Cloud not determine exchange rate
@@ -230,6 +232,15 @@ class StockPriceProvider
             ->setCurrentPriceSymbol($mostRecentPrice->symbol)
             ->setCurrentChange($mostRecentPrice->change)
             ->setUpdatedAt(new \DateTime());
+
+        // Dynamic threshold
+        if (null !== $stock->getAlertDynamicThresholdPercent() && null !== $stock->getAlertComparator()) {
+            if (Stock::COMPARATOR_ABOVE === $stock->getAlertComparator()) {
+                $stock->setAlertThreshold($mostRecentPrice->priceLow * (1 + abs($stock->getAlertDynamicThresholdPercent()) / 100));
+            } elseif (Stock::COMPARATOR_BELOW === $stock->getAlertComparator()) {
+                $stock->setAlertThreshold($mostRecentPrice->priceHigh * (1 - abs($stock->getAlertDynamicThresholdPercent()) / 100));
+            }
+        }
     }
 
     private function convertPrice(float $price, string $fromCurrency, string $toCurrency): ?float

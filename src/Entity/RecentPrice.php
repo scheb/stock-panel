@@ -8,14 +8,6 @@ use Scheb\YahooFinanceApi\Results\Quote;
 
 class RecentPrice
 {
-    public string $market;
-    public string $exchange;
-    public string $symbol;
-    public string $currency;
-    public float $price;
-    public float $change;
-    public \DateTimeInterface $time;
-
     public static function fromQuote(Quote $quote): self
     {
         if ($quote->getPreMarketPrice() && $quote->getPreMarketTime() > $quote->getRegularMarketTime()) {
@@ -24,6 +16,8 @@ class RecentPrice
                 $quote->getExchange(),
                 $quote->getSymbol(),
                 $quote->getPreMarketPrice(),
+                min(array_filter([$quote->getPreMarketPrice(), $quote->getRegularMarketDayLow()])),
+                max(array_filter([$quote->getPreMarketPrice(), $quote->getRegularMarketDayHigh()])),
                 $quote->getCurrency(),
                 $quote->getPreMarketChange(),
                 $quote->getPreMarketTime()
@@ -36,6 +30,8 @@ class RecentPrice
                 $quote->getExchange(),
                 $quote->getSymbol(),
                 $quote->getPostMarketPrice(),
+                min(array_filter([$quote->getPreMarketPrice(), $quote->getPostMarketPrice(), $quote->getRegularMarketDayLow()])),
+                max(array_filter([$quote->getPreMarketPrice(), $quote->getPostMarketPrice(), $quote->getRegularMarketDayHigh()])),
                 $quote->getCurrency(),
                 $quote->getPostMarketChange(),
                 $quote->getPostMarketTime()
@@ -47,20 +43,24 @@ class RecentPrice
             $quote->getExchange(),
             $quote->getSymbol(),
             $quote->getRegularMarketPrice(),
+            min(array_filter([$quote->getPreMarketPrice(), $quote->getRegularMarketPrice(), $quote->getRegularMarketDayLow()])),
+            max(array_filter([$quote->getPreMarketPrice(), $quote->getRegularMarketPrice(), $quote->getRegularMarketDayHigh()])),
             $quote->getCurrency(),
             $quote->getRegularMarketChange(),
             $quote->getRegularMarketTime()
         );
     }
 
-    public function __construct(string $market, string $exchange, string $symbol, float $price, string $currency, float $change, \DateTimeInterface $time)
-    {
-        $this->market = $market;
-        $this->exchange = $exchange;
-        $this->symbol = $symbol;
-        $this->price = $price;
-        $this->currency = $currency;
-        $this->change = $change;
-        $this->time = $time;
+    public function __construct(
+        public string $market,
+        public string $exchange,
+        public string $symbol,
+        public float $price,
+        public float $priceLow,
+        public float $priceHigh,
+        public string $currency,
+        public float $change, public
+        \DateTimeInterface $time,
+    ) {
     }
 }

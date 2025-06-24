@@ -15,7 +15,7 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $currencies = ["EUR" => "EUR", "USD" => "USD"];
-        $comparators = ['kleiner' => Stock::COMPARATOR_BELOW, 'größer' => Stock::COMPARATOR_ABOVE];
+        $comparators = ['Kurs fällt unter' => Stock::COMPARATOR_BELOW, 'Kurs steigt über' => Stock::COMPARATOR_ABOVE];
         $builder
             ->add("name", null, ['label' => 'Name'])
             ->add('symbols', TextType::class, ['label' => 'Symbols', 'required' => true])
@@ -26,6 +26,7 @@ class StockType extends AbstractType
             ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?'])
             ->add("favourite", null, ['required' => false, 'label' => 'Favoriten?'])
             ->add("alertThreshold", NumberType::class, ['required' => false, 'label' => 'Preisgrenze'])
+            ->add("alertDynamicThresholdPercent", NumberType::class, ['required' => false, 'label' => 'Dyn. Preisgrenze (Prozent)'])
             ->add("alertComparator", ChoiceType::class, ['choices' => $comparators, 'required' => false, 'label' => 'Vergleich'])
         ;
 
