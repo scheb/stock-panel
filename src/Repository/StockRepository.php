@@ -13,7 +13,10 @@ class StockRepository extends ServiceEntityRepository
         parent::__construct($registry, Stock::class);
     }
 
-    public function getAll()
+    /**
+     * @return iterable<Stock>
+     */
+    public function getAll(): iterable
     {
         $qb = $this->createQueryBuilder("s");
         $qb->orderBy("s.favourite", "DESC")->addOrderBy("s.name", "ASC");
@@ -38,5 +41,15 @@ class StockRepository extends ServiceEntityRepository
             ->getResult();
 
         return array_map(fn ($category) => $category['category'], $categories);
+    }
+
+    public function getStocksWithEarnings()
+    {
+        return $this->createQueryBuilder("s")
+            ->orderBy("s.nextEarningsTime", "ASC")
+            ->where("s.nextEarningsTime > :today")
+            ->setParameter('today', new \DateTime("today"))
+            ->getQuery()
+            ->getResult();
     }
 }
