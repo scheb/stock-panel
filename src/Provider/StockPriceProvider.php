@@ -236,9 +236,11 @@ class StockPriceProvider
         // Dynamic threshold
         if (null !== $stock->getAlertDynamicThresholdPercent() && null !== $stock->getAlertComparator()) {
             if (Stock::COMPARATOR_ABOVE === $stock->getAlertComparator()) {
-                $stock->setAlertThreshold($mostRecentPrice->priceLow * (1 + abs($stock->getAlertDynamicThresholdPercent()) / 100));
+                $newThreshold = $mostRecentPrice->priceLow * (1 + abs($stock->getAlertDynamicThresholdPercent()) / 100);
+                $stock->setAlertThreshold(min(array_filter([$newThreshold, $stock->getAlertThreshold()])));
             } elseif (Stock::COMPARATOR_BELOW === $stock->getAlertComparator()) {
-                $stock->setAlertThreshold($mostRecentPrice->priceHigh * (1 - abs($stock->getAlertDynamicThresholdPercent()) / 100));
+                $newThreshold = $mostRecentPrice->priceHigh * (1 - abs($stock->getAlertDynamicThresholdPercent()) / 100);
+                $stock->setAlertThreshold(max(array_filter([$newThreshold, $stock->getAlertThreshold()])));
             }
         }
     }
