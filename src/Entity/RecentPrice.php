@@ -59,8 +59,8 @@ class RecentPrice
         public float $priceLow,
         public float $priceHigh,
         public string $currency,
-        public float $change, public
-        \DateTimeInterface $time,
+        public float $change,
+        public \DateTimeInterface $time,
     ) {
     }
 }

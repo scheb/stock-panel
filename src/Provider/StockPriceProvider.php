@@ -35,7 +35,8 @@ class StockPriceProvider
     public function __construct(
         private EntityManagerInterface   $em,
         private ApiClient                $api,
-        private EventDispatcherInterface $eventDispatcher, private readonly StockHistoryRepository $stockHistoryRepository,
+        private EventDispatcherInterface $eventDispatcher,
+        private readonly StockHistoryRepository $stockHistoryRepository,
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
         $this->stockHistoryRepo = $em->getRepository(StockHistory::class);
