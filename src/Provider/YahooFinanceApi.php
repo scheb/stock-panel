@@ -22,6 +22,8 @@ class YahooFinanceApi
         'max' => '1mo',
     ];
 
+    private Client $client;
+
     public function __construct()
     {
         $this->client = new Client();
