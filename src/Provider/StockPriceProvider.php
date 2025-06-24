@@ -314,28 +314,30 @@ class StockPriceProvider
             $symbols = $stock->getSymbols();
             foreach ($symbols as $symbol) {
                 $quote = $this->api->getQuote($symbol);
-                $historicalDataPoints = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
-                foreach ($historicalDataPoints as $historicalData) {
-                    $price = $historicalData->getAdjClose() ?? $historicalData->getClose();
-                    $priceDate = $historicalData->getDate();
+                if ($quote) {
+                    $historicalDataPoints = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
+                    foreach ($historicalDataPoints as $historicalData) {
+                        $price = $historicalData->getAdjClose() ?? $historicalData->getClose();
+                        $priceDate = $historicalData->getDate();
 
-                    // Currency conversion
-                    $stockCurrency = $stock->getCurrency();
-                    if ($stockCurrency !== $quote->getCurrency()) {
-                        try {
-                            $price = $this->convertPrice($price, $quote->getCurrency(), $stockCurrency);
-                        } catch (\UnexpectedValueException $e) {
-                            continue; // Cloud not determine exchange rate
+                        // Currency conversion
+                        $stockCurrency = $stock->getCurrency();
+                        if ($stockCurrency !== $quote->getCurrency()) {
+                            try {
+                                $price = $this->convertPrice($price, $quote->getCurrency(), $stockCurrency);
+                            } catch (\UnexpectedValueException $e) {
+                                continue; // Cloud not determine exchange rate
+                            }
                         }
-                    }
 
-                    $stockHistory = new StockHistory();
-                    $stockHistory
-                        ->setStock($stock)
-                        ->setSymbol($symbol)
-                        ->setDate($priceDate)
-                        ->setPrice($price);
-                    $this->stockHistoryRepository->insertOrUpdate($stockHistory);
+                        $stockHistory = new StockHistory();
+                        $stockHistory
+                            ->setStock($stock)
+                            ->setSymbol($symbol)
+                            ->setDate($priceDate)
+                            ->setPrice($price);
+                        $this->stockHistoryRepository->insertOrUpdate($stockHistory);
+                    }
                 }
             }
         }
