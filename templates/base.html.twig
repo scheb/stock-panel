@@ -22,6 +22,7 @@
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item"><a href="{{ path("stock_table") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_table" %} active{% endif %}">Tabelle</a></li>
                 <li class="nav-item"><a href="{{ path("stock_charts") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_charts" %} active{% endif %}">Charts</a></li>
+                <li class="nav-item"><a href="{{ path("stock_earnings") }}" class="nav-link px-2 {% if app.request.attributes.get('_route') == "stock_earnings" %} active{% endif %}">Earnings</a></li>
             </ul>
         </nav>
 

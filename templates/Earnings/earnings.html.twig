@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}{{ parent() }} &ndash; Earnings{% endblock %}
+
+
+{% block body %}
+    <div class="container py-3">
+        <h1>Earnings</h1>
+        <div id="stockTable">
+            <table class="stocks table table-striped">
+                <colgroup>
+                    <col style="width:50%;">
+                    <col style="width:25%;">
+                    <col style="width:25%;">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>Wertpapier</th>
+                    <th>Nächster Termin</th>
+                    <th>Countdown</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks %}
+                        <tr>
+                            <th><a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external" class="stock-name">{{ stock.name }}</a></th>
+                            <td>{{ stock.nextEarningsTime|sonata_format_datetime }}</td>
+                            <td>{{ stock.daysUntilEarnings }} Tage</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

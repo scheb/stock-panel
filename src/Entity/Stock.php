@@ -83,6 +83,9 @@ class Stock
     #[ORM\Column(name: 'alertLastTime', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $alertLastTime;
 
+    #[ORM\Column(name: 'nextEarningsTime', type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $nextEarningsTime;
+
     #[ORM\Column(name: 'createdAt', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
@@ -422,6 +425,27 @@ class Stock
     {
         $this->alertLastTime = $alertLastTime;
         return $this;
+    }
+
+    public function getNextEarningsTime(): ?\DateTimeInterface
+    {
+        return $this->nextEarningsTime;
+    }
+
+    public function setNextEarningsTime(?\DateTimeInterface $nextEarningsTime): self
+    {
+        $this->nextEarningsTime = $nextEarningsTime;
+        return $this;
+    }
+
+    public function daysUntilEarnings(): ?int
+    {
+        if (null === $this->nextEarningsTime) {
+            return null;
+        }
+
+        $interval = $this->nextEarningsTime->diff(new \DateTime());
+        return $interval->days;
     }
 
     public function getCreatedAt(): \DateTimeInterface
