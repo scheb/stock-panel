@@ -382,7 +382,7 @@ class Stock
         return $this->alertThreshold;
     }
 
-    public function setAlertThreshold(?float $alertThreshold): Stock
+    public function setAlertThreshold(?float $alertThreshold): self
     {
         $this->alertThreshold = $alertThreshold;
         return $this;
@@ -393,7 +393,7 @@ class Stock
         return $this->alertComparator;
     }
 
-    public function setAlertComparator(?string $alertComparator): Stock
+    public function setAlertComparator(?string $alertComparator): self
     {
         $this->alertComparator = $alertComparator;
         return $this;
@@ -404,7 +404,7 @@ class Stock
         return $this->alertLastTime;
     }
 
-    public function setAlertLastTime(?\DateTimeInterface $alertLastTime): Stock
+    public function setAlertLastTime(?\DateTimeInterface $alertLastTime): self
     {
         $this->alertLastTime = $alertLastTime;
         return $this;
