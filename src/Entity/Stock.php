@@ -8,11 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: 'App\Repository\StockRepository')]
 class Stock
 {
-    public const PRICE_TYPE_PRE_MARKET = 'pre';
-    public const PRICE_TYPE_POST_MARKET = 'post';
-    public const PRICE_TYPE_REGULAR_MARKET = 'regular';
-    public const COMPARATOR_ABOVE = 'above';
-    public const COMPARATOR_BELOW = 'below';
+    public const string PRICE_TYPE_PRE_MARKET = 'pre';
+    public const string PRICE_TYPE_POST_MARKET = 'post';
+    public const string PRICE_TYPE_REGULAR_MARKET = 'regular';
+    public const string COMPARATOR_ABOVE = 'above';
+    public const string COMPARATOR_BELOW = 'below';
 
     private const string INDICATOR_UP = 'up';
     private const string INDICATOR_DOWN = 'down';
