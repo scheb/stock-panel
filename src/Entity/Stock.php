@@ -18,9 +18,11 @@ class Stock
     private const string INDICATOR_DOWN = 'down';
     private const string INDICATOR_NEUTRAL = 'neutral';
     private const string INDICATOR_STRONG = 'strong';
+    private const string INDICATOR_VERY_STRONG = 'very-strong';
     private const float PROFIT_THRESHOLD = 0.1;
     private const float CHANGE_THRESHOLD = 0.005;
     private const float STRONG_CHANGE_THRESHOLD = 0.03;
+    private const float VERY_STRONG_CHANGE_THRESHOLD = 0.06;
 
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\Id]
@@ -183,11 +185,18 @@ class Stock
 
     public function getChangeSinceLastDayIndicator(): string
     {
+        if ($this->getChangeSinceLastDayPercent() > self::VERY_STRONG_CHANGE_THRESHOLD) {
+            return self::INDICATOR_UP . ' ' . self::INDICATOR_VERY_STRONG;
+        }
         if ($this->getChangeSinceLastDayPercent() > self::STRONG_CHANGE_THRESHOLD) {
             return self::INDICATOR_UP . ' ' . self::INDICATOR_STRONG;
         }
         if ($this->getChangeSinceLastDayPercent() > self::CHANGE_THRESHOLD) {
             return self::INDICATOR_UP;
+        }
+
+        if ($this->getChangeSinceLastDayPercent() < -self::VERY_STRONG_CHANGE_THRESHOLD) {
+            return self::INDICATOR_DOWN . ' ' . self::INDICATOR_VERY_STRONG;
         }
         if ($this->getChangeSinceLastDayPercent() < -self::STRONG_CHANGE_THRESHOLD) {
             return self::INDICATOR_DOWN . ' ' . self::INDICATOR_STRONG;

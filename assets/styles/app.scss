@@ -32,6 +32,12 @@ span.indicator {
             background: url('../images/double-up.svg') no-repeat;
         }
     }
+
+    &.very-strong {
+        span.indicator {
+            background: url('../images/triple-up.svg') no-repeat;
+        }
+    }
 }
 
 .down {
@@ -42,6 +48,12 @@ span.indicator {
     &.strong {
         span.indicator {
             background: url('../images/double-down.svg') no-repeat;
+        }
+    }
+
+    &.very-strong {
+        span.indicator {
+            background: url('../images/triple-down.svg') no-repeat;
         }
     }
 }
