@@ -75,7 +75,7 @@ class Stock
     private ?float $alertThreshold;
 
     #[ORM\Column(name: 'alertDynamicThresholdPercent', type: 'decimal', precision: 12, scale: 2, nullable: true)]
-    private ?float $alertDynamicThresholdPercent;
+    private ?float $alertDynamicThresholdPercent = null;
 
     #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
     private ?string $alertComparator;
@@ -97,6 +97,10 @@ class Stock
 
     #[ORM\Column(name: 'favourite', type: 'boolean')]
     private bool $favourite = false;
+
+    // Cache
+    private ?int $daysUntilEarnings;
+    private ?int $hoursUntilEarnings;
 
     public function __construct()
     {
@@ -434,6 +438,8 @@ class Stock
 
     public function setNextEarningsTime(?\DateTimeInterface $nextEarningsTime): self
     {
+        $this->hoursUntilEarnings = null;
+        $this->daysUntilEarnings = null;
         $this->nextEarningsTime = $nextEarningsTime;
         return $this;
     }
@@ -443,9 +449,27 @@ class Stock
         if (null === $this->nextEarningsTime) {
             return null;
         }
+        if (isset($this->daysUntilEarnings)) {
+            return $this->daysUntilEarnings;
+        }
 
         $interval = $this->nextEarningsTime->diff(new \DateTime());
-        return $interval->days;
+        $this->daysUntilEarnings = $interval->days;
+        return $this->daysUntilEarnings;
+    }
+
+    public function hoursUntilEarnings(): ?int
+    {
+        if (null === $this->nextEarningsTime) {
+            return null;
+        }
+        if (isset($this->hoursUntilEarnings)) {
+            return $this->hoursUntilEarnings;
+        }
+
+        $interval = $this->nextEarningsTime->diff(new \DateTime());
+        $this->hoursUntilEarnings = $interval->d * 24 + $interval->h;
+        return $this->hoursUntilEarnings;
     }
 
     public function getCreatedAt(): \DateTimeInterface

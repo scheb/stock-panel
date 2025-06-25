@@ -26,7 +26,7 @@
                         <tr>
                             <th><a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external" class="stock-name">{{ stock.name }}</a></th>
                             <td>{{ stock.nextEarningsTime|sonata_format_datetime }}</td>
-                            <td>{{ stock.daysUntilEarnings }} Tage</td>
+                            <td>{% if stock.daysUntilEarnings > 0 %}{{ stock.daysUntilEarnings }} Tage{% else %}{{ stock.hoursUntilEarnings }} Std.{% endif %}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
