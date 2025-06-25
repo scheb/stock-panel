@@ -3,6 +3,7 @@
         <th style="background-image: url('{{ path("stock_change_history", {"id": stock.id}) }}?t={{ "now"|date("YmdH") }}');">
             <div>
                 <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external" class="stock-name">{{ stock.name }}</a>
+                {% if stock.daysUntilEarnings > -1 and stock.daysUntilEarnings < 3 %}<span class="help" title="Earnings {{ stock.nextEarningsTime|sonata_format_datetime }}">💰</span>{% endif %}
                 <span class="actions">
                     <a href="{{ path("stock_edit", {"id": stock.id}) }}" class="btn btn-primary px-1 py-0"><span class="bi bi-pencil-fill" title="Bearbeiten"></span></a>
                     <button class="btn btn-danger px-1 py-0" data-delete-stock="{{ stock.id }}" data-delete-stock-name="{{ stock.name }}" title="Löschen"><span class="bi bi-x-circle-fill"></span></button>
