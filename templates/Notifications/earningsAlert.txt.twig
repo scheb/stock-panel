@@ -1,0 +1,9 @@
+{% apply spaceless %}Earnings Alert: {% for stock in stocks %}{% if loop.index0 %}, {% endif %}{{ stock.name }}{% endfor %}{% endapply %}
+
+------------------------------------------------------------------------
+
+Earnings for the following stocks are upcoming:
+
+{% for stock in stocks %}
+{{ stock.name }}: {{ stock.nextEarningsTime|sonata_format_datetime }}
+{% endfor %}

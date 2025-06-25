@@ -86,6 +86,9 @@ class Stock
     #[ORM\Column(name: 'nextEarningsTime', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $nextEarningsTime;
 
+    #[ORM\Column(name: 'earningsNotificationLastTime', type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $earningsNotificationLastTime;
+
     #[ORM\Column(name: 'createdAt', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
@@ -441,6 +444,17 @@ class Stock
         $this->hoursUntilEarnings = null;
         $this->daysUntilEarnings = null;
         $this->nextEarningsTime = $nextEarningsTime;
+        return $this;
+    }
+
+    public function getEarningsNotificationLastTime(): ?\DateTimeInterface
+    {
+        return $this->earningsNotificationLastTime;
+    }
+
+    public function setEarningsNotificationLastTime(?\DateTimeInterface $earningsNotificationLastTime): self
+    {
+        $this->earningsNotificationLastTime = $earningsNotificationLastTime;
         return $this;
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Provider;
 
+use App\Entity\Stock;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -16,6 +17,9 @@ class StockEarningsProvider
     ) {
     }
 
+    /**
+     * @return iterable<Stock>
+     */
     public function getStocksWithEarnings(): iterable
     {
         return $this->stockRepository->getStocksWithEarnings();
