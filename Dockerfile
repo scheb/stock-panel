@@ -38,12 +38,15 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /var/cache/* /usr/share/doc/*
 
 WORKDIR /application/libcurl-impersonate
-RUN wget https://github.com/lwthiker/curl-impersonate/releases/download/v0.6.1/libcurl-impersonate-v0.6.1.x86_64-linux-gnu.tar.gz \
-    && tar -xf libcurl-impersonate-v0.6.1.x86_64-linux-gnu.tar.gz \
-    && patchelf --set-soname libcurl.so.4 /application/libcurl-impersonate/libcurl-impersonate-chrome.so
 
-ENV LD_PRELOAD=/application/libcurl-impersonate/libcurl-impersonate-chrome.so
-ENV CURL_IMPERSONATE=chrome116
+RUN wget -O libcurl-impersonate.tar.gz https://github.com/lexiforest/curl-impersonate/releases/download/v1.0.3/libcurl-impersonate-v1.0.3.x86_64-linux-gnu.tar.gz \
+    && echo "e4d2066f7f1c544a2a0ddadfe1d164cb3daffdefcb3143363b0afd6d2f2125e7  libcurl-impersonate.tar.gz" > checksum.sha256 \
+    && sha256sum --check checksum.sha256 || exit 1 \
+    && tar -xf libcurl-impersonate.tar.gz \
+    && patchelf --set-soname libcurl.so.4 /application/libcurl-impersonate/libcurl-impersonate.so
+
+ENV LD_PRELOAD=/application/libcurl-impersonate/libcurl-impersonate.so
+ENV CURL_IMPERSONATE=chrome136
 ENV APP_ENV=prod
 ENV APP_SECRET=""
 
