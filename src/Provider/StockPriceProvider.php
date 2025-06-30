@@ -14,7 +14,6 @@ use Scheb\YahooFinanceApi\ApiClient;
 use Scheb\YahooFinanceApi\Exception\ApiException;
 use Scheb\YahooFinanceApi\Results\HistoricalData;
 use Scheb\YahooFinanceApi\Results\Quote;
-use Scheb\YahooFinanceApi\UserAgent;
 
 class StockPriceProvider
 {
@@ -25,7 +24,6 @@ class StockPriceProvider
     private const string DEFAULT_CATEGORY = 'Sonstige';
     private const string FAVOURITES_CATEGORY = '⭐ Favoriten';
     private const string WATCHLIST_CATEGORY = '👀 Watchlist';
-    private const string USER_AGENT_CHROME_116 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36';
 
     private array $exchangeRates = [];
 
@@ -40,7 +38,6 @@ class StockPriceProvider
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
         $this->stockHistoryRepo = $em->getRepository(StockHistory::class);
-        UserAgent::setUserAgents([self::USER_AGENT_CHROME_116]);
     }
 
     /**

@@ -10,7 +10,7 @@
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/orm": "^3.0",
         "guzzlehttp/guzzle": "^7.4",
-        "scheb/yahoo-finance-api": "^4.2",
+        "scheb/yahoo-finance-api": "5.x-dev#6d818b5e7bc1f4b45f7c0e9890e10d7bd85441e1",
         "sonata-project/intl-bundle": "^3",
         "symfony/console": "^7.0",
         "symfony/dotenv": "^7.0",

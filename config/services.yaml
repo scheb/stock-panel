@@ -29,6 +29,9 @@ services:
     Scheb\YahooFinanceApi\ApiClient:
         class: Scheb\YahooFinanceApi\ApiClient
         factory: [Scheb\YahooFinanceApi\ApiClientFactory, createApiClient]
+        arguments:
+            $retries: 2
+            $cache: "@cache.app"
 
     sonata.intl.timezone_detector.user:
         class: stdClass
