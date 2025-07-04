@@ -40,7 +40,7 @@ class StockRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        return array_map(fn ($category) => $category['category'], $categories);
+        return array_map(fn (array $category) => $category['category'], $categories);
     }
 
     public function getStocksWithEarnings()

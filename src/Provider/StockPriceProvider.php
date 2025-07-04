@@ -122,7 +122,7 @@ class StockPriceProvider
     public function updateStocks(): void
     {
         $stocks = $this->getStocks();
-        $symbols = array_merge(...array_map(fn (Stock $stock) => $stock->getSymbols(), $stocks));
+        $symbols = array_merge(...array_map(fn (Stock $stock): array => $stock->getSymbols(), $stocks));
         $quotes = $this->fetchQuotes($symbols);
         foreach ($stocks as $stock) {
             $mostRecentPrice = $this->getMostRecentPrice($stock->getSymbols(), $quotes);

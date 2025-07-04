@@ -44,7 +44,7 @@ class StockType extends AbstractType
                         // transform the string back to an array
                         $values = explode(', ', $tagsAsString);
                         $values = array_map('trim', $values);
-                        $values = array_filter($values, fn ($value) => strlen($value) > 0);
+                        $values = array_filter($values, fn ($value): bool => strlen($value) > 0);
                         return array_values($values);
                     },
                 )
