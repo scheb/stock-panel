@@ -94,10 +94,6 @@ class YahooFinanceApi
         // Get crumb value
         $crumb = $this->getCrumb($qs, $cookieJar);
 
-        $modules = [
-            'earnings',
-        ];
-
         // Fetch quotes
         $url = 'https://query'.$qs.'.finance.yahoo.com/v10/finance/quoteSummary/'.urlencode($symbol).'?crumb='.$crumb.'&modules=earnings';
         $responseBody = (string) $this->client->request('GET', $url, ['cookies' => $cookieJar, 'headers' => $this->getHeaders()])->getBody();
@@ -126,7 +122,7 @@ class YahooFinanceApi
     private function getCrumb(int $qs, CookieJar $cookies): string
     {
         // Get crumb value
-        $initialUrl = 'https://query'.(string) $qs.'.finance.yahoo.com/v1/test/getcrumb';
+        $initialUrl = 'https://query'.$qs.'.finance.yahoo.com/v1/test/getcrumb';
 
         return (string) $this->client->request('GET', $initialUrl, ['cookies' => $cookies, 'headers' => $this->getHeaders()])->getBody();
     }

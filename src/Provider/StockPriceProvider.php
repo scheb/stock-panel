@@ -28,7 +28,6 @@ class StockPriceProvider
     private array $exchangeRates = [];
 
     private readonly StockRepository $stockRepo;
-    private readonly StockHistoryRepository $stockHistoryRepo;
 
     public function __construct(
         private readonly EntityManagerInterface   $em,
@@ -37,7 +36,6 @@ class StockPriceProvider
         private readonly StockHistoryRepository $stockHistoryRepository,
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
-        $this->stockHistoryRepo = $em->getRepository(StockHistory::class);
     }
 
     /**
