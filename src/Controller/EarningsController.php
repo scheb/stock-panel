@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class EarningsController extends AbstractController
 {
     public function __construct(
-        private StockEarningsProvider $stockEarningsProvider,
+        private readonly StockEarningsProvider $stockEarningsProvider,
     ) {
     }
 

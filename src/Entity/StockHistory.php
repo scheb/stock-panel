@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\StockHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'stock_history')]
-#[ORM\Entity(repositoryClass: 'App\Repository\StockHistoryRepository')]
+#[ORM\Entity(repositoryClass: StockHistoryRepository::class)]
 #[ORM\UniqueConstraint(name: "unique_history", columns: ["stock_id", "symbol", "date"])]
 class StockHistory
 {

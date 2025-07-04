@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     public function __construct(
-        private StockPriceProvider $stockPriceProvider,
-        private StockRepository $stockRepository,
-        private EntityManagerInterface $em
+        private readonly StockPriceProvider $stockPriceProvider,
+        private readonly StockRepository $stockRepository,
+        private readonly EntityManagerInterface $em
     ) {
     }
 

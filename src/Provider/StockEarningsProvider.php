@@ -38,7 +38,7 @@ class StockEarningsProvider
                         $this->em->persist($stock);
                         break;
                     }
-                } catch (\Exception $e) {
+                } catch (\Exception) {
                 }
             }
         }

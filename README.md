@@ -26,7 +26,7 @@ Features
 Requirements
 ------------
 
-- PHP8.2
+- PHP8.4
 - [Composer package manager](https://getcomposer.org/)
 - [Yarn package manager](https://yarnpkg.com/)
 

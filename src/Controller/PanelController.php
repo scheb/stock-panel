@@ -16,10 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class PanelController extends AbstractController
 {
     public function __construct(
-        private StockPriceProvider     $stockPriceProvider,
-        private StockRepository        $stockRepo,
-        private StockHistoryRepository $stockHistoryRepo,
-        private YahooFinanceApi        $financeApi,
+        private readonly StockPriceProvider     $stockPriceProvider,
+        private readonly StockRepository        $stockRepo,
+        private readonly StockHistoryRepository $stockHistoryRepo,
+        private readonly YahooFinanceApi        $financeApi,
     ) {
     }
 

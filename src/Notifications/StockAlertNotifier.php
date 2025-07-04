@@ -58,7 +58,7 @@ class StockAlertNotifier implements EventSubscriberInterface
         $text = $this->twig->render('Notifications/stockAlert.txt.twig', ['stock' => $stock]);
         $subject = substr($text, 0, strpos($text, "\n"));
 
-        $email = (new Email())
+        $email = new Email()
             ->from($this->sender)
             ->to($this->recipient)
             ->subject($subject)

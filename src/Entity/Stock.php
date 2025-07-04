@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\StockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'stock')]
-#[ORM\Entity(repositoryClass: 'App\Repository\StockRepository')]
+#[ORM\Entity(repositoryClass: StockRepository::class)]
 class Stock
 {
     public const string PRICE_TYPE_PRE_MARKET = 'pre';
@@ -36,64 +37,64 @@ class Stock
     private array $symbols;
 
     #[ORM\Column(name: 'category', type: 'string', nullable: true)]
-    private ?string $category;
+    private ?string $category = null;
 
     #[ORM\Column(name: 'currency', type: 'string', length: 3)]
     private string $currency;
 
     #[ORM\Column(name: 'quantity', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $quantity;
+    private ?float $quantity = null;
 
     #[ORM\Column(name: 'initialPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $initialPrice;
+    private ?float $initialPrice = null;
 
     #[ORM\Column(name: 'lastDayPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $lastDayPrice;
+    private ?float $lastDayPrice = null;
 
     #[ORM\Column(name: 'lastDayPriceTime', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $lastDayPriceTime;
+    private ?\DateTimeInterface $lastDayPriceTime = null;
 
     #[ORM\Column(name: 'currentPrice', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $currentPrice;
+    private ?float $currentPrice = null;
 
     #[ORM\Column(name: 'currentPriceSymbol', type: 'string', nullable: true)]
-    private ?string $currentPriceSymbol;
+    private ?string $currentPriceSymbol = null;
 
     #[ORM\Column(name: 'currentPriceExchange', type: 'string', nullable: true, enumType: Exchange::class)]
-    private ?Exchange $currentPriceExchange;
+    private ?Exchange $currentPriceExchange = null;
 
     #[ORM\Column(name: 'currentPriceMarket', type: 'string', nullable: true)]
-    private ?string $currentPriceMarket;
+    private ?string $currentPriceMarket = null;
 
     #[ORM\Column(name: 'currentPriceTime', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $currentPriceTime;
+    private ?\DateTimeInterface $currentPriceTime = null;
 
     #[ORM\Column(name: 'currentChange', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $currentChange;
+    private ?float $currentChange = null;
 
     #[ORM\Column(name: 'alertThreshold', type: 'decimal', precision: 12, scale: 6, nullable: true)]
-    private ?float $alertThreshold;
+    private ?float $alertThreshold = null;
 
     #[ORM\Column(name: 'alertDynamicThresholdPercent', type: 'decimal', precision: 12, scale: 2, nullable: true)]
     private ?float $alertDynamicThresholdPercent = null;
 
     #[ORM\Column(name: 'alertComparator', type: 'string', nullable: true)]
-    private ?string $alertComparator;
+    private ?string $alertComparator = null;
 
     #[ORM\Column(name: 'alertLastTime', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $alertLastTime;
+    private ?\DateTimeInterface $alertLastTime = null;
 
     #[ORM\Column(name: 'nextEarningsTime', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $nextEarningsTime;
+    private ?\DateTimeInterface $nextEarningsTime = null;
 
     #[ORM\Column(name: 'earningsNotificationLastTime', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $earningsNotificationLastTime;
+    private ?\DateTimeInterface $earningsNotificationLastTime = null;
 
     #[ORM\Column(name: 'createdAt', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     #[ORM\Column(name: 'updatedAt', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $updatedAt;
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(name: 'displayChart', type: 'boolean')]
     private bool $displayChart = true;
@@ -102,8 +103,8 @@ class Stock
     private bool $favourite = false;
 
     // Cache
-    private ?int $daysUntilEarnings;
-    private ?int $hoursUntilEarnings;
+    private ?int $daysUntilEarnings = null;
+    private ?int $hoursUntilEarnings = null;
 
     public function __construct()
     {

@@ -27,13 +27,13 @@ class StockPriceProvider
 
     private array $exchangeRates = [];
 
-    private StockRepository $stockRepo;
-    private StockHistoryRepository $stockHistoryRepo;
+    private readonly StockRepository $stockRepo;
+    private readonly StockHistoryRepository $stockHistoryRepo;
 
     public function __construct(
-        private EntityManagerInterface   $em,
-        private ApiClient                $api,
-        private EventDispatcherInterface $eventDispatcher,
+        private readonly EntityManagerInterface   $em,
+        private readonly ApiClient                $api,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly StockHistoryRepository $stockHistoryRepository,
     ) {
         $this->stockRepo = $em->getRepository(Stock::class);
@@ -122,7 +122,7 @@ class StockPriceProvider
     public function updateStocks(): void
     {
         $stocks = $this->getStocks();
-        $symbols = array_merge(...array_map(function (Stock $stock) { return $stock->getSymbols(); }, $stocks));
+        $symbols = array_merge(...array_map(fn (Stock $stock) => $stock->getSymbols(), $stocks));
         $quotes = $this->fetchQuotes($symbols);
         foreach ($stocks as $stock) {
             $mostRecentPrice = $this->getMostRecentPrice($stock->getSymbols(), $quotes);
@@ -191,7 +191,7 @@ class StockPriceProvider
                 $quotesIndex[$quote->getSymbol()] = $quote;
             }
             return $quotesIndex;
-        } catch (ApiException $e) {
+        } catch (ApiException) {
             // Retry if the query fails
             if ($try < self::FETCH_QUOTES_MAX_TRIES) {
                 return $this->fetchQuotes($symbols, $try + 1);
@@ -217,7 +217,7 @@ class StockPriceProvider
                 $mostRecentPrice->priceLow = $this->convertPrice($mostRecentPrice->priceLow, $mostRecentPrice->currency, $stockCurrency);
                 $mostRecentPrice->priceHigh = $this->convertPrice($mostRecentPrice->priceHigh, $mostRecentPrice->currency, $stockCurrency);
                 $mostRecentPrice->change = $this->convertPrice($mostRecentPrice->change, $mostRecentPrice->currency, $stockCurrency);
-            } catch (\UnexpectedValueException $e) {
+            } catch (\UnexpectedValueException) {
                 return; // Cloud not determine exchange rate
             }
         }
@@ -285,7 +285,7 @@ class StockPriceProvider
                     if ($stockCurrency !== $quote->getCurrency()) {
                         try {
                             $lastDayPrice = $this->convertPrice($lastDayPrice, $quote->getCurrency(), $stockCurrency);
-                        } catch (\UnexpectedValueException $e) {
+                        } catch (\UnexpectedValueException) {
                             return; // Cloud not determine exchange rate
                         }
                     }
@@ -322,7 +322,7 @@ class StockPriceProvider
                         if ($stockCurrency !== $quote->getCurrency()) {
                             try {
                                 $price = $this->convertPrice($price, $quote->getCurrency(), $stockCurrency);
-                            } catch (\UnexpectedValueException $e) {
+                            } catch (\UnexpectedValueException) {
                                 continue; // Cloud not determine exchange rate
                             }
                         }

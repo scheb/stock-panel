@@ -23,14 +23,14 @@ COPY --from=frontend-build /application/public/build /usr/share/nginx/html/build
 # PHP Backend #
 ###############
 
-FROM phpdockerio/php:8.3-fpm AS backend-deployment
+FROM phpdockerio/php:8.4-fpm AS backend-deployment
 
 # Install selected extensions and other stuff
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
-        php8.3-sqlite \
-        php8.3-mysql \
-        php8.3-intl \
+        php8.4-sqlite \
+        php8.4-mysql \
+        php8.4-intl \
         wget \
         tar \
         patchelf \

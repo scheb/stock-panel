@@ -22,7 +22,7 @@ class YahooFinanceApi
         'max' => '1mo',
     ];
 
-    private Client $client;
+    private readonly Client $client;
 
     public function __construct()
     {
@@ -103,16 +103,13 @@ class YahooFinanceApi
         $responseBody = (string) $this->client->request('GET', $url, ['cookies' => $cookieJar, 'headers' => $this->getHeaders()])->getBody();
 
         $earnings = json_decode($responseBody, true);
-        if (isset($earnings['quoteSummary']['result'][0]['earnings']['earningsChart']['earningsDate'])) {
-            return $earnings['quoteSummary']['result'][0]['earnings']['earningsChart']['earningsDate'];
-        }
 
-        return null;
+        return $earnings['quoteSummary']['result'][0]['earnings']['earningsChart']['earningsDate'] ?? null;
     }
 
     private function getRandomQueryServer(): int
     {
-        return rand(1, 2);
+        return random_int(1, 2);
     }
 
     private function getCookies(): CookieJar
