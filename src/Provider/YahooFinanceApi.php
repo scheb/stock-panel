@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Provider;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
+use Scheb\YahooFinanceApi\ApiClient;
+use Scheb\YahooFinanceApi\Context\ContextManagerInterface;
 use Scheb\YahooFinanceApi\Exception\ApiException;
 
 class YahooFinanceApi
@@ -22,11 +22,10 @@ class YahooFinanceApi
         'max' => '1mo',
     ];
 
-    private readonly Client $client;
-
-    public function __construct()
-    {
-        $this->client = new Client();
+    public function __construct(
+        private readonly ApiClient $apiClient,
+        private readonly ContextManagerInterface $sessionManager,
+    ) {
     }
 
     public function getChartsData(string $symbol, string $range): array
@@ -37,10 +36,9 @@ class YahooFinanceApi
 
         $interval = self::RANGE_INTERVAL_MAP[$range];
         $url = "https://query1.finance.yahoo.com/v8/finance/chart/" . $symbol . "?range=" . $range . "&includePrePost=false&interval=" . $interval;
-        $client = new Client();
         try {
-            $response = $client->get($url);
-        } catch (ClientException $e) {
+            $response = $this->sessionManager->request('GET', $url);
+        } catch (GuzzleException $e) {
             throw new ApiException($e->getMessage(), $e->getCode(), $e);
         }
 
@@ -77,53 +75,10 @@ class YahooFinanceApi
         ];
     }
 
-    public function getHeaders(): array
-    {
-        return [
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
-        ];
-    }
-
     public function getNextEarningsDate(string $symbol): ?array
     {
-        $qs = $this->getRandomQueryServer();
+        $earnings = $this->apiClient->getStockSummary($symbol, ['earnings']);
 
-        // Initialize session cookies
-        $cookieJar = $this->getCookies();
-
-        // Get crumb value
-        $crumb = $this->getCrumb($qs, $cookieJar);
-
-        // Fetch quotes
-        $url = 'https://query'.$qs.'.finance.yahoo.com/v10/finance/quoteSummary/'.urlencode($symbol).'?crumb='.$crumb.'&modules=earnings';
-        $responseBody = (string) $this->client->request('GET', $url, ['cookies' => $cookieJar, 'headers' => $this->getHeaders()])->getBody();
-
-        $earnings = json_decode($responseBody, true);
-
-        return $earnings['quoteSummary']['result'][0]['earnings']['earningsChart']['earningsDate'] ?? null;
-    }
-
-    private function getRandomQueryServer(): int
-    {
-        return random_int(1, 2);
-    }
-
-    private function getCookies(): CookieJar
-    {
-        $cookieJar = new CookieJar();
-
-        // Initialize session cookies
-        $initialUrl = 'https://fc.yahoo.com';
-        $this->client->request('GET', $initialUrl, ['cookies' => $cookieJar, 'http_errors' => false, 'headers' => $this->getHeaders()]);
-
-        return $cookieJar;
-    }
-
-    private function getCrumb(int $qs, CookieJar $cookies): string
-    {
-        // Get crumb value
-        $initialUrl = 'https://query'.$qs.'.finance.yahoo.com/v1/test/getcrumb';
-
-        return (string) $this->client->request('GET', $initialUrl, ['cookies' => $cookies, 'headers' => $this->getHeaders()])->getBody();
+        return $earnings[0]['earnings']['earningsChart']['earningsDate'] ?? null;
     }
 }

@@ -33,5 +33,12 @@ services:
             $retries: 2
             $cache: "@cache.app"
 
+    Scheb\YahooFinanceApi\Context\ContextManagerInterface:
+        class: Scheb\YahooFinanceApi\ApiClient
+        factory: [ Scheb\YahooFinanceApi\ApiClientFactory, createContextManager ]
+        arguments:
+            $retries: 2
+            $cache: "@cache.app"
+
     sonata.intl.timezone_detector.user:
         class: stdClass
