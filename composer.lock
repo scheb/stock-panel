@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48756c562914d3039d54f58c175e9d0d",
+    "content-hash": "1bef88f67ea7fe11354c4e9d17355b4c",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -1840,16 +1840,16 @@
         },
         {
             "name": "scheb/yahoo-finance-api",
-            "version": "5.x-dev",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/yahoo-finance-api.git",
-                "reference": "6d818b5e7bc1f4b45f7c0e9890e10d7bd85441e1"
+                "reference": "72561695bdccfb6318c985cf439254f646c3b127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/6d818b5e7bc1f4b45f7c0e9890e10d7bd85441e1",
-                "reference": "6d818b5e7bc1f4b45f7c0e9890e10d7bd85441e1",
+                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/72561695bdccfb6318c985cf439254f646c3b127",
+                "reference": "72561695bdccfb6318c985cf439254f646c3b127",
                 "shasum": ""
             },
             "require": {
@@ -1891,9 +1891,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scheb/yahoo-finance-api/issues",
-                "source": "https://github.com/scheb/yahoo-finance-api/tree/5.x"
+                "source": "https://github.com/scheb/yahoo-finance-api/tree/v5.0.0"
             },
-            "time": "2025-06-30T12:55:04+00:00"
+            "time": "2025-07-05T20:58:45+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
@@ -3099,16 +3099,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "68cdcde0b7e36b008a08bcf3709c07a20e757a29"
+                "reference": "423c36e369361003dc31ef11c5f15fb589e52c01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/68cdcde0b7e36b008a08bcf3709c07a20e757a29",
-                "reference": "68cdcde0b7e36b008a08bcf3709c07a20e757a29",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/423c36e369361003dc31ef11c5f15fb589e52c01",
+                "reference": "423c36e369361003dc31ef11c5f15fb589e52c01",
                 "shasum": ""
             },
             "require": {
@@ -3147,7 +3147,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.8.0"
+                "source": "https://github.com/symfony/flex/tree/v2.8.1"
             },
             "funding": [
                 {
@@ -3163,7 +3163,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-04T06:30:46+00:00"
+            "time": "2025-07-05T07:45:19+00:00"
         },
         {
             "name": "symfony/form",
@@ -6041,16 +6041,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.13.1",
+            "version": "1.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "1720ddd719e16cf0db4eb1c6eca108031636d46c"
+                "reference": "faed855a7b5f4d4637717c2b3863e277116beb36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/1720ddd719e16cf0db4eb1c6eca108031636d46c",
-                "reference": "1720ddd719e16cf0db4eb1c6eca108031636d46c",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/faed855a7b5f4d4637717c2b3863e277116beb36",
+                "reference": "faed855a7b5f4d4637717c2b3863e277116beb36",
                 "shasum": ""
             },
             "require": {
@@ -6089,7 +6089,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.1"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.3"
             },
             "funding": [
                 {
@@ -6097,7 +6097,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-29T12:36:36+00:00"
+            "time": "2025-07-05T12:25:42+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -8088,9 +8088,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "scheb/yahoo-finance-api": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
