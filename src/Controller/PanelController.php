@@ -112,8 +112,11 @@ class PanelController extends AbstractController
         }
 
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
+        $stocks = array_merge(... array_values($stockCategories));
+
         return $this->render("Panel/tableContent.html.twig", [
             'categories' => $stockCategories,
+            'performance' => new PortfolioPerformance($this->stockPriceProvider, $stocks, 'EUR'),
         ]);
     }
 
