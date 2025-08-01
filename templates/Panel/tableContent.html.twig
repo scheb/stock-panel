@@ -28,9 +28,9 @@
     <tfoot class="isPrivate">
         <tr>
             <td></td>
-            <td></td>
-            <td></td>
-            <td class="d-none d-sm-table-cell">{{ performance.currentValue|sonata_number_format_currency(performance.currency) }}</td>
+            <td class="hideColumn"></td>
+            <td class="hideColumn"></td>
+            <td class="hideColumn d-none d-sm-table-cell">{{ performance.currentValue|sonata_number_format_currency(performance.currency) }}</td>
             <td class="{{ performance.profitIndicator }}">
                 <div>{{ performance.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
                 <div class="isPrivate">{{ performance.profit|sonata_number_format_currency(performance.currency, {}, {'positive_prefix': '+'}) }}</div>
