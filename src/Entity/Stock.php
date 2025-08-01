@@ -15,11 +15,11 @@ class Stock
     public const string COMPARATOR_ABOVE = 'above';
     public const string COMPARATOR_BELOW = 'below';
 
-    private const string INDICATOR_UP = 'up';
-    private const string INDICATOR_DOWN = 'down';
-    private const string INDICATOR_NEUTRAL = 'neutral';
-    private const string INDICATOR_STRONG = 'strong';
-    private const string INDICATOR_VERY_STRONG = 'very-strong';
+    public const string INDICATOR_UP = 'up';
+    public const string INDICATOR_DOWN = 'down';
+    public const string INDICATOR_NEUTRAL = 'neutral';
+    public const string INDICATOR_STRONG = 'strong';
+    public const string INDICATOR_VERY_STRONG = 'very-strong';
     private const float PROFIT_THRESHOLD = 0.1;
     private const float CHANGE_THRESHOLD = 0.005;
     private const float STRONG_CHANGE_THRESHOLD = 0.03;

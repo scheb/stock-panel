@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\PortfolioPerformance;
 use App\Entity\Stock;
 use App\Provider\StockPriceProvider;
 use App\Provider\YahooFinanceApi;
@@ -34,8 +35,11 @@ class PanelController extends AbstractController
         }
 
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
+        $stocks = array_merge(... array_values($stockCategories));
+
         return $this->render("Panel/table.html.twig", [
             'categories' => $stockCategories,
+            'performance' => new PortfolioPerformance($this->stockPriceProvider, $stocks, 'EUR'),
         ]);
     }
 
