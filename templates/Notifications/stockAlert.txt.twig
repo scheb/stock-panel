@@ -3,7 +3,7 @@ Stock Alert: {{ stock.name }} is {{ stock.alertComparator }} {{ stock.alertThres
 
 Alert condition: {{ stock.alertComparator }} {{ stock.alertThreshold }} {{ stock.currency }}
 
-Current price: {{ stock.currentPrice }} ({{ stock.currentChangePercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }} today)
+Current price: {{ stock.currentPrice }} ({{ stock.changeSinceLastDayPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }} today)
 
 https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/
 
