@@ -84,6 +84,9 @@ class Stock
     #[ORM\Column(name: 'alertLastTime', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $alertLastTime = null;
 
+    #[ORM\Column(name: 'alertMessage', type: 'string', nullable: true)]
+    private ?string $alertMessage = null;
+
     #[ORM\Column(name: 'nextEarningsTime', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $nextEarningsTime = null;
 
@@ -432,6 +435,17 @@ class Stock
     public function setAlertLastTime(?\DateTimeInterface $alertLastTime): self
     {
         $this->alertLastTime = $alertLastTime;
+        return $this;
+    }
+
+    public function getAlertMessage(): ?string
+    {
+        return $this->alertMessage;
+    }
+
+    public function setAlertMessage(?string $alertMessage): self
+    {
+        $this->alertMessage = $alertMessage;
         return $this;
     }
 

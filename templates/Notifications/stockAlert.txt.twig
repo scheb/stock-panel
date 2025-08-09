@@ -2,6 +2,10 @@ Stock Alert: {{ stock.name }} is {{ stock.alertComparator }} {{ stock.alertThres
 ------------------------------------------------------------
 
 Alert condition: {{ stock.alertComparator }} {{ stock.alertThreshold }} {{ stock.currency }}
+{% if stock.alertMessage %}
+
+Message: {{ stock.alertMessage }}
+{% endif %}
 
 Current price: {{ stock.currentPrice }} ({{ stock.changeSinceLastDayPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }} today)
 

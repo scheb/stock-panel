@@ -28,6 +28,7 @@ class StockType extends AbstractType
             ->add("alertThreshold", NumberType::class, ['required' => false, 'label' => 'Preisgrenze'])
             ->add("alertDynamicThresholdPercent", NumberType::class, ['required' => false, 'label' => 'Dyn. Preisgrenze (Prozent)'])
             ->add("alertComparator", ChoiceType::class, ['choices' => $comparators, 'required' => false, 'label' => 'Vergleich'])
+            ->add("alertMessage", null, ['required' => false, 'label' => 'Nachricht'])
         ;
 
         $builder->get('symbols')
