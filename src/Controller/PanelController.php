@@ -34,13 +34,21 @@ class PanelController extends AbstractController
             $this->updateStockPrices();
         }
 
+        return $this->render("Panel/table.html.twig", $this->getStockTableVariables());
+    }
+
+    private function getStockTableVariables(): array
+    {
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
         $stocks = array_merge(... array_values($stockCategories));
+        $updateDates = array_map(fn(Stock $stock) => $stock->getUpdatedAt(), $stocks);
+        $lastUpdateDate = max($updateDates);
 
-        return $this->render("Panel/table.html.twig", [
+        return [
             'categories' => $stockCategories,
             'performance' => new PortfolioPerformance($this->stockPriceProvider, $stocks, 'EUR'),
-        ]);
+            'lastUpdateDate' => $lastUpdateDate,
+        ];
     }
 
     #[Route(path: '/change-history/{id}.svg', name: 'stock_change_history')]
@@ -111,13 +119,7 @@ class PanelController extends AbstractController
             return new Response($e->getMessage(), 500);
         }
 
-        $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
-        $stocks = array_merge(... array_values($stockCategories));
-
-        return $this->render("Panel/tableContent.html.twig", [
-            'categories' => $stockCategories,
-            'performance' => new PortfolioPerformance($this->stockPriceProvider, $stocks, 'EUR'),
-        ]);
+        return $this->render("Panel/tableContent.html.twig", $this->getStockTableVariables());
     }
 
     private function getStock(int $id): ?Stock
