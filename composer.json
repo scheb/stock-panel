@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/orm": "^3.0",
+        "eluceo/ical": "^2.14",
         "guzzlehttp/guzzle": "^7.4",
         "scheb/yahoo-finance-api": "^5",
         "sonata-project/intl-bundle": "^3",
