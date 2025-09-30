@@ -25,7 +25,7 @@
                     {% for stock in stocks %}
                         <tr>
                             <th>
-                                <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" rel="external" class="stock-name">{{ stock.name }}</a>
+                                <a href="https://finance.yahoo.com/quote/{{ stock.currentPriceSymbol }}/" target="_blank" rel="external" class="stock-name">{{ stock.name }}</a>
                                 {% if stock.daysUntilEarnings > -1 and stock.daysUntilEarnings < 3 %}<span class="help" title="Earnings {{ stock.nextEarningsTime|sonata_format_datetime }}">💰</span>{% endif %}
                             </th>
                             <td>{{ stock.nextEarningsTime|sonata_format_datetime }}</td>
