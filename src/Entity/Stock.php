@@ -188,6 +188,16 @@ class Stock
         return 0;
     }
 
+    public function getProfitSinceLastDay(): ?float
+    {
+        $changeSinceLastDay = $this->getChangeSinceLastDay();
+        if ($changeSinceLastDay && $this->quantity) {
+            return $changeSinceLastDay * $this->quantity;
+        } else {
+            return null;
+        }
+    }
+
     public function getProfitIndicator(): string
     {
         if ($this->getProfitPercent() > self::PROFIT_THRESHOLD) {

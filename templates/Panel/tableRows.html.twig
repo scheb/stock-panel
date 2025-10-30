@@ -46,7 +46,7 @@
                 <div>
                     <span class="indicator"></span>{{ stock.changeSinceLastDayPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}
                 </div>
-                <div class="isPrivate">{{ stock.changeSinceLastDay|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>
+                {% if stock.profitSinceLastDay %}<div class="isPrivate">{{ stock.profitSinceLastDay|sonata_number_format_currency(stock.currency, {}, {'positive_prefix': '+'}) }}</div>{% endif %}
             </td>
         {% else %}
             <td>&ndash;</td>
