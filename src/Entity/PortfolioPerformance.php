@@ -10,6 +10,7 @@ class PortfolioPerformance
 {
     private float $investment = 0;
     private float $currentValue = 0;
+    private float $profitSinceLastDay = 0;
 
     public function __construct(
         private readonly StockPriceProvider $stockPriceProvider,
@@ -19,6 +20,7 @@ class PortfolioPerformance
     ) {
         $this->investment = 0;
         $this->currentValue = 0;
+        $this->profitSinceLastDay = 0;
         foreach ($this->stocks as $stock) {
             $originalValue = $stock->getInvestment();
             $currentValue = $stock->getCurrentValue();
@@ -29,6 +31,11 @@ class PortfolioPerformance
                 }
                 $this->investment += $originalValue;
                 $this->currentValue += $currentValue;
+            }
+
+            $profitSinceLastDay = $stock->getProfitSinceLastDay();
+            if (null !== $profitSinceLastDay) {
+                $this->profitSinceLastDay += $profitSinceLastDay;
             }
         }
     }
@@ -61,5 +68,20 @@ class PortfolioPerformance
     public function getProfitPercent(): float
     {
         return $this->getProfit() / $this->investment;
+    }
+
+    public function getProfitSinceLastDayPercent(): float
+    {
+        return $this->profitSinceLastDay / ($this->getProfit() - $this->profitSinceLastDay);
+    }
+
+    public function getProfitSinceLastDay(): float
+    {
+        return $this->profitSinceLastDay;
+    }
+
+    public function getProfitSinceLastDayIndicator(): string
+    {
+        return $this->profitSinceLastDay < 0 ? Stock::INDICATOR_DOWN : Stock::INDICATOR_UP;
     }
 }

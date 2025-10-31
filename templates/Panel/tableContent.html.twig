@@ -36,7 +36,10 @@
                 <div>{{ performance.profitPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
                 <div class="isPrivate">{{ performance.profit|sonata_number_format_currency(performance.currency, {}, {'positive_prefix': '+'}) }}</div>
             </td>
-            <td></td>
+            <td class="{{ performance.profitSinceLastDayIndicator }}">
+                <div>{{ performance.profitSinceLastDayPercent|sonata_number_format_percent({'fraction_digits': 2}, {'positive_prefix': '+'}) }}</div>
+                <div class="isPrivate">{{ performance.profitSinceLastDay|sonata_number_format_currency(performance.currency, {}, {'positive_prefix': '+'}) }}</div>
+            </td>
         </tr>
     </tfoot>
 </table>
