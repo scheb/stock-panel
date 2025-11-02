@@ -82,6 +82,10 @@ class PortfolioPerformance
 
     public function getProfitSinceLastDayIndicator(): string
     {
+        if (0.0 === $this->profitSinceLastDay) {
+            return Stock::INDICATOR_NEUTRAL;
+        }
+
         return $this->profitSinceLastDay < 0 ? Stock::INDICATOR_DOWN : Stock::INDICATOR_UP;
     }
 }
