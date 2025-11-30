@@ -190,9 +190,8 @@ class Stock
 
     public function getProfitSinceLastDay(): ?float
     {
-        $changeSinceLastDay = $this->getChangeSinceLastDay();
-        if ($changeSinceLastDay && $this->quantity) {
-            return $changeSinceLastDay * $this->quantity;
+        if ($this->quantity) {
+            return $this->getChangeSinceLastDay() * $this->quantity;
         } else {
             return null;
         }
