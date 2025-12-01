@@ -14,7 +14,7 @@
         "scheb/yahoo-finance-api": "^5",
         "sonata-project/intl-bundle": "^3",
         "symfony/console": "^7.0",
-        "symfony/dotenv": "^7.0",
+        "symfony/dotenv": "^8.0",
         "symfony/flex": "^2.0",
         "symfony/form": "^7.0",
         "symfony/framework-bundle": "^7.0",
