@@ -3,7 +3,7 @@
 ##########
 
 # Frontend code builder
-FROM node:18-alpine AS frontend-build
+FROM node:24-alpine AS frontend-build
 WORKDIR /application
 
 COPY package.json yarn.lock ./
