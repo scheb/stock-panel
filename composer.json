@@ -32,7 +32,8 @@
         "symfony/css-selector": "^8.0",
         "symfony/phpunit-bridge": "^8.0",
         "symfony/stopwatch": "^8.0",
-        "symfony/web-profiler-bundle": "^8.0"
+        "symfony/web-profiler-bundle": "^8.0",
+        "symplify/config-transformer": "^12.4"
     },
     "config": {
         "optimize-autoloader": true,
