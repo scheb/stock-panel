@@ -94,16 +94,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "4.4.0",
+            "version": "4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc"
+                "reference": "3d544473fb93f5c25b483ea4f4ce99f8c4d9d44c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc",
-                "reference": "e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/3d544473fb93f5c25b483ea4f4ce99f8c4d9d44c",
+                "reference": "3d544473fb93f5c25b483ea4f4ce99f8c4d9d44c",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/4.4.0"
+                "source": "https://github.com/doctrine/dbal/tree/4.4.1"
             },
             "funding": [
                 {
@@ -196,7 +196,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-29T12:17:09+00:00"
+            "time": "2025-12-04T10:11:03+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -248,16 +248,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "3.1.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "24417f4d508086e1a458cc7aea893853ba9e4423"
+                "reference": "02f382e06c1422eac22054e9b0a57430cca5b0bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/24417f4d508086e1a458cc7aea893853ba9e4423",
-                "reference": "24417f4d508086e1a458cc7aea893853ba9e4423",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/02f382e06c1422eac22054e9b0a57430cca5b0bc",
+                "reference": "02f382e06c1422eac22054e9b0a57430cca5b0bc",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,6 @@
             },
             "conflict": {
                 "doctrine/orm": "<3.0 || >=4.0",
-                "symfony/var-exporter": "< 6.4.1 || 7.0.0",
                 "twig/twig": "<3.0.4"
             },
             "require-dev": {
@@ -285,6 +284,7 @@
                 "phpstan/phpstan": "2.1.1",
                 "phpstan/phpstan-phpunit": "2.0.3",
                 "phpstan/phpstan-strict-rules": "^2",
+                "phpstan/phpstan-symfony": "^2.0",
                 "phpunit/phpunit": "^12.3.10",
                 "psr/log": "^3.0",
                 "symfony/doctrine-messenger": "^6.4 || ^7.0 || ^8.0",
@@ -296,7 +296,6 @@
                 "symfony/string": "^6.4 || ^7.0 || ^8.0",
                 "symfony/twig-bridge": "^6.4 || ^7.0 || ^8.0",
                 "symfony/validator": "^6.4 || ^7.0 || ^8.0",
-                "symfony/var-exporter": "^6.4.1 || ^7.0.1 || ^8.0",
                 "symfony/web-profiler-bundle": "^6.4 || ^7.0 || ^8.0",
                 "symfony/yaml": "^6.4 || ^7.0 || ^8.0",
                 "twig/twig": "^3.21.1"
@@ -344,7 +343,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineBundle/tree/3.1.0"
+                "source": "https://github.com/doctrine/DoctrineBundle/tree/3.2.1"
             },
             "funding": [
                 {
@@ -360,7 +359,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-28T22:34:19+00:00"
+            "time": "2025-12-22T09:52:21+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -2605,16 +2604,16 @@
         },
         {
             "name": "symfony/doctrine-bridge",
-            "version": "v8.0.0",
+            "version": "v8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/doctrine-bridge.git",
-                "reference": "abe78d0c7c890dde109dbbd434a174c5107994ca"
+                "reference": "f57b37e61ab378bca98ffa038a786a24d574bec6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/doctrine-bridge/zipball/abe78d0c7c890dde109dbbd434a174c5107994ca",
-                "reference": "abe78d0c7c890dde109dbbd434a174c5107994ca",
+                "url": "https://api.github.com/repos/symfony/doctrine-bridge/zipball/f57b37e61ab378bca98ffa038a786a24d574bec6",
+                "reference": "f57b37e61ab378bca98ffa038a786a24d574bec6",
                 "shasum": ""
             },
             "require": {
@@ -2683,7 +2682,7 @@
             "description": "Provides integration for Doctrine with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/doctrine-bridge/tree/v8.0.0"
+                "source": "https://github.com/symfony/doctrine-bridge/tree/v8.0.1"
             },
             "funding": [
                 {
@@ -2703,7 +2702,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-11-05T14:36:47+00:00"
+            "time": "2025-12-04T18:17:06+00:00"
         },
         {
             "name": "symfony/dotenv",
