@@ -20,7 +20,7 @@ class StockType extends AbstractType
             ->add("name", null, ['label' => 'Name'])
             ->add('symbols', TextType::class, ['label' => 'Symbols', 'required' => true])
             ->add("category", null, ['label' => 'Kategorie (optional)', 'required' => false])
-            ->add("quantity", NumberType::class, ['label' => 'Anzahl', 'required' => false])
+            ->add("quantity", NumberType::class, ['label' => 'Anzahl', 'required' => false, 'scale' => 6])
             ->add("initialPrice", NumberType::class, ['label' => 'Erster Kurs', 'required' => false])
             ->add("currency", ChoiceType::class, ['choices' => $currencies, 'label' => 'Währung'])
             ->add("displayChart", null, ['required' => false, 'label' => 'Chart anzeigen?'])
