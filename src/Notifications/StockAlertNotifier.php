@@ -16,7 +16,7 @@ use Twig\Environment;
 
 class StockAlertNotifier implements EventSubscriberInterface
 {
-    private const int ALERT_PERIOD_HOURS = 3;
+    private const int ALERT_PERIOD_HOURS = 24;
 
     public function __construct(
         private readonly StockRepository $stockRepository,
