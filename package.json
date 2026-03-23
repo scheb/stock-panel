@@ -7,7 +7,7 @@
         "@types/bootstrap": "^5.2.10",
         "bootstrap": "^5.3.8",
         "bootstrap-icons": "^1.13.1",
-        "core-js": "^3.48.0",
+        "core-js": "^3.49.0",
         "file-loader": "^6.0.0",
         "highcharts": "^12",
         "regenerator-runtime": "^0.14.1",
