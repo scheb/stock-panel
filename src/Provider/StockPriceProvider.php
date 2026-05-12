@@ -313,6 +313,9 @@ class StockPriceProvider
                     $historicalDataPoints = $this->api->getHistoricalQuoteData($symbol, ApiClient::INTERVAL_1_DAY, $startDate, $endDate);
                     foreach ($historicalDataPoints as $historicalData) {
                         $price = $historicalData->getAdjClose() ?? $historicalData->getClose();
+                        if ($price <= 0) {
+                            continue;
+                        }
                         $priceDate = $historicalData->getDate();
 
                         // Currency conversion
