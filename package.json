@@ -12,7 +12,7 @@
         "highcharts": "^12",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.99.0",
-        "sass-loader": "^16.0.7",
+        "sass-loader": "^16.0.8",
         "ts-loader": "^9.5.7",
         "typescript": "^5",
         "webpack": "^5.106.2",
