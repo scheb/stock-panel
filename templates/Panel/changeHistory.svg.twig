@@ -1,11 +1,11 @@
-{% set barWidth = 2 %}{% set barHeight = 40 %}{% set barSpacing = 1 %}{% set maxChange = 0.1 %}
+{% set barWidth = 2 %}{% set barHeight = 40 %}{% set barSpacing = 1 %}{% set maxChange = 0.07 %}
 <svg width="{{ 20 * (barWidth + barSpacing) }}" height="{{ barHeight }}" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.5;">
     {% for day, changePercent in changeHistory %}
         <!-- {{ day }} {{ changePercent }} -->
         {% set height = 500 * changePercent %}
         {% set color = changePercent > 0 ? 'green' : 'red' %}
         {% set absChange = changePercent|abs %}
-        {% if absChange > maxChange %}{% set change = maxChange %}{% endif %}
+        {% if absChange > maxChange %}{% set change = maxChange %}{% set color = '#9400D3' %}{% endif %}
         {% set displayHeight = absChange / maxChange * 50 %}
         {% if changePercent > 0 %}{% set yPos = 50 - displayHeight %}{% else %}{% set yPos = 50 %}{% endif %}
         <rect x="{{ loop.index0 * (barWidth + barSpacing) }}" y="{{ yPos }}%" width="{{ barWidth }}" height="{{ displayHeight|abs }}%" fill="{{ color }}" />
