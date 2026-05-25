@@ -11,7 +11,7 @@
         "file-loader": "^6.0.0",
         "highcharts": "^12",
         "regenerator-runtime": "^0.14.1",
-        "sass": "^1.99.0",
+        "sass": "^1.100.0",
         "sass-loader": "^16.0.8",
         "ts-loader": "^9.5.7",
         "typescript": "^5",
