@@ -1895,16 +1895,16 @@
         },
         {
             "name": "scheb/yahoo-finance-api",
-            "version": "v5.1.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/yahoo-finance-api.git",
-                "reference": "7d5c2ffbb9afb11e776352c75e1727d6b0fd89f3"
+                "reference": "c563ffa144a68356575929adc1d99948a51f0e9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/7d5c2ffbb9afb11e776352c75e1727d6b0fd89f3",
-                "reference": "7d5c2ffbb9afb11e776352c75e1727d6b0fd89f3",
+                "url": "https://api.github.com/repos/scheb/yahoo-finance-api/zipball/c563ffa144a68356575929adc1d99948a51f0e9a",
+                "reference": "c563ffa144a68356575929adc1d99948a51f0e9a",
                 "shasum": ""
             },
             "require": {
@@ -1946,9 +1946,9 @@
             ],
             "support": {
                 "issues": "https://github.com/scheb/yahoo-finance-api/issues",
-                "source": "https://github.com/scheb/yahoo-finance-api/tree/v5.1.0"
+                "source": "https://github.com/scheb/yahoo-finance-api/tree/v5.2.0"
             },
-            "time": "2025-10-12T09:27:10+00:00"
+            "time": "2026-07-10T18:22:35+00:00"
         },
         {
             "name": "sonata-project/intl-bundle",
