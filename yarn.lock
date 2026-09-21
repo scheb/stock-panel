@@ -1958,10 +1958,10 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-highcharts@^12:
-  version "12.6.0"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-12.6.0.tgz#5e527c3cc41b858edf8d72f129808a167604a939"
-  integrity sha512-zWwoXECOakJT2huBMqIZOjDNLLgyZFCcfZqTj2g6cvYOGxjF3nvooC+rIaF5aKiharluyGKNflfRNrzOAIjdRg==
+highcharts@^13:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-13.1.0.tgz#8a467b7529a29d1e16b20a10c64e519a8611b694"
+  integrity sha512-bBIdIw4WhbwBVa+7qNpTh3ZoMDcLC1kHnPWjndFTOrKXnOA5U1V21olSL1AMeAp0Evzn+/aLLClRpeIYqU9Hpw==
 
 htmlparser2@^6.1.0:
   version "6.1.0"
