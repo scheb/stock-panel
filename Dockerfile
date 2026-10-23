@@ -23,14 +23,14 @@ COPY --from=frontend-build /application/public/build /usr/share/nginx/html/build
 # PHP Backend #
 ###############
 
-FROM phpdockerio/php:8.4-fpm AS backend-deployment
+FROM phpdockerio/php:8.5-fpm AS backend-deployment
 
 # Install selected extensions and other stuff
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
-        php8.4-sqlite \
-        php8.4-mysql \
-        php8.4-intl \
+        php8.5-sqlite \
+        php8.5-mysql \
+        php8.5-intl \
         wget \
         tar \
         patchelf \
@@ -39,14 +39,14 @@ RUN apt-get update \
 
 WORKDIR /application/libcurl-impersonate
 
-RUN wget -O libcurl-impersonate.tar.gz https://github.com/lexiforest/curl-impersonate/releases/download/v1.3.1/libcurl-impersonate-v1.3.1.x86_64-linux-gnu.tar.gz \
-    && echo "14166d04cac7fb241c041a0f847de96ccca77e7eda483edf73d65f906e1d38e6  libcurl-impersonate.tar.gz" > checksum.sha256 \
+RUN wget -O libcurl-impersonate.tar.gz https://github.com/lexiforest/curl-impersonate/releases/download/v2.3.0/libcurl-impersonate-v2.3.0.x86_64-linux-gnu.tar.gz \
+    && echo "b287a1ffc2a5add27fa54f724b9915caaf79a1d965a1e730ebed4b4528a86cf2 libcurl-impersonate.tar.gz" > checksum.sha256 \
     && sha256sum --check checksum.sha256 || exit 1 \
     && tar -xf libcurl-impersonate.tar.gz \
     && patchelf --set-soname libcurl.so.4 /application/libcurl-impersonate/libcurl-impersonate.so
 
 ENV LD_PRELOAD=/application/libcurl-impersonate/libcurl-impersonate.so
-ENV CURL_IMPERSONATE=chrome142
+ENV CURL_IMPERSONATE=chrome152
 ENV APP_ENV=prod
 ENV APP_SECRET=""
 
