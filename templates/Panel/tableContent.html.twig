@@ -1,4 +1,6 @@
+{% if lastUpdateDate %}
 <p class="small text-muted text-end mb-1">{{ lastUpdateDate|sonata_format_datetime("E d.M.Y HH:mm:ss") }}</p>
+{% endif %}
 <table class="stocks table table-striped">
     <colgroup>
         <col style="width:50%;">

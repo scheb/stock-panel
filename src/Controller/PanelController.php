@@ -41,8 +41,8 @@ class PanelController extends AbstractController
     {
         $stockCategories = $this->stockPriceProvider->getCategorizedStocks();
         $stocks = array_merge(... array_values($stockCategories));
-        $updateDates = array_map(fn (Stock $stock) => $stock->getUpdatedAt(), $stocks);
-        $lastUpdateDate = max($updateDates);
+        $updateDates = array_values(array_filter(array_map(fn (Stock $stock) => $stock->getUpdatedAt(), $stocks)));
+        $lastUpdateDate = $updateDates ? max($updateDates) : null;
 
         return [
             'categories' => $stockCategories,

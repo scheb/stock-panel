@@ -67,12 +67,21 @@ class PortfolioPerformance
 
     public function getProfitPercent(): float
     {
+        if (0.0 === $this->investment) {
+            return 0.0;
+        }
+
         return $this->getProfit() / $this->investment;
     }
 
     public function getProfitSinceLastDayPercent(): float
     {
-        return $this->profitSinceLastDay / ($this->currentValue - $this->profitSinceLastDay);
+        $base = $this->currentValue - $this->profitSinceLastDay;
+        if (0.0 === $base) {
+            return 0.0;
+        }
+
+        return $this->profitSinceLastDay / $base;
     }
 
     public function getProfitSinceLastDay(): float

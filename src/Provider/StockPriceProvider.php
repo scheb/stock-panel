@@ -158,6 +158,9 @@ class StockPriceProvider
 
             $quote = $quotes[$symbol];
             $recentPrice = RecentPrice::fromQuote($quote);
+            if (!$recentPrice) {
+                continue;
+            }
             if (!$mostRecentPriceTime || $recentPrice->time > $mostRecentPriceTime) {
                 $mostRecentPrice = $recentPrice;
                 $mostRecentPriceTime = $recentPrice->time;
@@ -254,7 +257,12 @@ class StockPriceProvider
                 throw new \UnexpectedValueException("Could not find exchange rate for $fromCurrency $toCurrency");
             }
 
-            $this->exchangeRates[$fromCurrency.':'.$toCurrency] = (RecentPrice::fromQuote($quote))->price;
+            $recentPrice = RecentPrice::fromQuote($quote);
+            if (null === $recentPrice) {
+                throw new \UnexpectedValueException("Could not find exchange rate for $fromCurrency $toCurrency");
+            }
+
+            $this->exchangeRates[$fromCurrency.':'.$toCurrency] = $recentPrice->price;
         }
 
         return $this->exchangeRates[$fromCurrency.':'.$toCurrency];
