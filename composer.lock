@@ -4859,16 +4859,16 @@
         },
         {
             "name": "symfony/polyfill-php85",
-            "version": "v1.43.0",
+            "version": "v1.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php85.git",
-                "reference": "86a42cbcc07adc331481a5ab310a4024bfc227f6"
+                "reference": "94c794cb5ba51784bc259f11e9f128593297d8dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/86a42cbcc07adc331481a5ab310a4024bfc227f6",
-                "reference": "86a42cbcc07adc331481a5ab310a4024bfc227f6",
+                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/94c794cb5ba51784bc259f11e9f128593297d8dc",
+                "reference": "94c794cb5ba51784bc259f11e9f128593297d8dc",
                 "shasum": ""
             },
             "require": {
@@ -4915,7 +4915,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php85/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.44.0"
             },
             "funding": [
                 {
@@ -4935,7 +4935,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-25T15:46:47+00:00"
+            "time": "2026-10-30T15:20:09+00:00"
         },
         {
             "name": "symfony/polyfill-php86",
@@ -6150,16 +6150,16 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "2.4.2",
+            "version": "v2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "0cbc3485f127cd9f85e395f8177607ef00535634"
+                "reference": "1ee41bc5bf67fd89215aedebc66a6f151098c288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/0cbc3485f127cd9f85e395f8177607ef00535634",
-                "reference": "0cbc3485f127cd9f85e395f8177607ef00535634",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/1ee41bc5bf67fd89215aedebc66a6f151098c288",
+                "reference": "1ee41bc5bf67fd89215aedebc66a6f151098c288",
                 "shasum": ""
             },
             "require": {
@@ -6202,7 +6202,7 @@
             "description": "Integration of your Symfony app with Webpack Encore",
             "support": {
                 "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
-                "source": "https://github.com/symfony/webpack-encore-bundle/tree/2.4.2"
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.4.3"
             },
             "funding": [
                 {
@@ -6222,7 +6222,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-17T12:45:02+00:00"
+            "time": "2026-11-08T08:19:17+00:00"
         },
         {
             "name": "symfony/yaml",
